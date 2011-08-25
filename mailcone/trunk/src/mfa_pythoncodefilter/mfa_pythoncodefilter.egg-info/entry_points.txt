@@ -1,0 +1,3 @@
+[fanstatic.libraries]
+mfa_pythoncodefilter = mfa_pythoncodefilter.resource:library
+

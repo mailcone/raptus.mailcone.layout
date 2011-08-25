@@ -1,0 +1,23 @@
+<div>
+	<a tal:attributes="href python: view.application_url('control_panel')">
+		back to control panel
+	</a>
+</div>
+
+<div id="tabContent">
+	<div class="editIcons">
+		<a id="addCustomerLink" href="#" tal:attributes="href python:view.application_url('addCustomer')">
+			add customer
+		</a>
+	</div>
+	
+	<h1>Manage Customers</h1>
+	
+	<div id="customerContainer">
+		<tal:block repeat="customer viewlet/customers">
+			<div metal:use-macro="customer/@@macro/macros/customer">
+				customer short view
+			</div>
+		</tal:block>
+	</div>
+</div>

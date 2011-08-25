@@ -1,0 +1,68 @@
+TODO
+====
+
+- define and check for mails (in which interval or do we expect mails, ...)
+- rule should have a possibility to add test Mail (testing if rule works like it have to)
+
+- if name (for example rule) also id should change
+- if id exists error raised
+
+- master.pt is at the moment (for extensions) a syslink on filesystem!
+
+- make diffrent core packages (mfa_core_ruleset, mfa_core_rule, ...)
+
+- Test rule with mail
+
+- Popup will have some problems if rules of diffrent rule sets have the same id
+
+- Add user pw and pw confirm can be not the same
+- Not validate if user already exist
+- Edit user doesn't work yet
+
+- editicons_macro.pt - src static variable does not work - for the moment solved with hard coded src strings
+
+- send mail to default mail address, which list all not matched mails
+- each rule contains last modification date and user, as well as last match date
+    - last modification user and date is implemented
+    - set last_modi_user for rule content must be solved better
+    - last match is not implemented yet
+- right of rule information input field for test mail (test mail has a problem is not imported in DATABASE, so there is a cause of defect which could be forgotten)
+- icons add filter and action
+- interval is mail expected (yes/no) an if yes period of expected mails (could be defined in month, days hours)
+- period is calculate (last action + 24 hours = 1 day)
+
+- js script for complex match filter does not work at the moment (looks like condition string is the problem) (example ".+mlempen@raptus.com.+")
+
+- user configlet is a mess, cleanup
+
+- js, ajax for saving app configuraiton in appConfiglet
+- Validator's for Forms and also for js-Scripts
+
+- documentation of js-scripts and python code
+
+- style forms
+
+- define vars for python code filter
+
+- cleanup choice fields, perhaps make base class
+
+- add / edit Ruleset, js should display current ruleset
+
+- logic for severity not implemented
+
+- simple match filter does not work like they should
+
+- update ICopy (Rule)
+
+- popup js for testmail
+- icon for testmail 
+
+- load rulesets popup, hover show description of ruleset or rule
+
+- smtp server must be configurable
+
+Future Versions:
+===============
+- standard Header or Footer for sendNotificationAction
+- Write tests
+- Write documentation

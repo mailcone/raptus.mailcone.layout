@@ -1,0 +1,11 @@
+<div class="backLink">
+	<a tal:attributes="href python: view.url(context.__parent__)">
+		back to parent
+	</a>
+</div>
+
+<tal:block define="action context">
+	<div metal:use-macro="action/@@macro/macros/actionview">
+		action short view
+	</div>
+</tal:block>

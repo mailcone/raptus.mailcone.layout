@@ -1,0 +1,53 @@
+<div metal:define-macro="actionview" class="action-wrapper"
+     tal:attributes="name action/sortNr">
+	<table class="actiontable">
+		<tr>		
+			<td class="limitedWidth">
+				<a href="#" class="actionLink"
+				   tal:attributes="href python:view.url(action)">
+					<span tal:content="action/match">if match</span>
+				</a>
+			</td>
+		
+			<td class="limitedWidth"
+				tal:content="action/getActionTypeTitle" />
+			
+			<td>
+				<table>
+					<tr>
+						<td>
+							Log:
+						</td>
+						
+						<td tal:content="action/logfile" />
+					</tr>
+					
+					<tr>
+						<td>
+							Level:
+						</td>
+						
+						<td tal:content="action/loglevel" />
+					</tr>
+					
+					<tr>
+						<td>
+							Message:
+						</td>
+						
+						<td tal:content="action/logmessage" />
+					</tr>
+				</table>
+			</td>
+			
+			<td class="editIcons"
+				tal:define="item action;
+					 	    editClass string:editAction;
+						    delClass string:delAction;">
+				<div metal:use-macro="action/@@editicons/macros/allIcons">
+					display edit icons
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>

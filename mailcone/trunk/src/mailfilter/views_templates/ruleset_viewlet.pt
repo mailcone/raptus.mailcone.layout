@@ -1,0 +1,59 @@
+<div>
+	<a tal:attributes="href python: view.application_url('rulesetConfiglet')">
+		back to rule sets
+	</a>
+</div>
+
+<div id="rulesetContent">
+	<div class="editIcons"
+		 tal:define="item context;
+	 	    		 editClass string:editRuleset;
+		    		 delClass string:delRuleset;">
+			<div metal:use-macro="context/@@editicons/macros/onlyEdit">
+				display edit icons
+			</div>
+	</div>
+	<h1 tal:content="string:Rule set: ${context/name}" />
+	
+	<div class="part">
+		<table>
+			<tr>
+				<th class="labelLeft">
+					Name:
+				</th>
+				
+				<td tal:content="context/name" />
+			</tr>
+	
+			<tr>
+				<th class="labelLeft">
+					Description:
+				</th>
+				
+				<td tal:content="context/description" />
+			</tr>
+		</table>
+	</div>
+	
+	<div class="part" id="ruleContainer">
+		<div class="editIcons"
+			 tal:define="item context;
+			  	 	     addUrl string:addRule;
+					     addClass string:addRule;
+					     addTitle string:add rule;">
+			<div metal:use-macro="item/@@editicons/macros/onlyAdd">
+				display edit icons
+			</div>
+		</div>
+	
+		<h2>Rules</h2>
+		
+		<div class="rule-wrapper" onmouseover="style.cursor='pointer'" 
+			 tal:repeat="rule context/getRules"
+		     tal:attributes="name rule/sortNr">
+			<div metal:use-macro="rule/@@macro/macros/shortruleview">
+				rule short view
+			</div>
+		</div>
+	</div>
+</div>

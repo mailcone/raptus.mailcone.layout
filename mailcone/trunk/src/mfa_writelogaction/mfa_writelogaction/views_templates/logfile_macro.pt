@@ -1,0 +1,20 @@
+<metal:view define-macro="view">
+	<tr>
+		<td tal:content="obj/name" />
+		
+		<td tal:content="obj/logfile" />
+		
+		<td tal:content="obj/filepath" />
+		
+		<td>
+			<div class="editIcons"
+				 tal:define="item obj;
+			 	    		 editClass string:editLogfile;
+				    		 delClass string:delLogfile;">
+					<div metal:use-macro="obj/@@editicons/macros/onlyEdit">
+						display edit icons
+					</div>
+			</div>
+		</td>
+	</tr>
+</metal:view>

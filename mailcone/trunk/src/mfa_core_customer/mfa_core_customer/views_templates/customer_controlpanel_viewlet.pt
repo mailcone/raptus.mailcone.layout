@@ -1,0 +1,7 @@
+<!-- XXX bit more information for non javascript application -->
+
+<tal:block define="customer context">
+	<div metal:use-macro="customer/@@macro/macros/customer">
+		customer short view
+	</div>
+</tal:block>

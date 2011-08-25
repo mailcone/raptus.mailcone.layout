@@ -1,0 +1,63 @@
+<!-- XXX - src static variable does not work - for the moment solved with hard coded src strings -->
+
+<metal:subblock define-macro="onlyAdd">
+	<a class="#"
+	   tal:attributes="href python:view.url(item, addUrl);
+	   				   class addClass;">
+		<img src="#"
+			 class="icon"
+			 title="add"
+			 tal:attributes="src string:${view/application_url}/fanstatic/mailfilter/add-icon.jpg;
+			 			     title addTitle" />
+	</a>
+</metal:subblock>
+
+<metal:subblock define-macro="onlyLoadTemplate">
+	<a class="#"
+	   tal:attributes="href python:view.url(item, loadUrl);
+	   				   class loadClass;">
+		<img src="#"
+			 class="icon"
+			 title="add"
+			 tal:attributes="src string:${view/application_url}/fanstatic/mailfilter/load-icon.jpg;
+			 			     title loadTitle" />
+	</a>
+</metal:subblock>
+	
+<metal:block define-macro="allIcons">
+	<a class="moveUp"
+	   tal:attributes="href python:view.url(item, 'moveUp')">
+		<img src="#"
+			 class="icon"
+			 title="edit"
+			 tal:attributes="src string:${view/application_url}/fanstatic/mailfilter/moveup-icon.jpg" />
+	</a>
+	
+	<a class="moveDown"
+	   tal:attributes="href python:view.url(item, 'moveDown')">
+		<img src="#"
+			 class="icon"
+			 title="edit"
+			 tal:attributes="src string:${view/application_url}/fanstatic/mailfilter/movedown-icon.jpg" />
+	</a>
+
+	<metal:subblock define-macro="onlyEdit">
+		<a class="#"
+		   tal:attributes="href python:view.url(item, 'edit');
+		   				   class editClass;">
+			<img src="#"
+				 class="icon"
+				 title="edit"
+				 tal:attributes="src string:${view/application_url}/fanstatic/mailfilter/edit-icon.png" />
+		</a>
+		
+		<a class="#"
+		   tal:attributes="href python:view.url(item, 'delete');
+		   				   class delClass;">
+			<img src="#"
+				 class="icon"
+				 title="delete"
+				 tal:attributes="src string:${view/application_url}/fanstatic/mailfilter/delete-icon.png" />
+		</a>
+	</metal:subblock>
+</metal:block>

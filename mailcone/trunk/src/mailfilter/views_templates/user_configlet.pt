@@ -1,0 +1,9 @@
+<div>
+	<a tal:attributes="href python: view.application_url('control_panel')">
+		back to control panel
+	</a>
+</div>
+
+<div id="tabContent">
+	<span>Manage Users</span>
+</div>

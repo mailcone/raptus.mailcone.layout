@@ -1,0 +1,44 @@
+<div>
+	<a tal:attributes="href python: view.application_url('control_panel')">
+		back to control panel
+	</a>
+</div>
+
+<div id="tabContent">
+	<div class="editIcons"
+		 tal:define="item context;
+		  	 	     addUrl string:addRuleSet;
+				     addClass string:addRuleSet;
+				     addTitle string:add rule set;">
+		<div metal:use-macro="item/@@editicons/macros/onlyAdd">
+			display edit icons
+		</div>
+	</div>
+	
+	<h1>Manage rule sets</h1>
+	
+	<div id="manageRuleSets">
+		<table>
+			<tr>
+				<td id="columnRulesetSelector">
+					<form enctype="multipart/form-data" class="edit-form" method="post" action="#"
+					      tal:attributes="action view/url">
+						<select size="30" name="selectRuleset" class="finderRuleset inputWidth">
+							<tal:rulesets tal:repeat="ruleset view/rulesets">
+								<option tal:attributes="value python:view.url(ruleset)"
+								   		tal:content="ruleset/name" />
+							</tal:rulesets>				
+						</select>
+						
+						<br/>
+						<br/>
+						<input type="submit" name="selectRulesetButton" value="select">
+					</form>
+				</td>
+				<td id="ruleSetContainer">
+	
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

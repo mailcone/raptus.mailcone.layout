@@ -1,0 +1,136 @@
+<div metal:define-macro="ruleview" class="rule-wrapper">
+	
+	<div metal:define-macro="shortruleview"
+		 class="rule item" onmouseover="style.cursor='pointer'">
+		<div class="editIcons"
+			tal:define="item rule;
+				 	    editClass string:editRule;
+					    delClass string:delRule;">
+			<div metal:use-macro="item/@@editicons/macros/allIcons">
+				display edit icons
+			</div>
+		</div>
+		
+		<!-- XXX should be done in a macro -->
+		<div class="lastModification">
+			last mod: 
+			<span tal:content="rule/getLastModificationUser" />,  
+			<span tal:content="rule/getLastModificationDate" /> -
+			last match: XXX	
+		</div>
+		
+		<a href="#" tal:attributes="href python:view.url(rule)" class="ruleLink">
+			<span tal:content="rule/name" />
+		</a>
+	</div>
+	
+	<div class="details">
+		<div>
+			<table>
+				<tr>
+					<th>Name:</th>
+					<td tal:content="rule/name" />
+				</tr>
+				
+				<tr>
+					<th>Description:</th>
+					<td tal:content="rule/description" />
+				</tr>
+
+				<tr>
+					<th>Severity:</th>
+					<td tal:content="rule/severity" />
+				</tr>
+				
+				<tr>
+					<th>Mathing:</th>
+					<td tal:content="rule/matching" />
+				</tr>
+				
+				<tr>
+					<th>Expect mail:</th>
+					<td tal:content="rule/expect_mail" />
+				</tr>
+				
+				<tal:mailexpected condition="rule/expect_mail">
+					<tr>
+						<th>Mail period:</th>
+						<td>
+							<span tal:content="rule/expect_period" /> 
+							<span tal:content="rule/expect_period_unit" />
+						</td>
+					</tr>
+				</tal:mailexpected>
+			</table>
+		</div>
+		
+		<div class="testmailPart">
+			<table>
+				<tr>
+					<th>Testmail:</th>
+					<td tal:content="rule/testmail" />
+				</tr>
+			</table>
+		</div>
+
+		<div class="part filterLabel">
+			<span class="label">Filters:</span>
+		</div>
+				
+		<div class="part">
+			<div class="markerFilterManagement">
+				<tal:filters repeat="filter rule/getFilters">
+					<div metal:use-macro="filter/@@macro/macros/filterview">
+						filter view
+					</div>
+				</tal:filters>
+			</div>
+			
+			<!-- XXX - move this as macro in mfa_core_filter --->
+			<div class="filterTypeManager">
+				<form enctype="multipart/form-data" class="edit-form" method="post" action="#"
+				      tal:attributes="action view/url">
+					<select name="filterType">
+						<tal:block repeat="filterType view/listFilterTypes">
+							<option value="#"
+								    tal:attributes="value filterType/url"
+								    tal:content="filterType/title" />
+						</tal:block>
+					</select>
+					
+					<input type="submit" name="addFilter" class="markerButton" value="add filter">
+				</form>
+			</div>
+		</div>
+		
+		<div class="part actionLabel">
+			<span class="label">Actions:</span>
+		</div>
+		
+		<div class="part">
+			<div class="markerActionManagement">
+				<tal:actions repeat="action rule/getActions">
+					<div metal:use-macro="action/@@macro/macros/actionview">
+						action view
+					</div>
+				</tal:actions>
+			</div>
+			
+			<!-- XXX - move this as macro in mfa_core_action --->
+			<div class="actionTypeManager">
+				<form enctype="multipart/form-data" class="edit-form" method="post" action="#"
+				      tal:attributes="action view/url">
+					<select name="actionType">
+						<tal:block repeat="actionType view/listActionTypes">
+							<option value="#"
+								    tal:attributes="value actionType/url"
+								    tal:content="actionType/title" />
+						</tal:block>
+					</select>
+				      
+					<input type="submit" name="addAction" class="markerButton" value="add action">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

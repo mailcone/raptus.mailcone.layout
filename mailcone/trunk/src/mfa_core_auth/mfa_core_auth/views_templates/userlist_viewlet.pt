@@ -1,0 +1,40 @@
+<div id="tabContent">
+	<div class="editIcons">
+		<a class="addUser"
+		   href="#"
+		   tal:attributes="href python:view.url('addUser')">new user</a>
+	</div>
+	
+	<div id="appheader">
+	    <h1>Usermanagement</h1>
+	</div>
+	
+	<div id="userContainer">
+		<tal:users repeat="user view/users">
+			<div class="item-wrapper"
+				 tal:attributes="id user/name">
+				<div class="item">
+			    	<div class="editIcons">
+			    		<a href="#" tal:attributes="href python:view.url(user, 'edit')">
+			    			edit
+			    		</a>
+			    	</div>
+					<span tal:content="user/name">login name</span>
+				</div>
+			    <div class="details">
+					<table>
+						<tr>
+							<th>Real name:</th>
+							<td tal:content="user/real_name">type</td>
+						</tr>
+			    
+						<tr>
+							<th>Role:</th>
+							<td tal:content="user/role">type</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</tal:users>
+	</div>
+</div>

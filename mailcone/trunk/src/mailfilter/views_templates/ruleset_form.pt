@@ -1,0 +1,34 @@
+<div id="tabContent">
+	<h1>Add ruleset</h1>
+	
+	<form enctype="multipart/form-data" class="add-form" method="post" action="#"
+		  tal:attributes="action view/url">
+		<table tal:define="name context/name|nothing;
+						   description context/description|nothing">
+			<tr>
+				<th>
+					Name:
+				</th>
+				<td>
+					<input type="text" name="name" class="inputWidth" tal:attributes="value name" />
+				</td>
+			</tr>
+			
+			<tr>
+				<th>
+					Description:
+				</th>
+				<td>
+					<textarea name="description" class="inputWidth" tal:content="description"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="buttons">
+					<input type="submit" id="#" value="#"
+						   tal:attributes="id view/getActionButtonId;
+						   				   value view/getAction" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>

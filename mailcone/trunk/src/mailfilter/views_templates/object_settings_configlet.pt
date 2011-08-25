@@ -1,0 +1,21 @@
+<div>
+	<a tal:attributes="href python: view.application_url('control_panel')">
+		back to control panel
+	</a>
+</div>
+
+<div id="tabContent">
+	<h2 tal:content="context/title" />
+	
+	<ul>
+		<tal:settings repeat="settingObj view/listSettings">
+			<li tal:define="obj python: settingObj['settingObj']"
+				tal:condition="python: obj != None">
+				<a href="#"
+				   tal:attributes="href python:view.url(obj)">
+					<span tal:content="python: obj.title" />
+				</a>
+			</li>
+		</tal:settings>
+	</ul>
+</div>

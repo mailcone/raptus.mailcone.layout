@@ -1,0 +1,9 @@
+<html>
+    <head>
+        <title>Logged out</title>
+    </head>
+    <body>
+        <p>You are now logged out.</p>
+        <p><a tal:attributes="href python:view.url(context)">Log in again</a>.</p>
+    </body>
+</html>

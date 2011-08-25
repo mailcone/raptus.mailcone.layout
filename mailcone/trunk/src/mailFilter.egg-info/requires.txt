@@ -1,0 +1,13 @@
+setuptools
+grok
+grokui.admin
+fanstatic
+zope.fanstatic
+grokcore.startup
+zc.catalog
+hurry.query
+megrok.resource
+js.jquery
+js.jqueryui
+zope.pluggableauth
+megrok.rdb

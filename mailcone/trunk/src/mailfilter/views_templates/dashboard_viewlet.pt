@@ -1,0 +1,9 @@
+<h1>DashBoard</h1>
+
+<tal:customers repeat="customer view/customers">
+	<div class="item" onmouseover="style.cursor='pointer'">
+		<a href="#" class="itemLink"
+		   tal:attributes="href python:view.url(customer)"
+		   tal:content="customer/name" />
+	</div>
+</tal:customers>

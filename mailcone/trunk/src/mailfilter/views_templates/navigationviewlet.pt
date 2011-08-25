@@ -1,0 +1,23 @@
+<div id="navigation">
+	<img id="logo" 
+		 src="images/logo.gif"
+		 tal:attributes="src static/logo.gif" />
+
+	<ul>
+		<li>
+			<a href="index.html"
+			   tal:attributes="href python:view.application_url('index')">kunden</a>
+		</li>
+
+		<!-- maybe only for development -->
+		<li>
+			<a href="manage.html"
+			   tal:attributes="href python:view.application_url('filtering')">filtern</a>
+		</li>
+		
+		<li>
+			<a href="manage.html"
+			   tal:attributes="href python:view.application_url('control_panel')">manage</a>
+		</li>
+	</ul>
+</div>

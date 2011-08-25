@@ -1,0 +1,222 @@
+/* This is a silly style sheet solely used for demonstrating fanstatic. */
+body {
+  background-color: white;
+  font: 12px Arial,FreeSans,sans-serif;
+  min-width: 1000px;
+}
+
+h1 {
+	font-size: 18px;
+}
+
+th, td {
+	text-align: left;
+}
+
+th {
+	font-weight: bold;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+/* start Navigation */
+
+#navigation {
+	float:left;
+	background: #CECECE;
+	width: 150px;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top:0;
+	padding: 0 1em;
+}
+
+#navigation ul {
+	padding-left: 0;
+}
+
+#navigation li {
+	display:block;
+	margin-bottom: 5px;
+}
+
+#logo {
+	width: 150px;
+	margin-bottom: 20px;
+}
+
+/* end Navigation */
+
+#main-column {
+	margin-left: 190px;
+}
+
+div.editIcons {
+	float: right;
+    padding: 0px 5px;
+    z-index: 5;
+}
+
+td.editIcons {
+	width: 80px;
+	text-align: right;
+}
+
+td.buttons {
+	text-align: right;
+}
+
+.icon {
+	width: 16px;
+	border: none;
+}
+
+.part {
+	margin-top: 10px;
+	clear: both;
+}
+
+.item {
+	background: #CECECE;
+	border: #ACACAC 1px solid;
+	-moz-border-radius: 5px;
+	padding: 5px 5px;
+	line-height: 18px;
+}
+
+.details {
+	margin-left: 1em;
+	-moz-border-radius: 5px;
+	-moz-border-radius: 5px;
+	background: #ECECEC;
+	padding: 3px 5px;
+	text-align: left;
+}
+
+.details th {
+	width: 140px !important;
+}
+
+.filtertable {
+	width: 100%;
+	vartical-align: top;
+}
+
+.filtertable td,
+.filtertable th {
+	vertical-align:top;
+}
+
+.filtertable .limitedWidth {
+	width: 140px;
+}
+	
+.actiontable {
+	width: 100%;
+}
+
+.actiontable td,
+.actiontable th {
+	vertical-align:top;
+}
+
+.actiontable .limitedWidth {
+	width: 140px;
+}
+
+/* Control panel specific */
+
+.controlpanel table {
+	width: 100%;
+}
+
+.controlpanel th {
+	text-align: left;
+	width: 140px;
+}
+
+.controlpanel td {
+	vertical-align: top;
+}
+
+.controlpanel .part {
+	margin-bottom: 5px;
+}
+
+.labelLeft {
+	width: 100px;
+}
+
+.inputWidth {
+	width: 100%;
+}
+
+.controlpanel .newButtonLayer {
+	margin-top: 1em;
+	float: right;
+    padding: 0 5px;
+}
+
+.hidden {
+	display: none;
+}
+
+.visible {
+	display: block;
+}
+
+.newfiltertype {
+	float: left;
+	width: 140px;
+}
+.newfilter {
+	margin-left: 140px;
+}
+
+.newactiontype {
+	float: left;
+	width: 140px;
+}
+.newaction {
+	margin-left: 140px;
+}
+
+.backLink {
+	margin-bottom: 10px;
+}
+
+.actionLabel .label,
+.filterLabel .label {
+	font-weight: bold;
+}
+
+.newfilter-wrapper, .filter-wrapper,
+.newaction-wrapper, .action-wrapper {
+	clear: both;
+	border: 1px solid #ACACAC;
+	-moz-border-radius: 5px 5px 5px 5px;
+}
+
+.lastModification {
+	float: right;
+	margin-right: 30px;
+}
+
+.floatLeftTestmail {
+	float: left;
+}
+
+.floatLeftTestmailLink {
+	text-align:right;
+}
+
+.messageBox {
+	border: 1px solid #006600;
+	background-color: #00AA00;
+	margin-top: 10px;
+    padding: 5px;
+}

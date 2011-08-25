@@ -1,0 +1,41 @@
+<!-- XXX - casecade must be done with macros!!!! -->
+
+<h1>Load rule set for customer: <span tal:replace="context/name"/></h1>
+
+<form enctype="multipart/form-data" method="post" action="#"
+      tal:attributes="action view/url">
+	<div id="rulesetContainer">
+		<tal:rulesets repeat="ruleset view/rulesets">
+			<div class="ruleset-wrapper"
+				 tal:attributes="id ruleset/id">
+				<div class="ruleset item">
+					<input type="checkbox" 
+						   class="rulesetCheckbox"
+						   tal:attributes="name ruleset/id"
+						   title="select to copy all rules"
+						   value="1"/> 
+					<span class="ruleItem"
+					   	  tal:content="ruleset/name" />
+					
+				</div>
+				
+				<div class="details rules">
+					<tal:rules repeat="rule ruleset/getRules">
+						<div>
+							<input type="checkbox"
+							   class="ruleCheckbox"
+							   tal:attributes="name rule/id"
+							   title="if you select rules of selcted ruleset only this one will copy"
+							   value="1"/>
+							<span tal:content="rule/name" />
+						</div>
+					</tal:rules>
+				</div>
+			</div>
+		</tal:rulesets>
+	</div>
+	
+	<div class="finderButtons">
+		<input type="submit" value="load rule sets" id="loadRuleSetsButton" name="loadRuleSetsButton">
+	</div>
+</form>

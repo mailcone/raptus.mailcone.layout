@@ -1,0 +1,40 @@
+.slidecontainer {
+	list-style: none outside none;
+	padding: 0;
+}
+
+.slidecontainer li {
+	display: block;
+	float: left;
+}
+
+.tab {
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	border: solid 1px #CECECE;
+	border-bottom: none;
+	margin-right: 5px;
+	padding: 5px 10px;
+	background-color: #EEEEEE;
+}
+
+.tab:hover,
+#tabs .activeTab {
+	background-color: white;
+}
+
+#tabResultContainer {
+	clear: both;
+	border: solid 1px #CECECE;
+	padding: 5px;
+}
+
+#columnRulesetSelector {
+	width: 200px;
+}
+
+#settingTabResultContainer {
+	clear: both;
+	border-top: solid 1px #CECECE;
+	padding: 5px;
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en">
+<head>
+    <tal:headslot content="structure provider:headslot" />
+</head>
+<body>
+<div id="header">
+    <tal:header content="structure provider:header" />
+</div>
+<div id="left-column">
+	<tal:main content="structure provider:leftcolumn" />
+</div>
+<div id="right-column">
+	<tal:main content="structure provider:rightcolumn" />
+</div>
+<div id="main-column">
+    <tal:main content="structure provider:main" />
+</div>
+<div id="footer">
+    <tal:footer content="structure provider:footer" />
+</div>
+</body>
+</html>

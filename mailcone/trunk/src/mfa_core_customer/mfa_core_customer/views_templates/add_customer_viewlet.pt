@@ -1,0 +1,34 @@
+<div id="tabContent">
+	<h1>Add customer</h1>
+	
+	<form enctype="multipart/form-data" class="add-form" method="post" action="#"
+		  tal:attributes="action view/url">
+		<table tal:define="name context/name|nothing;
+						   address context/address|nothing">
+			<tr>
+				<th>
+					Name:
+				</th>
+				<td>
+					<input type="text" name="name" class="inputWidth" tal:attributes="value name" />
+				</td>
+			</tr>
+			
+			<tr>
+				<th>
+					Address:
+				</th>
+				<td>
+					<textarea name="address" class="inputWidth" tal:content="address"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="buttons">
+					<input type="submit" id="#" value="#"
+						   tal:attributes="id view/getActionButtonId;
+						   				   value view/getAction" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>

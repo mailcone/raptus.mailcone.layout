@@ -1,0 +1,13 @@
+<h1>Control Panel</h1>
+
+<div id="tabs" class="controlpanel">
+	<ul>
+		<li tal:repeat="configlet viewlet/listConfiglets">
+			<a id="#" href="#" 
+			   tal:attributes="href python: view.application_url(configlet['url']);
+			                   id python: configlet['id']">
+				<span tal:content="python: configlet['title']" />
+			</a>
+		</li>
+	</ul>
+</div>

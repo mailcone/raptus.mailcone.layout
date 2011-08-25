@@ -1,0 +1,3 @@
+[fanstatic.libraries]
+mfa_writelogaction = mfa_writelogaction.resource:library
+

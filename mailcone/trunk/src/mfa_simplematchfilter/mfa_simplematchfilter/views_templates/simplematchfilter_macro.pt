@@ -1,0 +1,30 @@
+<div metal:define-macro="filterview" class="filter-wrapper"
+	 tal:attributes="name filter/sortNr">
+	<table class="filtertable">
+		<tr>
+			<td class="limitedWidth">
+				<a href="#" class="filterLink"
+				   tal:attributes="href python:view.url(filter)">
+					<span tal:content="filter/getFilterTypeTitle" />
+				</a>
+			</td>
+			
+			<td class="limitedWidth"
+				tal:content="filter/source" />
+			
+			<td class="limitedWidth"
+				tal:content="filter/operator" />
+			
+			<td tal:content="filter/condition" />
+			
+			<td class="editIcons"
+				tal:define="item filter;
+					 	    editClass string:editFilter;
+						    delClass string:delFilter;">
+				<div metal:use-macro="filter/@@editicons/macros/allIcons">
+					display edit icons
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>

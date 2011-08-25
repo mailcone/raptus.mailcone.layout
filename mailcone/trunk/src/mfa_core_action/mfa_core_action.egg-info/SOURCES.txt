@@ -1,0 +1,17 @@
+setup.cfg
+setup.py
+mfa_core_action/__init__.py
+mfa_core_action/actionMatchTypes.py
+mfa_core_action/configure.zcml
+mfa_core_action/contents.py
+mfa_core_action/interfaces.py
+mfa_core_action/resource.py
+mfa_core_action/utils.py
+mfa_core_action.egg-info/PKG-INFO
+mfa_core_action.egg-info/SOURCES.txt
+mfa_core_action.egg-info/dependency_links.txt
+mfa_core_action.egg-info/entry_points.txt
+mfa_core_action.egg-info/not-zip-safe
+mfa_core_action.egg-info/requires.txt
+mfa_core_action.egg-info/top_level.txt
+mfa_core_action/static/action_jsextender.js

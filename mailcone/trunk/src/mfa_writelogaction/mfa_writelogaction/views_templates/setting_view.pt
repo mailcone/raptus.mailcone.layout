@@ -1,0 +1,33 @@
+<div class="backLink">
+	<a tal:attributes="href python: view.url(context.__parent__)">
+		back to parent
+	</a>
+</div>
+
+<div>
+	<div class="editIcons"
+		 tal:define="item context;
+		  	 	     addUrl string:addLogfile;
+				     addClass string:addLogfile;
+				     addTitle string:add logfile;">
+		<div metal:use-macro="item/@@editicons/macros/onlyAdd">
+			display edit icons
+		</div>
+	</div>
+	<h1>Write log action settings</h1>
+</div>
+
+<b>Logfiles</b>:<br/>
+<table>	
+	<tr>
+		<th>name</th>
+		<th>logfile</th>
+		<th>logpath</th>
+	</tr>
+	
+	<tal:block repeat="obj view/listLogfiles">
+		<div metal:use-macro="obj/@@macro/macros/view">
+			logfile view
+		</div>
+	</tal:block>
+</table>

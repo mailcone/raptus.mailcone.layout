@@ -1,0 +1,11 @@
+<div>
+	<a tal:attributes="href python: view.application_url('control_panel')">
+		back to control panel
+	</a>
+</div>
+
+<div id="tabContent">
+	<h2>Database settings</h2>
+	
+	<span>Setting configlet is not implemented yet. Please configure your db-settings in database_cfg.py file.</span>
+</div>

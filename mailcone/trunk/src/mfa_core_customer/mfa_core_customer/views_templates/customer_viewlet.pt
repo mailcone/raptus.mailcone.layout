@@ -1,0 +1,34 @@
+<div class="editIcons"
+	 tal:define="item context;
+	  	 	     addUrl string:addRule;
+			     addClass string:addRule;
+			     addTitle string:add rule;
+			     loadUrl string:loadRuleSet;
+			     loadClass string:loadProfilButton;
+			     loadTitle string:load rule set;">
+	<div metal:use-macro="item/@@editicons/macros/onlyLoadTemplate">
+		display edit icons
+	</div>
+	
+	<div metal:use-macro="item/@@editicons/macros/onlyAdd">
+		display edit icons
+	</div>
+</div>
+
+<h1 tal:content="string: customer: ${context/name}" />
+
+<div id="ruleContainer">
+	<div class="rule-wrapper" onmouseover="style.cursor='pointer'" 
+		 tal:repeat="rule context/getRules"
+	     tal:attributes="name rule/sortNr">
+		<div metal:use-macro="rule/@@macro/macros/shortruleview">
+			rule short view
+		</div>
+	</div>
+</div>
+
+
+<div id="popupLoadProfil">
+	<a id="popupLoadProfilClose">x</a>
+</div>
+<div id="backgroundPopupLoadProfile"></div>  

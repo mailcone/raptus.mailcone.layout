@@ -1,0 +1,35 @@
+<div class="item-wrapper" metal:define-macro="customer">
+	<div class="item">
+		<div class="editIcons">
+			<a href="#" class="editIcon" tal:attributes="href python:view.url(customer, 'edit')">
+				edit
+			</a>
+			
+			<a href="#" class="delCustomer" tal:attributes="href python:view.url(customer, 'delete')">
+				delete
+			</a>
+		</div>
+		<span tal:content="customer/name" />
+	</div>
+	
+	<div class="details">
+		<table>
+			<tr>
+				<th>
+					name
+				</th>
+				<td>
+					<span tal:replace="customer/name" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					adress
+				</th>
+				<td>
+					<span tal:replace="customer/address" />
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
