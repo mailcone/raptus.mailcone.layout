@@ -24,6 +24,7 @@ setup(name='raptus.mailcone.layout',
       zip_safe=False,
       install_requires=[
           # -*- Extra requirements: -*-
+          'setuptools',
       ],
       entry_points="""
       # -*- Entry points: -*-
