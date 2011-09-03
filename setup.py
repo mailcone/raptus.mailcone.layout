@@ -19,14 +19,25 @@ setup(name='raptus.mailcone.layout',
       url='',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
-      namespace_packages=['raptus.mailcone'],
+      namespace_packages=['raptus','raptus.mailcone'],
       include_package_data=True,
       zip_safe=False,
       install_requires=[
           # -*- Extra requirements: -*-
           'setuptools',
+          'grokcore.chameleon',
+          'grokcore.layout',
+          'fanstatic',
+          'zope.fanstatic',
+          'js.jquery',
+          'js.jqueryui',
+          'js.jquery_datatables',
+          'js.jquery_elastic',
+          'megrok.navigation',
+          'megrok.form',
       ],
-      entry_points="""
-      # -*- Entry points: -*-
-      """,
-      )
+      entry_points={
+          'fanstatic.libraries': [
+              'raptus.mailcone.layout = raptus.mailcone.layout.resource:library',
+          ]
+      })

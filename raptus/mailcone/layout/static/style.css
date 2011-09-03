@@ -1,0 +1,24 @@
+/* navigation */
+
+#logo{
+  background-color: #ffffff;
+  color:#f14c1a;
+  font-size: 18px;
+  height: 20px;
+  padding:20px 30px;
+}
+
+#navigation .ui-corner-bottom,
+#navigation .ui-corner-top,
+#navigation .ui-corner-all {
+ -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+
+#footer {
+  font-size: 10px;
+  line-height: 18px;
+  padding-right: 15px;
+  text-align: right;
+}
