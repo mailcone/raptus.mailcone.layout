@@ -14,22 +14,22 @@
         </div>
         <div id="columns" class="row">
             <div class="cell position-4 width-12">
-              <div id="content-before">
-                <div tal:replace="structure provider:content.before" />
-              </div>
-              <div id="content">
-                <div tal:replace="structure view.content()" />
-              </div>
-              <div id="content-after">
-                <div tal:replace="structure provider:content.after" />
-              </div>
+              <div id="content-wrap">
+                  <div id="content-before">
+                    <div tal:replace="structure provider:content.before" />
+                  </div>
+                  <div id="content">
+                    <div tal:replace="structure view.content()" />
+                  </div>
+                  <div id="content-after">
+                    <div tal:replace="structure provider:content.after" />
+                  </div>
+                </div>
             </div>
             <div class="cell position-0 width-4">
               <div id="navigation">
                 <div id="navigation-body">
                   <div tal:replace="structure provider:navigation" />
-                </div>
-                <div id="navigation-footer">
                 </div>
               </div>
             </div>

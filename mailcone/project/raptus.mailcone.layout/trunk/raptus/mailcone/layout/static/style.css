@@ -22,3 +22,11 @@
   padding-right: 15px;
   text-align: right;
 }
+
+.header-nav {
+  text-align: right;
+}
+
+#exceptionlogo{
+  float: right;
+}

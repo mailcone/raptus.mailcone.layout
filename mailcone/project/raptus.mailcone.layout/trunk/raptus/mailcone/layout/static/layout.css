@@ -21,29 +21,30 @@ div {
   border-top-right-radius: 14px;
   position: relative;
   top:-40px;
+  left:-1px;
 }
-
-#navigation-footer{
-  border-left: solid 1px #c8cccd;
-  border-right: solid 1px #c8cccd;
-  height:40px;
-  background-color:#ffffff;
-  margin-top: -40px;
-  -moz-border-radius-bottomleft: 14px;
-  -webkit-border-bottom-left-radius: 14px;
-  border-bottom-left-radius: 14px;
-  -moz-border-radius-bottomright: 14px;
-  -webkit-border-bottom-right-radius: 14px;
-  border-bottom-right-radius: 14px;
-}
-
 
 #columns{
   border: solid 1px #c8cccd;
-  border-left: none;
   background-color:#ffffff;
   -moz-border-radius: 14px;
   -webkit-border-radius: 14px;
   border-radius: 14px;
+  background:url("navbackground.gif") no-repeat scroll 22.9167% 100% #FFFFFF
+}
+
+#content-wrap {
+  padding: 20px 20px 20px 0;
+}
+
+.header-nav {
+  position: absolute;
+  bottom: -65px;
+  right: 0;
+}
+
+.header-nav ul li {
+  margin-right: 15px;
+  display: inline-block;
 }
 

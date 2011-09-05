@@ -2,6 +2,7 @@ import grok
 
 from megrok import navigation
 
+from raptus.mailcone.layout import _
 from raptus.mailcone.layout import interfaces
 
 class MainNavigation(navigation.Menu):
@@ -12,11 +13,39 @@ class MainNavigation(navigation.Menu):
     cssClass = 'nav main-nav ui-accordion uldata'
     
     _ = lambda args:args
-    navigation.submenu('menu.add', _(u'Add'), order=10)
-    navigation.submenu('menu.actions', _(u'Actions'), order=20)
-    navigation.submenu('menu.manage', _(u'Manage'), order=30)
+    navigation.submenu('menu.overview', _(u'Overview'), order=10)
+    navigation.submenu('menu.preferences', _(u'Preferences'), order=20)
 
 
+class HeaderNavigation(navigation.Menu):
+    grok.implements(interfaces.IHeaderNavigation)
+    grok.name('navigation.header')
+    cssClass = 'nav header-nav'
+
+    navigation.submenu('menu.add', 'User: Samuel Riolo', order=20)
+    navigation.submenu('menu.manage', 'login', order=30)
+
+
+
+class OverviewMenu(navigation.Menu):
+
+    grok.implements(interfaces.IOverviewMenu)
+    grok.name('menu.overview')
+    cssClass = 'menu menu-overview'
+
+
+class PrefernecesMenu(navigation.Menu):
+
+    grok.implements(interfaces.IPreferencesMenu)
+    grok.name('menu.preferences')
+    cssClass = 'menu menu-preferences'
+
+
+
+
+
+
+# debug stuff
 from megrok.navigation import interfaces
 class IContextualManageMenu(interfaces.IMenu):pass
 class IActionsMenu(interfaces.IMenu):pass
