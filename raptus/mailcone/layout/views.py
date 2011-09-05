@@ -32,4 +32,26 @@ class Page(layout.Page):
 
 class Index(Page):
     grok.context(Interface)
-    
+
+
+class ExceptionPage(layout.ExceptionPage):
+    grok.name('index.html')
+
+
+import zope
+class NotFoundPage(layout.NotFoundPage):
+    grok.name('index.html')
+
+
+class UnauthorizedPage(layout.UnauthorizedPage):
+    grok.name('index.html')
+
+
+
+
+
+
+
+
+
+

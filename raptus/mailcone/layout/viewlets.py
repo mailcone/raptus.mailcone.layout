@@ -1,7 +1,7 @@
 import grok
 
 from zope.interface import Interface
-
+from zope.interface.common.interfaces import IException
 from raptus.mailcone.layout import navigation
 
 
@@ -39,3 +39,11 @@ class Footer(grok.Viewlet):
 class MainNavigation(grok.Viewlet):
     grok.viewletmanager(NavigationManager)
 
+
+class HeaderNavigation(grok.Viewlet):
+    grok.viewletmanager(HeaderManager)
+
+
+class ExceptionLogo(grok.Viewlet):
+    grok.viewletmanager(ContentBeforeManager)
+    grok.context(IException)

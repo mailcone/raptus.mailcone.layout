@@ -25,3 +25,21 @@ class IResourceProvider(interface.Interface):
 class IMainNavigation(interfaces.IMenu):
     """ Main navigation
     """
+
+
+class IHeaderNavigation(interfaces.IMenu):
+    """ Header navigation
+    """
+
+
+class IOverviewMenu(interfaces.IMenu):
+    """ submenu for mainnavigation
+    """
+
+
+class IPreferencesMenu(interfaces.IMenu):
+    """ submenu for mainnavigation
+    """
+
+
+
