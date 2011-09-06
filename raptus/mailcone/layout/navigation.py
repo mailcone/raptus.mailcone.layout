@@ -1,9 +1,15 @@
 import grok
+import martian
+
+from zope.component import queryUtility
 
 from megrok import navigation
+from megrok.navigation.interfaces import IMenu
 
 from raptus.mailcone.layout import _
 from raptus.mailcone.layout import interfaces
+from raptus.mailcone.core.interfaces import IContainerLocator
+
 
 class MainNavigation(navigation.Menu):
     """ Main navigation
@@ -12,7 +18,6 @@ class MainNavigation(navigation.Menu):
     grok.name('navigation.main')
     cssClass = 'nav main-nav ui-accordion uldata'
     
-    _ = lambda args:args
     navigation.submenu('menu.overview', _(u'Overview'), order=10)
     navigation.submenu('menu.preferences', _(u'Preferences'), order=20)
 
@@ -43,6 +48,40 @@ class PrefernecesMenu(navigation.Menu):
 
 
 
+
+class locatormenuitem(navigation.menuitem):
+    """ directive for creating a action
+        to locate a instance
+        implementing raptus.mailcone.core.interfaces.IContainerLocator
+    """
+    
+    store = martian.ONCE
+
+    def factory(self, menu, locator, title=None, order=0, icon=None, group=''):
+        martian.validateInterfaceOrClass(self, menu)
+        martian.validateInterfaceOrClass(self, locator)
+        if not (issubclass(locator, IContainerLocator) or ILocatorContainer.implementedBy(locator)):
+            raise martian.error.GrokImportError(
+                "You can only pass a class implementing "
+                "raptus.mailcone.core.interfaces.IContainerLocator "
+                "to the '%s' directive." % self.name)
+        if not (issubclass(menu, IMenu) or IMenu.implementedBy(menu)):
+            raise martian.error.GrokImportError(
+                "You can only pass a class implementing "
+                "megrok.navigation.interfaces.IMenu "
+                "to the '%s' directive." % self.name)
+        return menu, (locator, title, order, icon, group)
+
+
+class LocatorMenuItem(navigation.MenuItem):
+    grok.baseclass()
+
+    @property
+    def link(self):
+        locator = queryUtility(self.locator)
+        if locator is None:
+            return None
+        return '%s/%s' % (locator.url(self.request), self.viewName)
 
 
 # debug stuff
