@@ -1,7 +1,9 @@
 import grok
 
 from zope.interface import Interface
+from zope.app.component.hooks import getSite
 from zope.interface.common.interfaces import IException
+
 from raptus.mailcone.layout import navigation
 
 
@@ -30,7 +32,9 @@ class FooterManager(grok.ViewletManager):
 
 class Logo(grok.Viewlet):
     grok.viewletmanager(NavigationManager)
-
+    
+    def homelink(self):
+        return grok.url(self.request, getSite())
 
 class Footer(grok.Viewlet):
     grok.viewletmanager(FooterManager)

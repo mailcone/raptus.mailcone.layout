@@ -4,3 +4,21 @@ body{
   font-size: 13px;
   background-color: #e9eced;
 }
+
+
+h1 {
+  color:#f14c1a;
+  font-size: 18px;
+}
+
+h1 a {
+  color:#f14c1a;
+}
+
+h2 {}
+
+h3 {}
+
+a {
+  text-decoration: none;
+}

@@ -8,6 +8,7 @@ from js.jquery import jquery
 from js.jqueryui import jqueryui, smoothness
 from js.jquery_datatables import jquery_datatables
 from js.jquery_elastic import elastic
+from js.jquery_splitter import splitter
 
 from raptus.mailcone.layout import interfaces
 
@@ -25,7 +26,7 @@ base = Resource(library, 'base.css', depends=[smoothness, layout, deco, reset, j
 
 
 
-ui_elements = Resource(library, 'ui_elements.js', depends=[jquery, jqueryui, jquery_datatables, elastic])
+ui_elements = Resource(library, 'ui_elements.js', depends=[jquery, jqueryui, jquery_datatables, elastic, splitter])
 
 
 

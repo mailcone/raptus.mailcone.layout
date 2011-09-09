@@ -3,7 +3,6 @@
 #logo{
   background-color: #ffffff;
   color:#f14c1a;
-  font-size: 18px;
   height: 20px;
   padding:20px 30px;
 }
@@ -29,4 +28,34 @@
 
 #exceptionlogo{
   float: right;
+  margin-bottom: 150px;
+}
+
+
+/* splitter */
+
+.ui-splitter .hsplitbar {
+  height: 8px;
+  background: #dcdcba url(hgrabber.gif) no-repeat center;
+  /* No margin, border, or padding allowed */
+  border:dcdc9a 1px solid;
+ -moz-border-radius: 1;
+  -webkit-border-radius: 1;
+  border-radius: 1;
+}
+.ui-splitter .hsplitbar.active,
+.ui-splitter .hsplitbar:hover {
+    background: #e88 url(hgrabber.gif) no-repeat center;
+}
+
+.ui-splitter {
+  height: 900px;
+}
+.ui-splitter>div {
+  overflow: hidden;
+}
+
+.vsplitbar {
+  width: 5px;
+  background: #cccccc;
 }
