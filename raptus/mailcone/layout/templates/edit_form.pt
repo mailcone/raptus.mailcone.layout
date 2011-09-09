@@ -1,0 +1,64 @@
+<div tal:attributes="class view/cssClass|nothing">
+    
+    <div tal:replace="structure view/prepend|nothing" />
+    
+    <form action="." method="post" class="edit-form" enctype="multipart/form-data"
+          tal:attributes="action view/action|request/URL;">
+    
+      <h1 class="firstHeading"
+          i18n:translate=""
+          tal:condition="view/label"
+          tal:content="view/label">Label</h1>
+      
+      <div class="contents">
+      
+        <div class="form-status"
+          tal:define="status view/status"
+          tal:condition="status">
+      
+          <div i18n:translate="" tal:content="view/status">
+            Form status summary
+          </div>
+      
+          <ul class="errors" tal:condition="view/errors">
+            <li tal:repeat="error view/error_views">
+               <span tal:replace="structure error">Error Type</span>
+            </li>
+          </ul>
+        </div>
+      
+        <ul>
+            <tal:block repeat="widget view/widgets">
+              <li tal:define="hint widget/hint;
+                              error widget/error;"
+                  tal:attributes="class python:error and 'hasError '+widget.name or widget.name">
+                <label tal:attributes="for widget/name">
+                  <span i18n:translate=""
+                        tal:content="widget/label">label</span>
+                  <span class="required" tal:condition="widget/required"
+                  >*</span>
+                  <span class="hint" tal:condition="hint"
+                        tal:content="hint">Hint</span>
+                </label>
+                <div class="widget" tal:content="structure widget">
+                  <input type="text" />
+                </div>
+                <div class="error" tal:condition="error">
+                  <span tal:replace="structure error">error</span>
+                </div>
+              </li>
+            </tal:block>
+            <div tal:replace="structure view/additional|nothing" />
+        </ul>
+      
+        <div id="actionsView">
+          <span class="actionButtons button-group" tal:condition="view/availableActions">
+            <input tal:repeat="action view/actions"
+                   tal:replace="structure action/render"
+                   />
+          </span>
+        </div>
+      </div>
+    </form>
+    <div tal:replace="structure view/append|nothing" />
+  </div>

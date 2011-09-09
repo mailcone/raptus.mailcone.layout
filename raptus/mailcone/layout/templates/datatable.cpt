@@ -1,1 +1,17 @@
-the datatable are displayed here
+<table class="ui-datatable display"
+       tal:attributes="id view.id;
+                       data-ajaxurl view.ajaxurl;">
+    <thead>
+        <tr>
+            <th width="20%">Rendering engine</th>
+            <th width="25%">Browser</th>
+            <th width="25%">Platform(s)</th>
+            <th width="15%">Engine version</th>
+
+            <th width="15%">CSS grade</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+</table>

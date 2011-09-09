@@ -1,3 +1,7 @@
 <div id="logo">
-  <span>Mailcone</span>
+  <h1><a href="#"
+         tal:attributes="href viewlet.homelink()">
+             Mailcone
+      </a>
+  </h1>
 </div>
