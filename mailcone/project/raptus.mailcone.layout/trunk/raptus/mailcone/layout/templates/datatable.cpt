@@ -1,14 +1,11 @@
 <table class="ui-datatable display"
        tal:attributes="id view.id;
-                       data-ajaxurl view.ajaxurl;">
+                       data-ajaxurl view.ajaxurl;
+                       data-tabletools view.tabletools;">
     <thead>
         <tr>
-            <th width="20%">Rendering engine</th>
-            <th width="25%">Browser</th>
-            <th width="25%">Platform(s)</th>
-            <th width="15%">Engine version</th>
-
-            <th width="15%">CSS grade</th>
+            <th tal:repeat="col view.columns" tal:content="col"/>
+            <th width="20px" class="ui-table-action" tal:repeat="col view.actions" tal:content="col.get('title')"/>
         </tr>
     </thead>
     <tbody>

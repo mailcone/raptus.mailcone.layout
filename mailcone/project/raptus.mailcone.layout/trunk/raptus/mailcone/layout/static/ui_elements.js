@@ -38,12 +38,26 @@ ui_elements = {
   
   
   datatable: function(context){
-    ui_elements._context(context).find('.ui-datatable').each(function(){
-        $(this).dataTable( {
-            bProcessing: true,
-            sAjaxSource: $(this).data('ajaxurl')
+    ui_elements._context(context).find('.ui-datatable').each(function(){console.log($(this).data('tabletools'));
+         table = $(this).dataTable( {
+            sDom: 'T<"clear">frtiS',
+            sScrollY: '200px',
+            bDeferRender: true,
+            bAutoWidth: false,
+            sAjaxSource: $(this).data('ajaxurl'),
+            bServerSide: true,
+            bJQueryUI: true,
+            fnDrawCallback: $.proxy(ui_elements._datatable_redraw, this),
+            oTableTools: $(this).data('tabletools'),
         } );
-        
+
+        $(this).find('tbody').click(function(event) {
+            $(table.fnSettings().aoData).each(function (){
+                $(this.nTr).removeClass('row_selected');
+            });
+            $(event.target.parentNode).addClass('row_selected');
+            // actions commes here
+        });
     });
       
   },
@@ -117,6 +131,15 @@ ui_elements = {
       return $('html');
       
   },
+  
+  
+  _datatable_redraw: function(){
+      $(this).find('tr a').click(function(){
+          ui_elements._ajax_modal($(this).attr('href'));
+          return false;
+      });
+  },
+  
   
   _ajax_modal: function(url){
       var dialogid = 'ui-modal-content';
