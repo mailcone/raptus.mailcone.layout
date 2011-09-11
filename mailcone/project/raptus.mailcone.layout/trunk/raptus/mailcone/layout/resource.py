@@ -7,6 +7,8 @@ from fanstatic import Library, Resource
 from js.jquery import jquery
 from js.jqueryui import jqueryui, smoothness
 from js.jquery_datatables import jquery_datatables
+from js.jquery_datatables import library as jquery_datatables_library
+
 from js.jquery_elastic import elastic
 from js.jquery_splitter import splitter
 
@@ -20,13 +22,42 @@ library = Library('raptus.mailcone.layout', 'static')
 deco = Resource(library, 'deco.css', depends=[])
 reset = Resource(library, 'reset.css', depends=[])
 layout = Resource(library, 'layout.css', depends=[])
+forms = Resource(library, 'forms.css', depends=[])
 jqueryuicss = Resource(library, 'jqueryui.css', depends=[])
 style = Resource(library, 'style.css', depends=[])
-base = Resource(library, 'base.css', depends=[smoothness, layout, deco, reset, jqueryuicss, style])
+base = Resource(library, 'base.css', depends=[smoothness, layout, deco, reset, jqueryuicss, style, forms])
 
 
 
-ui_elements = Resource(library, 'ui_elements.js', depends=[jquery, jqueryui, jquery_datatables, elastic, splitter])
+
+
+jquery_datatables_scroller = Resource(
+    jquery_datatables_library, 'extras/Scroller/media/js/Scroller.js',
+    depends=[jquery_datatables],
+    minified='extras/Scroller/media/js/Scroller.min.js'
+)
+
+jquery_datatables_tools = Resource(
+    jquery_datatables_library, 'extras/TableTools/media/js/TableTools.js',
+    depends=[jquery_datatables],
+    minified='extras/TableTools/media/js/TableTools.min.js'
+)
+
+jquery_datatables_clipboard = Resource(
+    jquery_datatables_library, 'extras/TableTools/media/js/ZeroClipboard.js',
+    depends=[jquery_datatables],
+)
+
+
+
+ui_elements = Resource(library, 'ui_elements.js', depends=[jquery,
+                                                           jqueryui,
+                                                           jquery_datatables,
+                                                           jquery_datatables_scroller,
+                                                           jquery_datatables_tools,
+                                                           jquery_datatables_clipboard,
+                                                           elastic,
+                                                           splitter])
 
 
 
