@@ -42,4 +42,22 @@ class IPreferencesMenu(interfaces.IMenu):
     """
 
 
-
+class IDeleteForm(interface.Interface):
+    """ Basic delete form
+    """
+    
+    def item_title():
+        """ Returns the title of the object to be deleted
+        """
+    
+    def next_url():
+        """ Returns the url to be redirected to after successful deletion
+        """
+    
+    def cancel_url():
+        """ Returns the url to be redirected to after cancellation
+        """
+    
+    def delete():
+        """ Deletes the object
+        """

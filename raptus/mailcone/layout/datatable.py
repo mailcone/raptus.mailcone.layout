@@ -1,11 +1,14 @@
 import os
+import json
 import grok
+
 from grokcore.view.interfaces import ITemplateFileFactory
 
 from hurry.query import query,set
 
 from zope.component import getUtility
 
+from raptus.mailcone.layout import _
 
 grok.templatedir('templates')
 
@@ -20,77 +23,75 @@ class BaseDataTable(grok.View):
     grok.baseclass()
     
     interface_fields = None
-    ignors_fields = []
+    ignors_fields = list()
+    actions = tuple()
     
+    def _fields(self):
+        # dict() dosen't work because a wrong ordering
+        li = list()
+        for fi in grok.AutoFields(self.interface_fields).omit(*self.ignors_fields):
+            li.append((fi.field.getName(), fi.field.title,))
+        return li
+
+    def _linkbuilder(self, action, brain):
+        href = '%s/%s' % (grok.url(self.request, brain), action.get('link'),)
+        ac = dict(href=href)
+        ac.update(action)
+        return '<a href="%(href)s" class="ui-table-action %(cssclass)s" title="%(title)s">%(title)s</a>' % ac
+    
+    def _aaData(self, brains):
+        results = list()
+        for brain in brains:
+            row = list()
+            for field, title in self._fields():
+                row.append(getattr(brain, field, None))
+            for ac in self.actions:
+                row.append(self._linkbuilder(ac, brain))
+            results.append(row)
+        return results
+    
+    def _iTotalDisplayRecords(self, brains):
+        return len(brains)
+    
+    def _iTotalRecords(self, brains):
+        return len(brains)
+    
+    def _sEcho(self, brains):
+        return int(self.request.get('sEcho', 1))
     
     def render(self):
         
         if self.interface_fields is None:
             raise NotImplementedError('you must override interface_fields in your subclass!')
+        
+        iDisplayLength = int(self.request.form.get('iDisplayLength',0))
+        iDisplayStart = int(self.request.form.get('iDisplayStart',0))
+        sSearch = self.request.form.get('sSearch','')
+        iSortCol_0 = int(self.request.form.get('iSortCol_0',-1))
+        sSortDir_0 = self.request.form.get('sSortDir_0','')
+        sortcol = (iSortCol_0 < len(self._fields()) and iSortCol_0 >= 0) and ('catalog',self._fields()[iSortCol_0][0],) or None
+        sorddir = sSortDir_0 == 'asc' and True or False
+        
+
         queryutil = getUtility(query.interfaces.IQuery)
-        results = queryutil.searchResults(set.AnyOf(('catalog', 'implements'), [self.interface_fields.__identifier__,]))
-        # test data
-        return """
-        { "aaData": [
-    ["Trident","Internet Explorer 4.0","Win 95+","4","X"],
-    ["Trident","Internet Explorer 5.0","Win 95+","5","C"],
-    ["Trident","Internet Explorer 5.5","Win 95+","5.5","A"],
-    ["Trident","Internet Explorer 6","Win 98+","6","A"],
-    ["Trident","Internet Explorer 7","Win XP SP2+","7","A"],
-    ["Trident","AOL browser (AOL desktop)","Win XP","6","A"],
-    ["Gecko","Firefox 1.0","Win 98+ / OSX.2+","1.7","A"],
-    ["Gecko","Firefox 1.5","Win 98+ / OSX.2+","1.8","A"],
-    ["Gecko","Firefox 2.0","Win 98+ / OSX.2+","1.8","A"],
-    ["Gecko","Firefox 3.0","Win 2k+ / OSX.3+","1.9","A"],
-    ["Gecko","Camino 1.0","OSX.2+","1.8","A"],
-    ["Gecko","Camino 1.5","OSX.3+","1.8","A"],
-    ["Gecko","Netscape 7.2","Win 95+ / Mac OS 8.6-9.2","1.7","A"],
-    ["Gecko","Netscape Browser 8","Win 98SE+","1.7","A"],
-    ["Gecko","Netscape Navigator 9","Win 98+ / OSX.2+","1.8","A"],
-    ["Gecko","Mozilla 1.0","Win 95+ / OSX.1+",1,"A"],
-    ["Gecko","Mozilla 1.1","Win 95+ / OSX.1+",1.1,"A"],
-    ["Gecko","Mozilla 1.2","Win 95+ / OSX.1+",1.2,"A"],
-    ["Gecko","Mozilla 1.3","Win 95+ / OSX.1+",1.3,"A"],
-    ["Gecko","Mozilla 1.4","Win 95+ / OSX.1+",1.4,"A"],
-    ["Gecko","Mozilla 1.5","Win 95+ / OSX.1+",1.5,"A"],
-    ["Gecko","Mozilla 1.6","Win 95+ / OSX.1+",1.6,"A"],
-    ["Gecko","Mozilla 1.7","Win 98+ / OSX.1+",1.7,"A"],
-    ["Gecko","Mozilla 1.8","Win 98+ / OSX.1+",1.8,"A"],
-    ["Gecko","Seamonkey 1.1","Win 98+ / OSX.2+","1.8","A"],
-    ["Gecko","Epiphany 2.20","Gnome","1.8","A"],
-    ["Webkit","Safari 1.2","OSX.3","125.5","A"],
-    ["Webkit","Safari 1.3","OSX.3","312.8","A"],
-    ["Webkit","Safari 2.0","OSX.4+","419.3","A"],
-    ["Webkit","Safari 3.0","OSX.4+","522.1","A"],
-    ["Webkit","OmniWeb 5.5","OSX.4+","420","A"],
-    ["Webkit","iPod Touch / iPhone","iPod","420.1","A"],
-    ["Webkit","S60","S60","413","A"],
-    ["Presto","Opera 7.0","Win 95+ / OSX.1+","-","A"],
-    ["Presto","Opera 7.5","Win 95+ / OSX.2+","-","A"],
-    ["Presto","Opera 8.0","Win 95+ / OSX.2+","-","A"],
-    ["Presto","Opera 8.5","Win 95+ / OSX.2+","-","A"],
-    ["Presto","Opera 9.0","Win 95+ / OSX.3+","-","A"],
-    ["Presto","Opera 9.2","Win 88+ / OSX.3+","-","A"],
-    ["Presto","Opera 9.5","Win 88+ / OSX.3+","-","A"],
-    ["Presto","Opera for Wii","Wii","-","A"],
-    ["Presto","Nokia N800","N800","-","A"],
-    ["Presto","Nintendo DS browser","Nintendo DS","8.5","C/A<sup>1</sup>"],
-    ["KHTML","Konqureror 3.1","KDE 3.1","3.1","C"],
-    ["KHTML","Konqureror 3.3","KDE 3.3","3.3","A"],
-    ["KHTML","Konqureror 3.5","KDE 3.5","3.5","A"],
-    ["Tasman","Internet Explorer 4.5","Mac OS 8-9","-","X"],
-    ["Tasman","Internet Explorer 5.1","Mac OS 7.6-9","1","C"],
-    ["Tasman","Internet Explorer 5.2","Mac OS 8-X","1","C"],
-    ["Misc","NetFront 3.1","Embedded devices","-","C"],
-    ["Misc","NetFront 3.4","Embedded devices","-","A"],
-    ["Misc","Dillo 0.8","Embedded devices","-","X"],
-    ["Misc","Links","Text only","-","X"],
-    ["Misc","Lynx","Text only","-","X"],
-    ["Misc","IE Mobile","Windows Mobile 6","-","C"],
-    ["Misc","PSP browser","PSP","-","C"],
-    ["Other browsers","All others","-","-","U"]
-] }
-        """
+        
+        queries = []
+        if sSearch:
+            queries.append(query.Text(('catalog', 'text'), '*'+'* *'.join(sSearch.split(' '))+'*'))
+        queries.append(set.AnyOf(('catalog', 'implements'), [self.interface_fields.__identifier__,]))
+        
+        brains = queryutil.searchResults(query.And(*queries),
+                                         reverse=sorddir,
+                                         sort_field=None,)
+        limited = [i for i in brains][iDisplayStart:iDisplayStart+iDisplayLength]
+        
+        results = dict()
+        results['aaData'] = self._aaData(limited)
+        results['iTotalRecords'] = self._iTotalRecords(brains)
+        results['iTotalDisplayRecords'] = self._iTotalDisplayRecords(brains)
+        results['sEcho'] = self._sEcho(brains)
+        
+        return json.dumps(results)
         
     def html(self):
         template = os.path.join(os.path.dirname(__file__),'templates','datatable.cpt')
@@ -103,3 +104,17 @@ class BaseDataTable(grok.View):
     @property
     def ajaxurl(self):
         return self.url()
+    
+    @property
+    def columns(self):
+        return [ v for k, v in self._fields()]
+    
+    @property
+    def tabletools(self):
+        return json.dumps(False)
+        
+        
+        
+        
+        
+        
