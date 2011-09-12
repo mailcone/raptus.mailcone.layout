@@ -41,6 +41,11 @@ class IPreferencesMenu(interfaces.IMenu):
     """ submenu for mainnavigation
     """
 
+
+class ICronjobMenu(interfaces.IMenu):
+    """ submenu for cronjobs
+    """
+
 class IAddForm(interfaces.Interface):
     """ Basic add form
     """
