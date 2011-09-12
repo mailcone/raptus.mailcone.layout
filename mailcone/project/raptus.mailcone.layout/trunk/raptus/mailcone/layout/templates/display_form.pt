@@ -1,0 +1,25 @@
+<div class="collapsible display"
+     tal:condition="view/widgets"
+     i18n:domain="raptus.mailcone.layout">
+  <h2 class="toggler"
+      i18n:translate="">
+    Information
+  </h2>
+  <div class="contents">
+    <dl class="display-form">
+      <tal:block repeat="widget view/widgets">
+        <tal:define define="odd repeat/widget/odd;
+                            class python: (odd and 'odd' or 'even') + ' ' + widget.name">
+          <dt class=""
+              tal:attributes="class class">
+            <tal:block content="widget/label"/>
+          </dt>
+          <dd class=""
+              tal:attributes="class class">
+            <input tal:replace="structure widget" />
+          </dd>
+        </tal:define>
+      </tal:block>
+    </dl>
+  </div>
+</div>

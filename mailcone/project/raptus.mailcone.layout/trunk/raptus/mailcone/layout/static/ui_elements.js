@@ -38,7 +38,7 @@ ui_elements = {
   
   
   datatable: function(context){
-    ui_elements._context(context).find('.ui-datatable').each(function(){console.log($(this).data('tabletools'));
+    ui_elements._context(context).find('.ui-datatable').each(function(){
          table = $(this).dataTable( {
             sDom: 'T<"clear">frtiS',
             sScrollY: '200px',
@@ -48,15 +48,19 @@ ui_elements = {
             bServerSide: true,
             bJQueryUI: true,
             fnDrawCallback: $.proxy(ui_elements._datatable_redraw, this),
+            fnServerData: $.proxy(ui_elements._datatable_json, this),
             oTableTools: $(this).data('tabletools'),
         } );
 
         $(this).find('tbody').click(function(event) {
+            var tr = $(event.target.parentNode);
             $(table.fnSettings().aoData).each(function (){
                 $(this.nTr).removeClass('row_selected');
             });
-            $(event.target.parentNode).addClass('row_selected');
-            // actions commes here
+            if (tr.data('ajaxcontent')){
+                $(tr).addClass('row_selected');
+                $('#ui-datatable-ajaxcontent').load(tr.data('ajaxcontent'));
+            }
         });
     });
       
@@ -76,7 +80,7 @@ ui_elements = {
   add: function(context){
     ui_elements._context(context).find('.ui-add').each(function(){
         $(this).click(function(){
-            ui_elements._ajax_modal($(this).attr('href'));
+            ui_elements._ajax_modal($(this).attr('href'), $(this));
             return false;
         });
         
@@ -115,6 +119,9 @@ ui_elements = {
             case 'form.actions.edit':
                 buttons[$(this).val()] = $.proxy(submit, this);
                 break;
+            case 'form.actions.delete':
+                buttons[$(this).val()] = $.proxy(submit, this);
+                break;
             case 'form.actions.cancel':
                 buttons[$(this).val()] = $.proxy(close, this);
                 break;
@@ -135,19 +142,35 @@ ui_elements = {
   
   _datatable_redraw: function(){
       $(this).find('tr a').click(function(){
-          ui_elements._ajax_modal($(this).attr('href'));
+          ui_elements._ajax_modal($(this).attr('href'), $(this));
           return false;
       });
   },
   
   
-  _ajax_modal: function(url){
+  _datatable_json: function(sSource, aoData, fnCallback){
+      var table = $(this)
+      $.getJSON( sSource, aoData, function (json) {
+          fnCallback(json);
+          if (!json.metadata)
+            return;
+          var metadata = json.metadata;
+          if (metadata.ajaxcontent) {
+              table.find('tr').each(function(index){
+                  $(this).data('ajaxcontent', metadata.ajaxcontent[index-1]);
+              });
+          }
+      });
+  },
+  
+  
+  _ajax_modal: function(url, element){
       var dialogid = 'ui-modal-content';
       if (!$('#'+dialogid).length)
         $('body').append('<div id="'+dialogid+'"/>');
       
       var dialog = $('#'+dialogid);
-      dialog.dialog({height: 600,
+      dialog.dialog({height: element.hasClass('ui-modal-minsize')?200:600,
                      width: 500,
                      modal: true});
       dialog.load(url, function(){
