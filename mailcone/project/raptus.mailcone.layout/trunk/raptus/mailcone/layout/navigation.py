@@ -20,6 +20,7 @@ class MainNavigation(navigation.Menu):
     
     navigation.submenu('menu.overview', _(u'Overview'), order=10)
     navigation.submenu('menu.preferences', _(u'Preferences'), order=20)
+    navigation.submenu('menu.cronjob', _(u'Cronjob'), order=30)
 
 
 class HeaderNavigation(navigation.Menu):
@@ -44,6 +45,13 @@ class PrefernecesMenu(navigation.Menu):
     grok.implements(interfaces.IPreferencesMenu)
     grok.name('menu.preferences')
     cssClass = 'menu menu-preferences'
+
+
+class CronjobMenu(navigation.Menu):
+
+    grok.implements(interfaces.ICronjobMenu)
+    grok.name('menu.cronjob')
+    cssClass = 'menu menu-cronjob'
 
 
 

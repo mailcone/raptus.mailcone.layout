@@ -37,12 +37,11 @@ class MenuItemGrokker(ViewSecurityGrokker):
                 title=u''):
         if locatormenuitem is None:
             return False
-
         locatormenu, (locator, title, order, icon, group) = locatormenuitem
         title = title or viewtitle or name 
         if martian.util.check_subclass(permission, grokcore.security.Permission):
             permission =  grokcore.component.name.bind().get(permission)
-        item_name = name
+        item_name = '%s@%s' % (locator.__identifier__, name)
         item_itf = directives.itemsimplement.bind().get(locatormenu)
         config.action(discriminator=('viewlet', None, layer,
                          IBrowserView, locatormenu, item_name),
