@@ -37,26 +37,28 @@ class Page(layout.Page):
 class AddForm(grok.AddForm):
     grok.baseclass()
     template = PageTemplateFile(os.path.join('templates','edit_form.pt'))
+    grok.implements(interfaces.IAddForm)
+    
+    def message(self, mapping=None):
+        if mapping is None:
+            mapping =  mapping={'object': _('object')}
+        return _(u'${object} successfully added', mapping)
 
     def add(self, obj):
-        self.context[obj.id] = obj
+        self.context.add_object(obj, obj.name)
 
     def create(self, data):
         raise NotImplementedError(u'concrete classes must implement create()')
     
-    def name_for_id(self, obj, **data):
-        return data.get('name')
-    
     def apply(self, obj, **data):
-        id = getUtility(ITextIdManager).idFromName(self.context, self.request, self.name_for_id(obj, **data) )
-        self.context[id] = obj
+        self.applyData(obj, **data)
         
     @grok.action(_(u'Add'), name='add')
     def handle_add(self, **data):
         obj = self.create(**data)
-        self.add(obj)
         self.apply(obj, **data)
-        message.send(_(u'${object} successfully added', mapping={'object': self.__name__}), u'info', u'session')
+        self.add(obj)
+        message.send(self.message(), u'info', u'session')
         return ''
     
     @grok.action(_(u'Cancel'), name='cancel', validator=lambda *args, **kwargs: {})
@@ -68,47 +70,61 @@ class AddForm(grok.AddForm):
 class EditForm(grok.EditForm):
     grok.baseclass()
     template = PageTemplateFile(os.path.join('templates','edit_form.pt'))
+    grok.implements(interfaces.IEditForm)
+    
+    def message(self, mapping=None):
+        if mapping is None:
+            mapping =  mapping={'object': _('object')}
+        return _(u'${object} successfully edited', mapping)
 
+    def apply(self, **data):
+        self.applyData(self.context, **data)
 
-class DeleteForm( grok.Form):
+    @grok.action(_(u'Save changes'), name= 'edit')
+    def handle_save(self, **data):
+        self.apply(**data)
+        message.send(self.message(), u'info', u'session')
+        return ''
+    
+    @grok.action(_(u'Cancel'), name='cancel', validator=lambda *args, **kwargs: {})
+    def handle_cancel(self, **data):
+        """ we use only the button, the rest we do it with javascript
+        """
+
+class DeleteForm(grok.Form):
     grok.baseclass()
     template = PageTemplateFile(os.path.join('templates', 'delete_form.pt'))
     grok.implements(interfaces.IDeleteForm)
     
-    @property
-    def label(self):
-        return _(u'Delete ${type}', mapping={'type': self.object_type()})
-    
-    def object_type(self):
-        return _(u'Item')
-    
     def item_title(self):
         raise NotImplementedError(u'concrete classes must implement item_title()')
     
-    def next_url(self):
-        parent = self.context.__parent__
-        while queryMultiAdapter((parent, self.request), name=u'index') is None:
-            parent = parent.__parent__
-        return self.url(parent)
-    
-    def cancel_url(self):
-        return self.url(self.context)
+    def message(self, mapping=None):
+        if mapping is None:
+            mapping =  mapping={'object': _('object')}
+        return _(u'${object} successfully deleted', mapping)
     
     def delete(self):
         del self.context.__parent__[self.context.__name__]
     
-    @grok.action(_(u'Delete'))
+    @grok.action(_(u'Delete'), name='delete')
     def handle_delete(self, **data):
-        self.redirect(self.next_url())
-        msg = _(u'${object} successfully deleted', mapping={'object': self.item_title()})
         self.delete()
-        message.send(msg, u'info', u'session')
+        message.send(self.message(), u'info', u'session')
         return ''
     
-    @grok.action(_(u'Cancel'), validator=lambda *args, **kwargs: {})
+    @grok.action(_(u'Cancel'), name='cancel', validator=lambda *args, **kwargs: {})
     def handle_cancel(self, **data):
-        self.redirect(self.cancel_url())
-        return ''
+        """ we use only the button, the rest we do it with javascript
+        """
+
+
+class DisplayForm(grok.DisplayForm):
+    grok.baseclass()
+    template = PageTemplateFile(os.path.join('templates', 'display_form.pt'))
+    grok.implements(interfaces.IDisplayView)
+    
+    
 
 
 class Index(Page):
