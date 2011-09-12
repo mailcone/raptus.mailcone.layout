@@ -59,6 +59,17 @@ class BaseDataTable(grok.View):
     def _sEcho(self, brains):
         return int(self.request.get('sEcho', 1))
     
+    def _metadata(self, brains):
+        di = dict();
+        di['ajaxcontent'] = self._ajaxcontent(brains)
+        return di
+    
+    def _ajaxcontent(self, brains):
+        li = list()
+        for brain in brains:
+            li.append(grok.url(self.request, brain))
+        return li
+    
     def render(self):
         
         if self.interface_fields is None:
@@ -90,6 +101,7 @@ class BaseDataTable(grok.View):
         results['iTotalRecords'] = self._iTotalRecords(brains)
         results['iTotalDisplayRecords'] = self._iTotalDisplayRecords(brains)
         results['sEcho'] = self._sEcho(brains)
+        results['metadata'] = self._metadata(brains)
         
         return json.dumps(results)
         
@@ -111,7 +123,7 @@ class BaseDataTable(grok.View):
     
     @property
     def tabletools(self):
-        return json.dumps(False)
+        return json.dumps(dict(aButtons=list()))
         
         
         

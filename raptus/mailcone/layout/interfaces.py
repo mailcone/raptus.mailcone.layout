@@ -41,6 +41,38 @@ class IPreferencesMenu(interfaces.IMenu):
     """ submenu for mainnavigation
     """
 
+class IAddForm(interfaces.Interface):
+    """ Basic add form
+    """
+    def message(self, mapping=None):
+        """ return a message mapping
+        """
+
+    def add(self, obj):
+        """ add the object to context
+        """
+
+    def create(self, data):
+        """ return a new object
+        """
+
+    def apply(self, obj, **data):
+        """ fill form data to object
+        """
+        
+        
+class IEditForm(interface.Interface):
+    """ Basic edit form
+    """
+
+    def message(self, mapping=None):
+        """ return a message mapping
+        """
+
+    def apply(self, obj, **data):
+        """ fill form data to object
+        """
+        
 
 class IDeleteForm(interface.Interface):
     """ Basic delete form
@@ -61,3 +93,13 @@ class IDeleteForm(interface.Interface):
     def delete():
         """ Deletes the object
         """
+
+
+class IDisplayView(interface.Interface):
+    """ Marker interface for display views
+    """
+    
+
+
+
+
