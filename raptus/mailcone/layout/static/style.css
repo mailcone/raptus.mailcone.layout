@@ -59,3 +59,16 @@
   width: 5px;
   background: #cccccc;
 }
+
+/* display form */
+.display-form dt {
+  clear:both;
+  float:left;
+  width:30%;
+  font-weight:bold;
+}
+
+.display-form dd {
+  float:right;
+  width:65%;
+}

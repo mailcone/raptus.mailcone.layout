@@ -1,7 +1,6 @@
-<html metal:use-macro="view/macro">
-  <div metal:fill-slot="content">
-    <form action="." tal:attributes="action request/URL" method="post"
-          class="delete-form" enctype="multipart/form-data">
+<form action="." tal:attributes="action request/URL" method="post"
+          class="delete-form" enctype="multipart/form-data"
+          i18n:domain="raptus.mailcone.layout">
     
       <h1 class="firstHeading"
           i18n:translate=""
@@ -9,7 +8,7 @@
           tal:content="view/label">Label</h1>
     
       <div class="form-status">
-        <div i18n:translate="" i18n:domain="horae.layout">
+        <div i18n:translate="" >
           Are you sure you want to delete <strong tal:content="view/item_title" i18n:name="title" />?
         </div>
       </div>
@@ -24,5 +23,3 @@
         </span>
       </div>
     </form>
-  </div>
-</html>

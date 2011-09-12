@@ -1,4 +1,5 @@
-<div tal:attributes="class view/cssClass|nothing">
+<div tal:attributes="class view/cssClass|nothing"
+     i18n:domain="raptus.mailcone.layout">
     
     <div tal:replace="structure view/prepend|nothing" />
     
