@@ -27,6 +27,8 @@ ui_elements = {
               });
               accordion.find('ul:first').remove();
               $(this).accordion();
+          }else {
+              $(this).accordion();
           }
       })
   },
@@ -39,7 +41,7 @@ ui_elements = {
   
   datatable: function(context){
     ui_elements._context(context).find('.ui-datatable').each(function(){
-         table = $(this).dataTable( {
+         var table = $(this).dataTable( {
             sDom: 'T<"clear">frtiS',
             sScrollY: '200px',
             bDeferRender: true,
@@ -73,7 +75,12 @@ ui_elements = {
   
   
   buttons: function(context){
-      ui_elements._context(context).find( '.ui-button' ).button();
+      ui_elements._context(context).find( '.ui-button' ).each(function(){
+          var option = { icons: {primary:$(this).data('ui-icon')},
+                         text: $(this).data('ui-text')};
+          $(this).button(option);
+          
+      });
   },
   
   
@@ -141,7 +148,7 @@ ui_elements = {
   
   
   _datatable_redraw: function(){
-      $(this).find('tr a').click(function(){
+      $(this).find('tr .ui-datatable-ajaxlink').click(function(){
           ui_elements._ajax_modal($(this).attr('href'), $(this));
           return false;
       });
@@ -170,16 +177,16 @@ ui_elements = {
         $('body').append('<div id="'+dialogid+'"/>');
       
       var dialog = $('#'+dialogid);
-      dialog.dialog({height: element.hasClass('ui-modal-minsize')?200:600,
-                     width: 500,
-                     modal: true});
       dialog.load(url, function(){
-          ui_elements._init_dialog(dialog)
+          ui_elements._init_dialog(dialog, element);
       });
     },
   
   
-  _init_dialog: function(dialog){
+  _init_dialog: function(dialog, element){
+      dialog.dialog({height: element?element.hasClass('ui-modal-minsize')?200:600:600,
+                     width: 500,
+                     modal: true});
       var title = dialog.find('h1:first');
       dialog.dialog( 'option', 'title', title.html() );
       title.remove();
