@@ -15,7 +15,7 @@
     
       <div tal:replace="structure view/additional|nothing" />
     
-      <div id="actionsView">
+      <div class="actionsView">
         <span class="actionButtons button-group" tal:condition="view/availableActions">
           <input tal:repeat="action view/actions"
                  tal:replace="structure action/render"
