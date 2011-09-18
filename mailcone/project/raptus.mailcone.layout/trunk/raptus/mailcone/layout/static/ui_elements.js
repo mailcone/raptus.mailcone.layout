@@ -108,6 +108,7 @@ ui_elements = {
     if (!ui_elements.form_controls_mapping)
      ui_elements.form_controls_mapping = {};
     ui_elements.form_controls_mapping['form.actions.submit']= ui_elements._form_controls_submit;
+    ui_elements.form_controls_mapping['form.actions.add']= ui_elements._form_controls_submit;
     ui_elements.form_controls_mapping['form.actions.edit']= ui_elements._form_controls_submit;
     ui_elements.form_controls_mapping['form.actions.delete']= ui_elements._form_controls_submit;
     ui_elements.form_controls_mapping['form.actions.cancel']= ui_elements._form_controls_cancel;
@@ -165,13 +166,12 @@ ui_elements = {
   },
   
   
-  _ajax_modal: function(url, element){
+  _ajax_modal: function(url, element, postdata){
       var dialogid = 'ui-modal-content';
       if (!$('#'+dialogid).length)
         $('body').append('<div id="'+dialogid+'"/>');
-      
       var dialog = $('#'+dialogid);
-      dialog.load(url, function(){
+      dialog.load(url, postdata, function(){
           ui_elements._init_dialog(dialog, element);
       });
     },
