@@ -1,1 +1,9 @@
 /* Custom styles for jqueryui */
+
+.ui-dialog .ui-tabs .ui-tabs-panel{
+  padding:1em 0.2em;
+}
+
+.ui-dialog .ui-tabs{
+  min-height: 98%;
+}
