@@ -3,6 +3,7 @@
 ui_elements = {
   init_functions: ['splitter',
                    'accordion',
+                   'tabs',
                    'elastic',
                    'datatable',
                    'buttons',
@@ -40,6 +41,17 @@ ui_elements = {
               init($(this));
           }
       })
+  },
+  
+  
+  tabs: function(){
+      $('.ui-tabs').each(function(){
+          var options = {};
+          var data = $(this).data('tabs-options');
+          if (data)
+            options = $.extend(options, data);
+          $(this).tabs();
+      });
   },
   
   
@@ -166,13 +178,15 @@ ui_elements = {
   },
   
   
-  _ajax_modal: function(url, element, postdata){
+  _ajax_modal: function(url, element, postdata, callback){
       var dialogid = 'ui-modal-content';
       if (!$('#'+dialogid).length)
         $('body').append('<div id="'+dialogid+'"/>');
       var dialog = $('#'+dialogid);
       dialog.load(url, postdata, function(){
           ui_elements._init_dialog(dialog, element);
+          if (callback)
+            callback(dialog);
       });
     },
   
