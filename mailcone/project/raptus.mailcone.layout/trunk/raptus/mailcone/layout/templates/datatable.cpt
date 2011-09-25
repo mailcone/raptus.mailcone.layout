@@ -4,6 +4,7 @@
                        data-tabletools view.tabletools;">
     <thead>
         <tr>
+            <th width="20px" class="ui-table-input" tal:repeat="col view.inputs" tal:content="col.get('title')"/>
             <th tal:repeat="col view.columns" tal:content="col"/>
             <th width="20px" class="ui-table-action" tal:repeat="col view.actions" tal:content="col.get('title')"/>
         </tr>

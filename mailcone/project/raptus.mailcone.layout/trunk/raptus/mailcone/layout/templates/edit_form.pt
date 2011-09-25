@@ -44,7 +44,8 @@
                 <div class="widget" tal:content="structure widget">
                   <input type="text" />
                 </div>
-                <div class="error" tal:condition="error">
+                <div class="error ui-state-error ui-corner-all" tal:condition="error">
+                  <span class="ui-icon ui-icon-alert"></span>
                   <span tal:replace="structure error">error</span>
                 </div>
               </li>

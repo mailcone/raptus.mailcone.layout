@@ -1,0 +1,5 @@
+<div class="restructured">
+%(body_pre_docinfo)s
+%(docinfo)s
+%(body)s
+</div>

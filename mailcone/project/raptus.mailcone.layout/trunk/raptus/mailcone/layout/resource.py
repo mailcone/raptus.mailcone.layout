@@ -11,6 +11,8 @@ from js.jquery_datatables import library as jquery_datatables_library
 
 from js.jquery_elastic import elastic
 from js.jquery_splitter import splitter
+from js.jquery_jqtransform import jqtransform_js
+
 
 from raptus.mailcone.layout import interfaces
 
@@ -57,7 +59,8 @@ ui_elements = Resource(library, 'ui_elements.js', depends=[jquery,
                                                            jquery_datatables_tools,
                                                            jquery_datatables_clipboard,
                                                            elastic,
-                                                           splitter])
+                                                           splitter,
+                                                           jqtransform_js])
 
 
 
