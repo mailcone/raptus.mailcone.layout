@@ -9,7 +9,8 @@ ui_elements = {
                    'buttons',
                    'add',
                    'form_controls',
-                   'jqtransform'],
+                   'jqtransform',
+                   'ajax_content_submit'],
   
   
   init: function(context){
@@ -90,6 +91,7 @@ ui_elements = {
             if (tr.data('ajaxcontent')){
                 $(tr).addClass('row_selected');
                 $('#ui-datatable-ajaxcontent').load(tr.data('ajaxcontent'),function(){
+                    $('#ui-datatable-ajaxcontent').data('ajaxcontent', tr.data('ajaxcontent'));
                     ui_elements.init($('#ui-datatable-ajaxcontent'));
                 });
             }
@@ -118,6 +120,27 @@ ui_elements = {
     ui_elements._context(context).find('.ui-add').each(function(){
         $(this).click(function(){
             ui_elements._ajax_modal($(this).attr('href'), $(this));
+            return false;
+        });
+        
+    });
+  },
+  
+  
+  ajax_content_submit: function(context){
+    ui_elements._context(context).find('.ui-ajax-content-submit').each(function(){
+        $(this).click(function(){
+            var content = $('#ui-datatable-ajaxcontent');
+            var data = {};
+            var tabindex = $('.ui-tabs:first').tabs('option','selected');
+            content.find('.ui-datatable').each(function(){
+                data = $.extend(data,$(this).data('inputdata')?$(this).data('inputdata'):{});
+            });
+            data = $.extend(data, ui_elements._data_crapper(content));
+            content.load(content.data('ajaxcontent'), {metadata:JSON.stringify(data)}, function(){
+                ui_elements.init(content);
+                $('.ui-tabs:first').tabs('option','selected', tabindex);
+            });
             return false;
         });
         
@@ -184,6 +207,13 @@ ui_elements = {
                   $(this).data('ajaxcontent', metadata.ajaxcontent[index-1]);
               });
           }
+          // input/checkbox stuff
+          if (!table.data('inputdata'))
+            table.data('inputdata', {});
+          var data = table.data('inputdata');
+          table.find('input').change(function(){
+              data[$(this).attr('name')] = $(this).is(':checked');
+          });
       });
   },
   
@@ -230,6 +260,19 @@ ui_elements = {
         return false;
       },
   
+  
+  _data_crapper: function(context){
+      var di = {};
+      context.find('input, textarea, select').val(function(index, value){
+          if ($(this).is(':checkbox')){
+              //special case for ckeckboxes, maybe we need some more..
+              di[$(this).attr('name')] = $(this).is(':checked');
+              return;
+          }
+          di[$(this).attr('name')] = value;
+      });
+      return di;
+  },
   
 }
 jQuery(document).ready(ui_elements.init);
