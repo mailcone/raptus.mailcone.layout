@@ -15,6 +15,14 @@
   border-radius: 0;
 }
 
+#navigation .main-nav>div {
+  padding: 5px 30px 20px 50px;
+}
+
+#navigation .main-nav li {
+  margin-bottom: 5px;
+}
+
 #footer {
   font-size: 10px;
   line-height: 18px;
@@ -52,12 +60,16 @@
   height: 900px;
 }
 .ui-splitter>div {
-  overflow: hidden;
+  background-color: #ffffff;
 }
 
 .vsplitbar {
   width: 5px;
   background: #cccccc;
+}
+
+.ui-splitter .ui-tabs{
+  height: 100%;
 }
 
 /* display form */

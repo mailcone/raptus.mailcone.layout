@@ -34,8 +34,11 @@ setup(name='raptus.mailcone.layout',
           'js.jquery_datatables',
           'js.jquery_elastic',
           'js.jquery_splitter',
+          'js.jquery_jqtransform',
           'megrok.navigation',
           'megrok.form',
+          'megrok.rendersource',
+
       ],
       entry_points={
           'fanstatic.libraries': [

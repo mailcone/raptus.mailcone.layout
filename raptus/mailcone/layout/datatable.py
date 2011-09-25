@@ -25,6 +25,7 @@ class BaseDataTable(grok.View):
     interface_fields = None
     ignors_fields = list()
     actions = tuple()
+    inputs = tuple()
     
     def _fields(self):
         # dict() dosen't work because a wrong ordering
@@ -39,6 +40,13 @@ class BaseDataTable(grok.View):
         ac.update(action)
         return '<a href="%(href)s" class="ui-table-action %(cssclass)s" title="%(title)s">%(title)s</a>' % ac
     
+    def _inputbuilder(self, input, brain):
+        di = dict(name=brain.id)
+        di.update(input)
+        return '<input type="%(type)s" class="ui-table-input %(cssclass)s" name="%(prefix)s.%(name)s" value="" />' % di
+
+        
+    
     def _aaData(self, brains):
         results = list()
         for brain in brains:
@@ -47,6 +55,8 @@ class BaseDataTable(grok.View):
                 row.append(getattr(brain, field, None))
             for ac in self.actions:
                 row.append(self._linkbuilder(ac, brain))
+            for input in self.inputs:
+                row.insert(0, self._inputbuilder(input, brain))
             results.append(row)
         return results
     

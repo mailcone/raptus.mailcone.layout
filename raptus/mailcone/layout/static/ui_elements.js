@@ -8,7 +8,8 @@ ui_elements = {
                    'datatable',
                    'buttons',
                    'add',
-                   'form_controls'],
+                   'form_controls',
+                   'jqtransform'],
   
   
   init: function(context){
@@ -44,8 +45,8 @@ ui_elements = {
   },
   
   
-  tabs: function(){
-      $('.ui-tabs').each(function(){
+  tabs: function(context){
+      ui_elements._context(context).find('.ui-tabs').each(function(){
           var options = {};
           var data = $(this).data('tabs-options');
           if (data)
@@ -55,8 +56,14 @@ ui_elements = {
   },
   
   
-  elastic: function(){
-      $('textarea').elastic();
+  elastic: function(context){
+      ui_elements._context(context).find('textarea').elastic();
+  },
+  
+  jqtransform: function(context){
+      ui_elements._context(context).find('form').jqTransform();
+      ui_elements._context(context).find('input[type="checkbox"]').jqTransCheckBox()
+      ui_elements._context(context).find('input[type="radio"]').jqTransRadio();
   },
   
   
@@ -82,7 +89,9 @@ ui_elements = {
             });
             if (tr.data('ajaxcontent')){
                 $(tr).addClass('row_selected');
-                $('#ui-datatable-ajaxcontent').load(tr.data('ajaxcontent'));
+                $('#ui-datatable-ajaxcontent').load(tr.data('ajaxcontent'),function(){
+                    ui_elements.init($('#ui-datatable-ajaxcontent'));
+                });
             }
         });
     });
@@ -171,6 +180,7 @@ ui_elements = {
           var metadata = json.metadata;
           if (metadata.ajaxcontent) {
               table.find('tr').each(function(index){
+                  ui_elements.init($(this));
                   $(this).data('ajaxcontent', metadata.ajaxcontent[index-1]);
               });
           }
@@ -184,9 +194,9 @@ ui_elements = {
         $('body').append('<div id="'+dialogid+'"/>');
       var dialog = $('#'+dialogid);
       dialog.load(url, postdata, function(){
-          ui_elements._init_dialog(dialog, element);
           if (callback)
             callback(dialog);
+          ui_elements._init_dialog(dialog, element);
       });
     },
   

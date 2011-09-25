@@ -91,6 +91,7 @@ class EditForm(grok.EditForm):
         """ we use only the button, the rest we do it with javascript
         """
 
+
 class DeleteForm(grok.Form):
     grok.baseclass()
     template = PageTemplateFile(os.path.join('templates', 'delete_form.pt'))
@@ -124,7 +125,18 @@ class DisplayForm(grok.DisplayForm):
     template = PageTemplateFile(os.path.join('templates', 'display_form.pt'))
     grok.implements(interfaces.IDisplayView)
     
+
+class ReStructuredMixing(object):
+    grok.baseclass()
     
+    def default_namespace(self):
+        # read rst templates as ascii.
+        # use custom template
+        di = super(ReStructuredMixing, self).default_namespace()
+        template = os.path.join(os.path.dirname(__file__),'templates','restructured.txt')
+        di['settings_overrides'] = dict(input_encoding='ascii',
+                                        template=template,)
+        return di
 
 
 class Index(Page):
