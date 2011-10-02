@@ -1,15 +1,16 @@
 
 
 ui_elements = {
+  // dont change this order if you don't know waht you do!
   init_functions: ['splitter',
                    'accordion',
-                   'tabs',
                    'elastic',
                    'datatable',
                    'buttons',
                    'add',
                    'form_controls',
                    'jqtransform',
+                   'tabs',
                    'ajax_content_submit'],
   
   

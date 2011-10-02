@@ -2,16 +2,26 @@ import os
 import json
 import grok
 
+import datetime
+
 from grokcore.view.interfaces import ITemplateFileFactory
 
 from hurry.query import query,set
 
+from zope.formlib import form
 from zope.component import getUtility
+
+from z3c.saconfig import Session
+
+from raptus.mailcone.core import utils
 
 from raptus.mailcone.layout import _
 
 grok.templatedir('templates')
 
+
+
+CONVERTER = {datetime.date:utils.formatdate}
 
 class BaseDataTable(grok.View):
     """ This class provide a base for the js.jquery_datatables.
@@ -34,25 +44,36 @@ class BaseDataTable(grok.View):
             li.append((fi.field.getName(), fi.field.title,))
         return li
 
+    def _formfields(self):
+        return grok.AutoFields(self.interface_fields).omit(*self.ignors_fields)
+
     def _linkbuilder(self, action, brain):
-        href = '%s/%s' % (grok.url(self.request, brain), action.get('link'),)
+        href = '%s/%s' % (self._url(brain), action.get('link'),)
         ac = dict(href=href)
         ac.update(action)
         return '<a href="%(href)s" class="ui-table-action %(cssclass)s" title="%(title)s">%(title)s</a>' % ac
     
-    def _inputbuilder(self, input, brain):
-        di = dict(name=brain.id)
-        di.update(input)
-        return '<input type="%(type)s" class="ui-table-input %(cssclass)s" name="%(prefix)s.%(name)s" value="" />' % di
+    def inputbuilder_value(self, input, brain):
+        raise NotImplementedError('you must override inputbuilder_value in your subclass!')
 
-        
+    
+    def _inputbuilder(self, input, brain):
+        di = dict(name=brain.id,
+                  checked=self.inputbuilder_value(input, brain) and 'checked="checked"')
+        di.update(input)
+        return '<input type="%(type)s" class="ui-table-input %(cssclass)s" name="%(prefix)s.%(name)s" %(checked)s />' % di
+
+    def _converter(self, value):
+        func = CONVERTER.get(type(value), lambda v:v)
+        return func(value)
     
     def _aaData(self, brains):
         results = list()
         for brain in brains:
             row = list()
-            for field, title in self._fields():
-                row.append(getattr(brain, field, None))
+            widgets =form.setUpEditWidgets(self._formfields(), request=self.request, context=brain, form_prefix='')
+            for widget in widgets:
+                row.append(self._converter(widget._getCurrentValue()))
             for ac in self.actions:
                 row.append(self._linkbuilder(ac, brain))
             for input in self.inputs:
@@ -77,26 +98,13 @@ class BaseDataTable(grok.View):
     def _ajaxcontent(self, brains):
         li = list()
         for brain in brains:
-            li.append(grok.url(self.request, brain))
+            li.append(self._url(brain))
         return li
     
-    def render(self):
-        
-        if self.interface_fields is None:
-            raise NotImplementedError('you must override interface_fields in your subclass!')
-        
-        iDisplayLength = int(self.request.form.get('iDisplayLength',0))
-        iDisplayStart = int(self.request.form.get('iDisplayStart',0))
-        sSearch = self.request.form.get('sSearch','')
-        iSortCol_0 = int(self.request.form.get('iSortCol_0',-1))
-        sSortDir_0 = self.request.form.get('sSortDir_0','')
-        sortcol = (iSortCol_0 < len(self._fields()) and iSortCol_0 >= 0) and ('catalog',self._fields()[iSortCol_0][0],) or None
-        sorddir = sSortDir_0 == 'asc' and True or False
-        
-
+    def _query(self, **request_data):
         queryutil = getUtility(query.interfaces.IQuery)
-        
         queries = []
+        sSearch, sorddir, sortcol = request_data['sSearch'], request_data['sorddir'], request_data['sortcol']
         if sSearch:
             queries.append(query.Text(('catalog', 'text'), '*'+'* *'.join(sSearch.split(' '))+'*'))
         queries.append(set.AnyOf(('catalog', 'implements'), [self.interface_fields.__identifier__,]))
@@ -104,6 +112,26 @@ class BaseDataTable(grok.View):
         brains = queryutil.searchResults(query.And(*queries),
                                          reverse=sorddir,
                                          sort_field=None,)
+        return brains
+    
+    def _url(self, brain):
+        return grok.url(self.request, brain)
+    
+    def render(self):
+        if self.interface_fields is None:
+            raise NotImplementedError('you must override interface_fields in your subclass!')
+        request_data = dict()
+        request_data['iDisplayLength'] = int(self.request.form.get('iDisplayLength',0))
+        request_data['iDisplayStart'] = int(self.request.form.get('iDisplayStart',0))
+        request_data['sSearch'] = self.request.form.get('sSearch','')
+        request_data['iSortCol_0'] = int(self.request.form.get('iSortCol_0',-1))
+        request_data['sSortDir_0'] = self.request.form.get('sSortDir_0','')
+        request_data['sortcol'] = (request_data['iSortCol_0'] < len(self._fields()) and request_data['iSortCol_0'] >= 0) and ('catalog',self._fields()[request_data['iSortCol_0']][0],) or None
+        request_data['sorddir'] = request_data['sSortDir_0'] == 'asc' and True or False
+        
+        brains = self._query(**request_data)
+        
+        iDisplayStart, iDisplayLength = request_data['iDisplayStart'], request_data['iDisplayLength']
         limited = [i for i in brains][iDisplayStart:iDisplayStart+iDisplayLength]
         
         results = dict()
@@ -134,9 +162,27 @@ class BaseDataTable(grok.View):
     @property
     def tabletools(self):
         return json.dumps(dict(aButtons=list()))
-        
-        
-        
-        
+
+
+
+class BaseDataTableSql(BaseDataTable):
+    grok.baseclass()
+    
+    model = None
+    
+    def _query(self, **request_data):
+        sSearch = request_data['sSearch']
+        if self.model is None:
+            raise NotImplementedError('you must override model attribute in your subclass!')
+        return Session().query(self.model).all()
+
+    def _url(self, brain):
+        return '%s/%s' % (self.request.getURL(1), brain.id)
+
+
+
+
+
+
         
         
