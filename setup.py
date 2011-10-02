@@ -38,6 +38,7 @@ setup(name='raptus.mailcone.layout',
           'megrok.navigation',
           'megrok.form',
           'megrok.rendersource',
+          'zope.app.renderer',
 
       ],
       entry_points={

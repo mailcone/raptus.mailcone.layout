@@ -60,7 +60,8 @@ dl.enableFormTabbing dd {
   margin-top: 2px;
 }
 
-.error .ui-icon{
+.ui-state-error .ui-icon,
+.ui-state-highlight .ui-icon{
   float: left;
   margin-right: 3px;
   margin-top: -2px;
