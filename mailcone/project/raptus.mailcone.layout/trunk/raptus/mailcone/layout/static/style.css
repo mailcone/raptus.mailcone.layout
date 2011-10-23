@@ -84,3 +84,11 @@
   float:right;
   width:65%;
 }
+
+
+/* datatable adjustment for mails */
+
+.dataTables_scroll table.display td {
+  max-width: 195px;
+  overflow: hidden;
+}
