@@ -21,8 +21,6 @@ grok.templatedir('templates')
 
 
 
-CONVERTER = {datetime.date:utils.formatdate}
-
 class BaseDataTable(grok.View):
     """ This class provide a base for the js.jquery_datatables.
         Two parts of view are supported by this view:
@@ -34,18 +32,22 @@ class BaseDataTable(grok.View):
     
     interface_fields = None
     ignors_fields = list()
+    select_fields = list()
     actions = tuple()
     inputs = tuple()
     
     def _fields(self):
         # dict() dosen't work because a wrong ordering
         li = list()
-        for fi in grok.AutoFields(self.interface_fields).omit(*self.ignors_fields):
+        for fi in self._formfields():
             li.append((fi.field.getName(), fi.field.title,))
         return li
 
     def _formfields(self):
-        return grok.AutoFields(self.interface_fields).omit(*self.ignors_fields)
+        fields = grok.AutoFields(self.interface_fields).omit(*self.ignors_fields)
+        if self.select_fields:
+            fields = fields.select(*self.select_fields)
+        return fields
 
     def _linkbuilder(self, action, brain):
         href = '%s/%s' % (self._url(brain), action.get('link'),)
@@ -56,24 +58,20 @@ class BaseDataTable(grok.View):
     def inputbuilder_value(self, input, brain):
         raise NotImplementedError('you must override inputbuilder_value in your subclass!')
 
-    
     def _inputbuilder(self, input, brain):
         di = dict(name=brain.id,
                   checked=self.inputbuilder_value(input, brain) and 'checked="checked"')
         di.update(input)
         return '<input type="%(type)s" class="ui-table-input %(cssclass)s" name="%(prefix)s.%(name)s" %(checked)s />' % di
-
-    def _converter(self, value):
-        func = CONVERTER.get(type(value), lambda v:v)
-        return func(value)
     
     def _aaData(self, brains):
         results = list()
         for brain in brains:
             row = list()
-            widgets =form.setUpEditWidgets(self._formfields(), request=self.request, context=brain, form_prefix='')
+            widgets =form.setUpEditWidgets(self._formfields(), request=self.request,
+                                           context=brain, form_prefix='', for_display=True)
             for widget in widgets:
-                row.append(self._converter(widget._getCurrentValue()))
+                row.append(widget())
             for ac in self.actions:
                 row.append(self._linkbuilder(ac, brain))
             for input in self.inputs:
