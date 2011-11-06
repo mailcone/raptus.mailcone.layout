@@ -14,7 +14,7 @@ div {
 }
 
 #navigation-body {
-  overflow:hidden;
+  /*overflow:hidden;*/
   border: solid 1px #c8cccd;
   -moz-border-radius-topleft: 14px;
   -webkit-border-top-left-radius: 14px;
