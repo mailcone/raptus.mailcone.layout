@@ -9,6 +9,7 @@ ui_elements = {
                    'buttons',
                    'add',
                    'form_controls',
+                   'datetime',
                    'jqtransform',
                    'tabs',
                    'ajax_content_submit'],
@@ -61,6 +62,32 @@ ui_elements = {
   elastic: function(context){
       ui_elements._context(context).find('textarea').elastic();
   },
+  
+  
+  datetime: function(context){
+      ui_elements._context(context).find('input.date').attr('autocomplete', 'off').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: $.datepicker._defaults.dateFormat.replace('yy', 'y')
+      });
+      ui_elements._context(context).find('input.spinbox.hours').attr('autocomplete', 'off').spinbox({
+        min: 0,
+        max: 23,
+        step: 1,
+        bigStep: 5,
+        mousewheel: false,
+        keys: [/[0-9]/,9,13,8,46,33,34,37,38,39,40,96,97,98,99,100,101,102,103,104,105,109,188,190]
+      });
+      ui_elements._context(context).find('input.spinbox.minutes').attr('autocomplete', 'off').spinbox({
+        min: 0,
+        max: 59,
+        step: 1,
+        bigStep: 10,
+        mousewheel: false,
+        keys: [/[0-9]/,9,13,8,46,33,34,37,38,39,40,96,97,98,99,100,101,102,103,104,105,109,188,190]
+      });
+  },
+  
   
   jqtransform: function(context){
       ui_elements._context(context).find('form').jqTransform();

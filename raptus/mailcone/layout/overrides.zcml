@@ -1,0 +1,11 @@
+<configure xmlns='http://namespaces.zope.org/zope'>
+
+  <view
+      type="zope.publisher.interfaces.browser.IBrowserRequest"
+      for="zope.schema.interfaces.IDatetime"
+      provides="zope.app.form.interfaces.IInputWidget"
+      factory="horae.datetime.widget.DatetimeWidget"
+      permission="zope.Public"
+      />
+      
+</configure>

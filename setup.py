@@ -39,6 +39,7 @@ setup(name='raptus.mailcone.layout',
           'megrok.form',
           'megrok.rendersource',
           'zope.app.renderer',
+          'horae.datetime',
 
       ],
       entry_points={

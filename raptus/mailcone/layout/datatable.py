@@ -12,6 +12,7 @@ from zope.formlib import form
 from zope.component import getUtility
 
 from z3c.saconfig import Session
+from sqlalchemy import func
 
 from raptus.mailcone.core import utils
 
@@ -172,15 +173,24 @@ class BaseDataTableSql(BaseDataTable):
         sSearch = request_data['sSearch']
         if self.model is None:
             raise NotImplementedError('you must override model attribute in your subclass!')
-        return Session().query(self.model).all()
+        self.query_data = Session().query(self.model).offset(request_data['iDisplayStart']).limit(request_data['iDisplayLength']).all()
+        return self.query_data
 
     def _url(self, brain):
         return '%s/%s' % (self.request.getURL(1), brain.id)
 
 
+    def _iTotalRecords(self, brains):
+        column_id = self.model.__table__._autoincrement_column
+        (count,) = Session().query(func.count(column_id)).first()
+        return count
 
+    def _iTotalDisplayRecords(self, brains):
+        return self._iTotalRecords(brains)
 
-
-
+    def _aaData(self, brains):
+        return super(BaseDataTableSql, self)._aaData(self.query_data)
+        
+        
         
         

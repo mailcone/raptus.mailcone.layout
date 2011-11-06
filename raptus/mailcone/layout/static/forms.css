@@ -1,6 +1,6 @@
 form {
-    border: none;
-    margin: 0;
+  border: none;
+  margin: 0;
 }
 
 textarea {
@@ -9,17 +9,17 @@ textarea {
 }
 
 fieldset {
-    border: 1px solid #8cacbb;
-    margin: 1em 0em 1em 0em;
-    padding: 0em 1em 1em 1em;
-    line-height: 1.5em;
-    width: auto;
+  border: 1px solid #8cacbb;
+  margin: 1em 0em 1em 0em;
+  padding: 0em 1em 1em 1em;
+  line-height: 1.5em;
+  width: auto;
 }
 
 legend {
-    background: #ffffff;
-    padding: 0.5em;
-    font-size: 90%;
+  background: #ffffff;
+  padding: 0.5em;
+  font-size: 90%;
 }
 
 label,
@@ -58,6 +58,7 @@ dl.enableFormTabbing dd {
   font-size: 11px;
   padding: 10px;
   margin-top: 2px;
+  clear:both;
 }
 
 .ui-state-error .ui-icon,
@@ -77,7 +78,8 @@ dl.enableFormTabbing dd {
 }
 
 .jqTransformInputWrapper{
-  float: none;
+  float: left;
+  margin-right: 14px;
 }
 
 .jqTransformInputInner div input {
@@ -104,4 +106,12 @@ label .hint{
 
 .ui-datatable a.jqTransformChecked {
   background-position: center -21px;
+}
+
+.jqTransformInputWrapper input.spinbox-active {
+  width: 16px!important;
+  padding-right:18px;
+  text-align:right;
+  background-repeat:no-repeat;
+  background-position:right center;
 }

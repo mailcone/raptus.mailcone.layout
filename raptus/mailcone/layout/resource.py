@@ -13,6 +13,10 @@ from js.jquery_elastic import elastic
 from js.jquery_splitter import splitter
 from js.jquery_jqtransform import jqtransform_js
 
+from horae.datetime.resource import spinbox as datetime
+from horae.datetime.resource import css as spinbox_css
+
+
 
 from raptus.mailcone.layout import interfaces
 
@@ -27,7 +31,7 @@ layout = Resource(library, 'layout.css', depends=[])
 forms = Resource(library, 'forms.css', depends=[])
 jqueryuicss = Resource(library, 'jqueryui.css', depends=[])
 style = Resource(library, 'style.css', depends=[])
-base = Resource(library, 'base.css', depends=[smoothness, layout, deco, reset, jqueryuicss, style, forms])
+base = Resource(library, 'base.css', depends=[smoothness, layout, deco, reset, jqueryuicss, style, forms, spinbox_css])
 
 
 
@@ -60,7 +64,8 @@ ui_elements = Resource(library, 'ui_elements.js', depends=[jquery,
                                                            jquery_datatables_clipboard,
                                                            elastic,
                                                            splitter,
-                                                           jqtransform_js])
+                                                           jqtransform_js,
+                                                           datetime])
 
 
 

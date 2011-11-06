@@ -124,7 +124,8 @@ class DisplayForm(grok.DisplayForm):
     grok.baseclass()
     template = PageTemplateFile(os.path.join('templates', 'display_form.pt'))
     grok.implements(interfaces.IDisplayView)
-    
+
+
 
 class ReStructuredMixing(object):
     grok.baseclass()
