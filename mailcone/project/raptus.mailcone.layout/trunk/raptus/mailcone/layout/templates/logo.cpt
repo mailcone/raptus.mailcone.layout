@@ -1,7 +1,1 @@
-<div id="logo">
-  <h1><a href="#"
-         tal:attributes="href viewlet.homelink()">
-             Mailcone
-      </a>
-  </h1>
-</div>
+<img id="logo" tal:attributes="src static.get('mailcone.png')" title="Mailcone!" />
