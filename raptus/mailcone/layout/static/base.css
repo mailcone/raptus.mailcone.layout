@@ -3,6 +3,13 @@ body{
   font-family: "Trebuchet MS",geneva,helvetica,arial,tahoma,verdana,sans-serif;
   font-size: 13px;
   background-color: #e9eced;
+  background-image: linear-gradient(bottom, #424242 0%, #E0E0E0 100%);
+  background-image: -o-linear-gradient(bottom, #424242 0%, #E0E0E0 100%);
+  background-image: -moz-linear-gradient(bottom, #424242 0%, #E0E0E0 100%);
+  background-image: -webkit-linear-gradient(bottom, #424242 0%, #E0E0E0 100%);
+  background-image: -ms-linear-gradient(bottom, #424242 0%, #E0E0E0 100%);
+  
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#424242), to(#E0E0E0));
 }
 
 
