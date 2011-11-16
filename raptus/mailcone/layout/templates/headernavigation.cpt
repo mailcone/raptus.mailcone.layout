@@ -1,1 +1,7 @@
-<div tal:replace="structure provider:navigation.header" />
+<div id="header-nav">
+  <div tal:replace="structure provider:navigation.header" />
+  <span i18n:domain="raptus.mailcone.layout"
+        i18n:translate="">User: 
+    <tal:block tal:content="viewlet.username" i18n:name="user">Riolo</tal:block>
+  </span>
+</div>

@@ -28,8 +28,7 @@ class HeaderNavigation(navigation.Menu):
     grok.name('navigation.header')
     cssClass = 'nav header-nav'
 
-    navigation.submenu('menu.add', 'User: Samuel Riolo', order=20)
-    navigation.submenu('menu.manage', 'login', order=30)
+    navigation.submenu('menu.manage', 'logout', order=30)
 
 
 
