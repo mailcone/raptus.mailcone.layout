@@ -1,7 +1,7 @@
 
 
 ui_elements = {
-  // dont change this order if you don't know waht you do!
+  // dont change this order if you don't know what you do!
   init_functions: ['splitter',
                    'accordion',
                    'elastic',
