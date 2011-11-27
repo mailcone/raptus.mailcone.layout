@@ -59,6 +59,29 @@
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7deed', endColorstr='#b7deed',GradientType=0 ); /* IE6-9 */
 }
 
+.ui-datatable tr.odd.ui-state-active td.sorting_1, .ui-datatable tr.even.ui-state-active td.sorting_1 {
+  background: #ebf1f6; /* Old browsers */
+background: -moz-linear-gradient(top,  #ebf1f6 0%, #abd3ee 50%, #89c3eb 51%, #d5ebfb 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ebf1f6), color-stop(50%,#abd3ee), color-stop(51%,#89c3eb), color-stop(100%,#d5ebfb)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ebf1f6 0%,#abd3ee 50%,#89c3eb 51%,#d5ebfb 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ebf1f6 0%,#abd3ee 50%,#89c3eb 51%,#d5ebfb 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ebf1f6 0%,#abd3ee 50%,#89c3eb 51%,#d5ebfb 100%); /* IE10+ */
+background: linear-gradient(top,  #ebf1f6 0%,#abd3ee 50%,#89c3eb 51%,#d5ebfb 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebf1f6', endColorstr='#d5ebfb',GradientType=0 ); /* IE6-9 */
+
+}
+
+.ui-datatable tr.odd {
+	background-color: #C4DBFF;
+}
+.ui-datatable tr.even td.sorting_1 {
+	background-color: transparent;
+}
+
+.ui-datatable tr.odd td.sorting_1 {
+	background-color: #EEF8FF;
+}
+
 #navigation .ui-accordion-content {
 	margin-bottom: 1px;
 }
@@ -163,16 +186,27 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7deed', end
     background: #e88 url(hgrabber.gif) no-repeat center;
 }
 
+
+.ui-splitter .primar-view {
+  min-height: 100px;
+  min-width: 100px;
+  overflow: hidden;
+}
+
 .ui-splitter {
 	/*height: 900px;
 	height: 100%;*/
-	
-	position: absolute !important;
-	top: 20px;
-	bottom: 20px;
-	left: 20px;
-	right: 20px;
+  border: 1px solid #CCC;
+  min-height: 100px;
+  
+  min-width: 100px;
+  /*position: absolute !important;
+  top: 20px;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;*/
 }
+
 /*
 .ui-splitter>div {
   background-color: #ffffff;

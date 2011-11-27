@@ -4,9 +4,9 @@
 </h1>
 
 
-<p>which parses mails and stores them into a Postgres db (while attachements are saved on the filesystem).
-
-The 2nd part is a WebApplication which allows to define flexible matching rules and escalation actions. Infact it is a filtering system for emails.</p>
+<p>The main goal of Mailcone is to parse mails and execute a specific command alongs the matching rules. In the first step
+Mailcone parses mails and stores them into a Postgres db. All corresponding attachements are saved on the filesystem.
+The second part is a WebApplication which allows to define flexible matching rules and escalation actions. Infact it is a filtering system for emails.</p>
 
 <p>The whole documenation and the svn repository can be found on <a href="http://code.google.com/p/mailcone" target="_blank" title="Google Code">here</a>.</p>
 
