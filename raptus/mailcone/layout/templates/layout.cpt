@@ -22,7 +22,7 @@
                   <div tal:replace="structure provider:navigation" />
               </div>
            
-            
+            <div id="middle">
              <div id="content-wrap" class="box">
                   <div id="content-before">
                     <div tal:replace="structure provider:content.before" />
@@ -34,6 +34,7 @@
                     <div tal:replace="structure provider:content.after" />
                   </div>
               </div>
+            </div>
         </div>
         
         <div id="footer">
