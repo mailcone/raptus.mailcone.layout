@@ -111,7 +111,12 @@ ui_elements = {
             fnServerData: $.proxy(ui_elements._datatable_json, this),
             oTableTools: $(this).data('tabletools'),
         } );
-        	
+        
+       
+        $(window).bind('resize', function () {
+        table.fnAdjustColumnSizing();
+    } );
+    
         
         $(this).find('tbody').click(function(event) {
             var tr = $(event.target.parentNode);
