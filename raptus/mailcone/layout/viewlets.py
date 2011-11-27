@@ -35,8 +35,9 @@ class FooterManager(grok.ViewletManager):
 
 
 class Logo(grok.Viewlet):
-    grok.viewletmanager(HeaderManager) #NavigationManager)
+    grok.viewletmanager(HeaderManager)
     
+    @property
     def homelink(self):
         return grok.url(self.request, grok.getSite())
 
