@@ -1,1 +1,19 @@
-<h1>blup</h1>
+<h1>
+	Mailcone
+	<small>Fully automatic monitoring of system generated email alerts</small>
+</h1>
+
+
+<p>which parses mails and stores them into a Postgres db (while attachements are saved on the filesystem).
+
+The 2nd part is a WebApplication which allows to define flexible matching rules and escalation actions. Infact it is a filtering system for emails.</p>
+
+<p>The whole documenation and the svn repository can be found on <a href="http://code.google.com/p/mailcone" target="_blank" title="Google Code">here</a>.</p>
+
+<h1>
+	First steps
+	<small>Short description of the workflow</small>
+</h1>
+
+
+<p>

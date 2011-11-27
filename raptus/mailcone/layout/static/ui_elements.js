@@ -130,7 +130,12 @@ ui_elements = {
 
 
   splitter: function(context){
-    ui_elements._context(context).find('.ui-splitter').splitter({type: 'h', anchorToWindow:false,});
+    ui_elements._context(context).find('.ui-splitter').splitter({type: 'h',
+      outline: true,
+      sizeTop: true,
+      //resizeToWidth: true,
+     // cookie: "vsplitter",	
+    });
   },
   
   
