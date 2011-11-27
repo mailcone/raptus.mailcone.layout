@@ -1,20 +1,21 @@
 html, body, #wrapper,
-#columns > .cell,
 #navigation,
 #navigation-body,
-#container {
+#container,
+#content,
+#content-wrap {
   height: 100%;
 }
 
 #container {position: relative;}
-#columns {
+/*#columns {
   position: absolute;
   top: 100px;
   bottom: 40px;
   right: 0px;
   left: 0px;
 }
-
+*/
 div {
   border: solid 1px red;
 }
@@ -25,22 +26,40 @@ div {
 
 #header {
   height: 100px;
+  position: relative;
 }
 
-#navigation-body {
-  /*overflow:hidden;*/
+
+
+#middle-wrap {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 100px;
+  bottom: 40px;
+}
+
+.box{
   border: solid 1px #c8cccd;
-  -moz-border-radius-topleft: 14px;
+  /*-moz-border-radius-topleft: 14px;
   -webkit-border-top-left-radius: 14px;
   border-top-left-radius: 14px;
   -moz-border-radius-topright: 14px;
   -webkit-border-top-right-radius: 14px;
-  border-top-right-radius: 14px;
-  position: relative;
-  top:-2px;
+  border-top-right-radius: 14px;*/
+  
+  border-radius: 14px;
+  background-color: #FFF;
 }
 
-#columns .cell:first-child {
+#navigation{
+  position: relative;
+  
+  width: 300px;
+  float: left;
+}
+
+/*#columns .cell:last-child {
   border: solid 1px #c8cccd;
   background-color:#ffffff;
   -moz-border-radius: 14px;
@@ -49,26 +68,65 @@ div {
   
   position: relative;
   top:-2px;
+  
+}
+
+#columns .cell:first-child {
+ width: 300px;
 }
 
 #content-wrap {
-  padding: 20px;/*20px 20px 20px 0;*/
+  padding: 20px;/*20px 20px 20px 0;
+}*/
+
+#content-wrap {
+  margin-left: 320px;
+  border-top-right-radius: 0px;
 }
+#content {
+  position: relative;
+  padding: 20px;
+}
+
+#content h1 {
+  font-size: 20px;
+}
+
+#content h1 small {
+  display: block;
+  color: #464F52;
+  font-size: 9px;
+  border-bottom: 1px dotted #464F52;
+  margin-top: 2px;
+  padding-bottom: 4px;
+  padding-left: 10px;
+}
+
+#content p {margin: 14px 0px;}
 
 #header-nav {
   position: absolute;
-  bottom: 10px;
+  bottom: -1px;
   right: 0px;
-  width: 500px;
+  
+  padding: 5px 8px;
+  z-index: 100;
+  
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-bottom-style: dashed;
+  border-bottom-width: 1px;
 }
+
 
 #header-nav>*{
   float: right;
-  margin-right: 20px;
 }
 
 .header-nav ul li {
-  margin-right: 15px;
+  margin-left: 15px;
   display: inline-block;
 }
+
+#header-nav .screenname {font-weight: bold;}
 

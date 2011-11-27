@@ -1,1 +1,1 @@
-<img id="logo" tal:attributes="src static.get('mailcone.png')" title="Mailcone!" />
+<a href="/mailcone" title="Mailcone!"><img id="logo" tal:attributes="src static.get('mailcone.png')" /></a>

@@ -11,14 +11,19 @@
   <body>
     <div id="wrapper">
       <div id="container">
-        <div id="header" class="row">
+        <div id="header">
           <!--<div class="cell position-0 width-16">-->
             <div tal:replace="structure provider:header" />
           <!--</div> -->
         </div>
-        <div id="columns" class="row">
-            <div class="cell position-4 width-12">
-              <div id="content-wrap">
+        
+      <div id="middle-wrap">
+              <div id="navigation" class="box">
+                  <div tal:replace="structure provider:navigation" />
+              </div>
+           
+            
+             <div id="content-wrap" class="box">
                   <div id="content-before">
                     <div tal:replace="structure provider:content.before" />
                   </div>
@@ -28,16 +33,9 @@
                   <div id="content-after">
                     <div tal:replace="structure provider:content.after" />
                   </div>
-                </div>
-            </div>
-            <div class="cell position-0 width-4">
-              <div id="navigation">
-                <div id="navigation-body">
-                  <div tal:replace="structure provider:navigation" />
-                </div>
               </div>
-            </div>
         </div>
+        
         <div id="footer">
           <div tal:replace="structure provider:footer" />
         </div>
