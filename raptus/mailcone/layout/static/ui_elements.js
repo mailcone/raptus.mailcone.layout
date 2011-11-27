@@ -114,10 +114,10 @@ ui_elements = {
         $(this).find('tbody').click(function(event) {
             var tr = $(event.target.parentNode);
             $(table.fnSettings().aoData).each(function (){
-                $(this.nTr).removeClass('row_selected');
+                $(this.nTr).removeClass('ui-state-active');
             });
             if (tr.data('ajaxcontent')){
-                $(tr).addClass('row_selected');
+                $(tr).addClass('ui-state-active');
                 $('#ui-datatable-ajaxcontent').load(tr.data('ajaxcontent'),function(){
                     $('#ui-datatable-ajaxcontent').data('ajaxcontent', tr.data('ajaxcontent'));
                     ui_elements.init($('#ui-datatable-ajaxcontent'));
@@ -133,7 +133,7 @@ ui_elements = {
     ui_elements._context(context).find('.ui-splitter').splitter({type: 'h',
       outline: true,
       sizeTop: true,
-      //resizeToWidth: true,
+      resizeToWidth: true,
      // cookie: "vsplitter",	
     });
   },
