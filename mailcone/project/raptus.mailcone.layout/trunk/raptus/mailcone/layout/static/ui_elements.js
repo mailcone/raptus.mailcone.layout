@@ -100,9 +100,10 @@ ui_elements = {
     ui_elements._context(context).find('.ui-datatable').each(function(){
          var table = $(this).dataTable( {
             sDom: 'T<"clear">frtiS',
-            sScrollY: '200px',
+            sScrollY: '100%',
+            sScrollX: '100%',
             bDeferRender: true,
-            bAutoWidth: false,
+            bAutoWidth: true,
             sAjaxSource: $(this).data('ajaxurl'),
             bServerSide: true,
             bJQueryUI: true,
@@ -110,7 +111,8 @@ ui_elements = {
             fnServerData: $.proxy(ui_elements._datatable_json, this),
             oTableTools: $(this).data('tabletools'),
         } );
-
+        	
+        
         $(this).find('tbody').click(function(event) {
             var tr = $(event.target.parentNode);
             $(table.fnSettings().aoData).each(function (){
@@ -131,7 +133,7 @@ ui_elements = {
 
   splitter: function(context){
     ui_elements._context(context).find('.ui-splitter').splitter({type: 'h',
-      outline: true,
+      //outline: true,
       sizeTop: true,
       resizeToWidth: true,
      // cookie: "vsplitter",	
