@@ -1,9 +1,16 @@
 /* theme styles */
 #logo{
-	position: absolute;
-	top: 8px;
+  position: absolute;
+  top: 8px;
 }
 
+/* if you mark/select some text */
+::selection {
+  color: #FFF;
+  background-color: #223BFF;
+}
+
+/* default style of the buttons */
 .ui-state-default {
   background: #e2e2e2; /* Old browsers */
   background: -moz-linear-gradient(top,  #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #e0e0e0 100%); /* FF3.6+ */
@@ -54,12 +61,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebf1f6', end
 .ui-datatable {
   width: 100% !important;
 }
+
 .ui-datatable tr.ui-state-active {
   border-left: none;
   border-right: none;
 }
 
-.ui-datatable td, .ui-datatable th {padding: 0px !important; overflow: hidden;}
+.ui-datatable td, .ui-datatable th {text-overflow: ellipsis;}
 .dataTables_scrollHeadInner {width: 100% !important;}
 
 
@@ -70,28 +78,55 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebf1f6', end
 
 
 .ui-datatable tr.odd {
-	background-color: #C4DBFF;
+  background-color: #C4DBFF;
 }
 .ui-datatable tr.even td.sorting_1 {
-	background-color: transparent;
+  background-color: transparent;
 }
 
 .ui-datatable tr.odd td.sorting_1 {
-	background-color: #EEF8FF;
+  background-color: #EEF8FF;
+}
+
+.ui-datatable th.ui-table-action {
+ width: 100px;
 }
 
 
+.ui-splitter .dataTables_wrapper {
+  height: 100%;
+  min-height: 100%;
+}
+
+.ui-splitter .dataTables_scroll {
+  position: absolute;
+  top: 40px;
+  bottom: 20px;
+  left: 0px;
+  right: 0px;
+}
+
+.dataTables_filter {margin-top: 10px; margin-right: 10px;}
+.dataTables_filter input {
+  margin:0px;
+  border-radius: 10px;
+  width: 200px;
+  border: 1px ridge lightGray;
+}
+
+.dataTables_filter label {font-weight: bold;}
+
+
+
 /* navigation */
-
-
 #navigation .ui-accordion-content {
   border: none;
   padding: 0px;
 }
 
 #navigation .ui-accordion-content ul li a {
-	display: block;
-	padding: 5px 20px 5px 40px;
+  display: block;
+  padding: 5px 20px 5px 40px;
 }
 
 #navigation .ui-accordion-content ul li:hover {
@@ -120,11 +155,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebf1f6', end
   border-left: none;
   border-right: none;
   border-bottom: none;
-}
-
-#content .dataTables_filter input {
-	padding: 0px;
-	margin-bottom:10px;
 }
 
 
@@ -173,6 +203,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebf1f6', end
   margin-bottom: 150px;
 }
 
+/* icons */
+.ui-splitter .primar-view .formControls {
+  position: absolute;
+  top: 3px;
+  left: 10px;
+}
+.ui-splitter .primar-view .formControls a{
+ height: 32px;
+ width: 32px;
+}
+.ui-splitter .primar-view .formControls a span{
+ padding: 0px;
+}
 
 /* splitter */
 
@@ -213,24 +256,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebf1f6', end
   overflow: hidden;
 }
 
-.ui-splitter .dataTables_wrapper {
-  height: 100%;
-  min-height: 100%;
-}
-.ui-splitter .dataTables_scroll {
+.ui-splitter .primar-view .dataTables_info {
   position: absolute;
-  top: 40px;
-  bottom: 20px;
-  left: 0px;
-  right: 0px;
+  bottom: 10px;
+  left: 10px;
 }
 
+/* fixes splitter */
 .ui-splitter {
 	/*height: 900px;
 	height: 100%;*/
   border: 1px solid #CCC;
   min-height: 400px;
-  
   min-width: 100px;
 }
 
@@ -241,6 +278,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebf1f6', end
 
 .ui-splitter .ui-tabs{
   height: 100%;
+}
+
+/* tab inside splitter */
+#ui-datatable-ajaxcontent {
+  min-height: 100px;
+}
+#ui-datatable-ajaxcontent .ui-tabs-nav{
+  border-radius: 0px !important;
+  border: none;
+  border-bottom: 1px solid lightGrey;
+  background: transparent;
+}
+
+#ui-datatable-ajaxcontent .ui-tabs {
+  border: none;
+  padding: 0px;
 }
 
 /* display form */
@@ -261,3 +314,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebf1f6', end
 #columns div.position-4 {
 	margin-left: -72.91667%;
 }
+
+
+/* toolbar */
+
+.formControls .ui-icon {
+  display: inline-block;
+  vertical-align: -8px;
+}
+.formControls .ui-button-text {height: 100%;}
