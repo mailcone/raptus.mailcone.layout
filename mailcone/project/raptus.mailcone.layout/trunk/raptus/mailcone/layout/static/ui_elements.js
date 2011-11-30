@@ -231,6 +231,12 @@ ui_elements = {
           ui_elements._ajax_modal($(this).attr('href'), $(this));
           return false;
       });
+      $(this).find('tr .ui-datatable-console').click(function(){
+          $.get($(this).attr('href'),{},function(data){
+              $('#ui-console').append('\n'+data);
+          });
+          return false;
+      });
   },
   
   
