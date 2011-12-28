@@ -10,13 +10,11 @@
   </head>
   <body>
     <div id="wrapper">
-      <div id="container">
-        <div id="header">
+      <div id="header">
           <!--<div class="cell position-0 width-16">-->
             <div tal:replace="structure provider:header" />
           <!--</div> -->
         </div>
-        
       <div id="middle-wrap">
               <div id="navigation" class="box">
                   <div tal:replace="structure provider:navigation" />
@@ -36,11 +34,9 @@
               </div>
             </div>
         </div>
-        
-        <div id="footer">
+      <div id="footer">
           <div tal:replace="structure provider:footer" />
         </div>
-      </div>
     </div>
   </body>
 </html>
