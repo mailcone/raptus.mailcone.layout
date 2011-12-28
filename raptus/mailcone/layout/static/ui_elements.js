@@ -137,14 +137,14 @@ ui_elements = {
 
 
   splitter: function(context){
-    ui_elements._context(context).find('.ui-splitter').splitter({type: 'h',
-      //outline: true,
-      /*sizeTop: true,*/
-      resizeToWidth: true,
-      /*anchorToWindow: true,*/
-      //resizeTo: $(ui_elements._context(context).find('.ui-splitter')).parent()
-     // cookie: "vsplitter",	
-    });
+    ui_elements._context(context).find('.ui-splitter').splitter({
+        type: 'h',
+        resizeToWidth: true
+        // cookie: "vsplitter",	
+      }
+    );
+    
+    
   },
   
   
