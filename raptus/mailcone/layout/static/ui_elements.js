@@ -137,13 +137,40 @@ ui_elements = {
 
 
   splitter: function(context){
-    ui_elements._context(context).find('.ui-splitter').splitter({
+    var splitters = ui_elements._context(context).find('.ui-splitter').splitter({
         type: 'h',
-        resizeToWidth: true
+        resizeToWidth: true,
+        //anchorToWindow: true
         // cookie: "vsplitter",	
       }
     );
     
+    splitters.each(function(){
+      // Account for margin or border on the splitter container and enforce min height
+      
+      var dimSum=function dimSum(jq, dims) {
+            // Opera returns -1 for missing min/max width, turn into 0
+            var sum = 0;
+            for ( var i=1; i < arguments.length; i++ )
+                sum += Math.max(parseInt(jq.css(arguments[i])) || 0, 0);
+            return sum;
+        };
+      
+      /* modified version of anchorToWindow - sadly it's not possible to solve it with pure css*/
+      var adjust = dimSum($(this), "borderTopWidth", "borderBottomWidth", "marginBottom", 'marginTop');
+      var hmin = Math.max(dimSum($(this), "minHeight"), 20);
+      
+      var obj = $(this);
+      
+      $(window).bind("resize", function(){
+        obj.css('height', 0);
+        var top = 0;//obj.offset().top;//-obj.parent().offset().top;
+        var wh = obj.parent().height();//[0].offsetHeight;
+        window.status = wh + ' / ' + top + ' / ' + adjust + ' / ' + hmin;
+        obj.css("height", Math.max(wh-top-adjust, hmin)+"px");
+        if ( !$.browser.msie ) obj.triggerHandler("resize");
+      }).trigger("resize");
+    });
     
   },
   
