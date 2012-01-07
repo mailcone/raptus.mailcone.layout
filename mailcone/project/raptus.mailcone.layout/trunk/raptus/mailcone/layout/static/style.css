@@ -182,6 +182,7 @@
   position: absolute;
   right: 0px;
   bottom: -5px;
+  display: none;
 }
 
 #footer a {
@@ -267,7 +268,12 @@
 .ui-splitter {
   border: 1px solid #CCC;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
+  /*position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;*/
 }
 
 .vsplitbar {
