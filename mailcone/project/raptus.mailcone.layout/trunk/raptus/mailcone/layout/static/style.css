@@ -178,11 +178,10 @@
   font-size: 10px;
   line-height: 18px;
   text-align: right;
-  padding-bottom: 20px;
+  padding: 20px 0px;
   position: absolute;
   right: 0px;
-  bottom: -5px;
-  display: none;
+  top: 100%;
 }
 
 #footer a {
