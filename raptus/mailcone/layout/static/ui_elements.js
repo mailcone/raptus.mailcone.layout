@@ -218,14 +218,17 @@ ui_elements = {
   
   
   _form_controls_mapping: function(){
-    if (!ui_elements.form_controls_mapping)
-     ui_elements.form_controls_mapping = {};
+    if (ui_elements.form_controls_mapping)
+        return;
+    ui_elements.form_controls_mapping = {};
     ui_elements.form_controls_mapping['form.actions.submit']= ui_elements._form_controls_submit;
     ui_elements.form_controls_mapping['form.actions.add']= ui_elements._form_controls_submit;
     ui_elements.form_controls_mapping['form.actions.edit']= ui_elements._form_controls_submit;
     ui_elements.form_controls_mapping['form.actions.delete']= ui_elements._form_controls_submit;
     ui_elements.form_controls_mapping['form.actions.cancel']= ui_elements._form_controls_cancel;
     
+    ui_elements.datatable_controls_mapping = {};
+    ui_elements.datatable_controls_mapping['ui-datatable-ajaxlink']= ui_elements._datatable_control_ajaxlink;
   },
 
 
@@ -256,14 +259,17 @@ ui_elements = {
   
   
   _datatable_redraw: function(){
-      $(this).find('tr .ui-datatable-ajaxlink').click(function(){
-          ui_elements._ajax_modal($(this).attr('href'), $(this));
-          return false;
-      });
-      $(this).find('tr .ui-datatable-console').click(function(){
-          $.get($(this).attr('href'),{},function(data){
-              $('#ui-console').append('\n'+data);
+      $.each(ui_elements.datatable_controls_mapping, function(key, func){
+          $(this).find('tr .' + key).each(function(){
+              $.proxy(func, this)();
           });
+      });
+  },
+  
+  
+  _datatable_control_ajaxlink: function(){
+      $(this).click(function(){
+          ui_elements._ajax_modal($(this).attr('href'), $(this));
           return false;
       });
   },
