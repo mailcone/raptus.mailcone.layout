@@ -6,38 +6,35 @@
     <link rel="shortcut icon"
           type="image/x-icon"
           href="favicon.ico"
-          tal:attributes="href static.get('favicon.ico')"/>
+          tal:attributes="href static.get('favicon.ico')" />
   </head>
   <body>
     <div id="wrapper">
       <div id="header">
-          <!--<div class="cell position-0 width-16">-->
-            <div tal:replace="structure provider:header" />
-          <!--</div> -->
-        </div>
+        <div tal:replace="structure provider:header" />
+      </div>
+      
       <div id="middle-wrap">
-              
-           
-            <!--<div id="middle">
-             <div id="content-wrap" class="box">-->
-                  <div id="content-before">
-                    <div tal:replace="structure provider:content.before" />
-                  </div>
-                  <div id="content" class="box">
-                  <div id="navigation" class="box">
-                    <div tal:replace="structure provider:navigation" />
-                  </div>
-                    <div tal:replace="structure view.content()" />
-                  </div>
-                  <div id="content-after">
-                    <div tal:replace="structure provider:content.after" />
-                  </div><!--
-              </div>
-            </div>-->
+        <div id="content-before">
+          <div tal:replace="structure provider:content.before" />
         </div>
-      <div id="footer">
-          <div tal:replace="structure provider:footer" />
+        
+        <div id="content" class="box">
+          <div id="navigation" class="box">
+            <div tal:replace="structure provider:navigation" />
+          </div>
+          
+          <div tal:replace="structure view.content()" />
+          
+          <div id="content-after">
+            
+            <div id="footer">
+              <div tal:replace="structure provider:footer" />
+            </div>
+          </div>
         </div>
+      </div>
+      
     </div>
   </body>
 </html>
