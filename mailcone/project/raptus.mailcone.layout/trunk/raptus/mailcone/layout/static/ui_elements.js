@@ -98,7 +98,7 @@ ui_elements = {
   
   datatable: function(context){
     ui_elements._context(context).find('.ui-datatable').each(function(){
-         var table = $(this).dataTable( {
+         table = $(this).dataTable( {
             sDom: 'T<"clear">frtiS',
             sScrollY: '100%',
             sScrollX: '100%',
@@ -110,8 +110,10 @@ ui_elements = {
             fnDrawCallback: $.proxy(ui_elements._datatable_redraw, this),
             fnServerData: $.proxy(ui_elements._datatable_json, this),
             oTableTools: $(this).data('tabletools'),
-        } );
-        
+         } );
+         // save datatable instance to html tag
+         $(this).addClass('.ui-datatable-inst')
+         $(this).data('datatable_inst',table);
        
         $(window).bind('resize', function () {
         table.fnAdjustColumnSizing();
@@ -301,8 +303,11 @@ ui_elements = {
   
   _ajax_modal: function(url, element, postdata, callback){
       var dialogid = 'ui-modal-content';
-      if (!$('#'+dialogid).length)
-        $('body').append('<div id="'+dialogid+'"/>');
+      $('.ui-datatable-inst').each(function(){
+          $(this).fnDestroy();
+      });
+      $('#'+dialogid).remove()
+      $('body').append('<div id="'+dialogid+'"/>');
       var dialog = $('#'+dialogid);
       dialog.load(url, postdata, function(){
           if (callback)
