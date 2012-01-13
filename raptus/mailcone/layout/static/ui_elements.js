@@ -98,7 +98,7 @@ ui_elements = {
   
   datatable: function(context){
     ui_elements._context(context).find('.ui-datatable').each(function(){
-         table = $(this).dataTable( {
+         var table = $(this).dataTable( {
             sDom: 'T<"clear">frtiS',
             sScrollY: '100%',
             sScrollX: '100%',
@@ -261,8 +261,9 @@ ui_elements = {
   
   
   _datatable_redraw: function(){
+      var context = this;
       $.each(ui_elements.datatable_controls_mapping, function(key, func){
-          $(this).find('tr .' + key).each(function(){
+          $(context).find('tr .' + key).each(function(){
               $.proxy(func, this)();
           });
       });
