@@ -98,6 +98,10 @@ ui_elements = {
   
   datatable: function(context){
     ui_elements._context(context).find('.ui-datatable').each(function(){
+        // !!! remove id to fix destroy datatable
+        // http://www.datatables.net/forums/discussion/7423/fndestroy-not-working/p1
+        $(this).attr('id', '');
+        
          var table = $(this).dataTable( {
             sDom: 'T<"clear">frtiS',
             sScrollY: '100%',
@@ -107,13 +111,14 @@ ui_elements = {
             sAjaxSource: $(this).data('ajaxurl'),
             bServerSide: true,
             bJQueryUI: true,
+            fnDestroy: function(){alert('')},
             fnDrawCallback: $.proxy(ui_elements._datatable_redraw, this),
             fnServerData: $.proxy(ui_elements._datatable_json, this),
             oTableTools: $(this).data('tabletools'),
          } );
          // save datatable instance to html tag
-         $(this).addClass('.ui-datatable-inst')
-         $(this).data('datatable_inst',table);
+         //$(this).addClass('ui-datatable-inst')
+         //$(this).data('datatable_inst',table);
        
         $(window).bind('resize', function () {
         table.fnAdjustColumnSizing();
@@ -234,9 +239,12 @@ ui_elements = {
   },
 
 
-  form_controls: function(){
+  form_controls: function(context){
       var dialog = $('#ui-modal-content');
-      var form = $('.actionsView').parents('form');
+      var form = ui_elements._context(context).find('.actionsView');
+      if (!form.length)
+            return;
+      form = form.parents('form');
       form.submit(function(){
           return false;
       });
@@ -304,9 +312,6 @@ ui_elements = {
   
   _ajax_modal: function(url, element, postdata, callback){
       var dialogid = 'ui-modal-content';
-      $('.ui-datatable-inst').each(function(){
-          $(this).fnDestroy();
-      });
       $('#'+dialogid).remove()
       $('body').append('<div id="'+dialogid+'"/>');
       var dialog = $('#'+dialogid);
@@ -327,6 +332,7 @@ ui_elements = {
       title.remove();
       ui_elements.init(dialog);
   },
+  
   
   _form_controls_submit: function(){
         var dialog = $('#ui-modal-content');
@@ -357,6 +363,7 @@ ui_elements = {
               return;
           }
           di[$(this).attr('name')] = value;
+          return value;
       });
       return di;
   },

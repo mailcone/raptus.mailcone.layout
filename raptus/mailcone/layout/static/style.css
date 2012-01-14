@@ -135,13 +135,13 @@
 }
 
 #navigation .ui-accordion-header:first-child {
-	border-top-left-radius: 14px;
-	border-top-right-radius: 14px;
-	-webkit-border-top-left-radius: 14px;
-	-webkit-border-top-right-radius: 14px;
-	-moz-border-top-left-radius: 14px;
-	-moz-border-top-right-radius: 14px;
-	border-bottom: 1px solid lightGrey;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  -webkit-border-top-left-radius: 14px;
+  -webkit-border-top-right-radius: 14px;
+  -moz-border-top-left-radius: 14px;
+  -moz-border-top-right-radius: 14px;
+  border-bottom: 1px solid lightGrey;
 }
 
 #navigation .ui-accordion-header,
@@ -153,14 +153,14 @@
 
 
 #navigation .ui-accordion-content {
-	top: 2px;
+  top: 2px;
 }
 
 #navigation .ui-accordion-header {
-	margin: 0px;
+  margin: 0px;
 }
 #navigation .ui-accordion-header.ui-state-active {
-	border-bottom: 1px solid lightGrey;
+  border-bottom: 1px solid lightGrey;
 }
 
 #navigation .ui-corner-bottom,
@@ -185,8 +185,8 @@
 }
 
 #footer a {
-	color: #FFF;
-	text-decoration: underline;
+  color: #FFF;
+  text-decoration: underline;
 }
 
 .header-nav {
@@ -205,17 +205,17 @@
   left: 10px;
 }
 .ui-splitter .primar-view .formControls a{
- height: 20px;
+  height: 20px;
  
- border-bottom-left-radius: 0px;
- border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
  
- text-align: left;
+  text-align: left;
  
- padding: 2px 6px 2px 2px;
+  padding: 2px 6px 2px 2px;
 }
 .ui-splitter .primar-view .formControls a span{
- padding: 0px;
+  padding: 0px;
 }
 
 /* splitter */
@@ -316,7 +316,7 @@
 
 /* deco fix */
 #columns div.position-4 {
-	margin-left: -72.91667%;
+  margin-left: -72.91667%;
 }
 
 
@@ -326,4 +326,19 @@
   display: inline-block;
   vertical-align: -2px;
 }
-.formControls .ui-button-text {height: 100%;}
+.formControls .ui-button-text {
+  height: 100%;
+}
+
+
+/* testing */
+.ui-console{
+    border-style:solid inset;
+    border-color:#ccd9d8;
+    background-color:#080808;
+    color:#5fba3d;
+    font-family:monospace, prestige;
+    overflow-y: scroll;
+    min-height: 300px;
+}
+
