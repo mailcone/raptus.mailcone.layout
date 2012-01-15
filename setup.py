@@ -34,12 +34,14 @@ setup(name='raptus.mailcone.layout',
           'js.jquery_datatables',
           'js.jquery_elastic',
           'js.jquery_splitter',
+          'js.jquery_syntax',
           'js.jquery_jqtransform',
           'megrok.navigation',
           'megrok.form',
           'megrok.rendersource',
           'zope.app.renderer',
           'horae.datetime',
+          
 
       ],
       entry_points={
