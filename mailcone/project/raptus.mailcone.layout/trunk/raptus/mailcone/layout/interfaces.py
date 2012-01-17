@@ -1,7 +1,8 @@
 import grok
 
-from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from zope import interface
+from zope.schema.interfaces import IText
+from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
 from megrok.navigation import interfaces
 
@@ -106,6 +107,8 @@ class IDisplayView(interface.Interface):
     """
     
 
-
+class ICodeField(IText):
+    """ javascript codemirror field
+    """
 
 

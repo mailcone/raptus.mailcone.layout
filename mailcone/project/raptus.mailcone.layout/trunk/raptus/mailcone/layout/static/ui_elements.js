@@ -11,6 +11,7 @@ ui_elements = {
                    'form_controls',
                    'datetime',
                    'jqtransform',
+                   'codemirror',
                    'tabs',
                    'ajax_content_submit'],
   
@@ -224,6 +225,33 @@ ui_elements = {
   },
   
   
+  codemirror: function(context){
+      ui_elements._context(context).find('.ui-codemirror').each(function(){
+          var area = $(this);
+          var parent = area.parent();
+          var mode = $(this).data('mode');
+          area.replaceWith('<textarea id="'+area.attr('id')+
+                            '" class="'+area.attr('class')+
+                            '" name="'+area.attr('name')+
+                            '">'+area.text()+'</textarea>');
+          area = parent.find('.ui-codemirror');
+          console.log(area);
+          var editor = CodeMirror.fromTextArea(area[0],{
+            mode: mode,
+            lineNumbers: true,
+            onChange: function() {
+                area.text(editor.getValue());
+            },
+            onCursorActivity: function() {
+                editor.setLineClass(hlLine, null);
+                hlLine = editor.setLineClass(editor.getCursor().line, "activeline");
+                }
+            });
+            var hlLine = editor.setLineClass(0, "activeline");
+      });
+  },
+  
+  
   _form_controls_mapping: function(){
     if (ui_elements.form_controls_mapping)
         return;
@@ -362,6 +390,8 @@ ui_elements = {
               di[$(this).attr('name')] = $(this).is(':checked');
               return;
           }
+          if ($(this).is('textarea'))
+            value = $(this).text();
           di[$(this).attr('name')] = value;
           return value;
       });
