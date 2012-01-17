@@ -8,5 +8,16 @@
   
   <i18n:registerTranslations directory="locales" />
 
+
+  <adapter
+      for=".interfaces.ICodeField
+           zope.publisher.interfaces.browser.IBrowserRequest"
+      provides="zope.formlib.interfaces.IInputWidget"
+      factory=".formlib.CodeWidget"
+      permission="zope.Public"
+      />
+
+
+
 </configure>
 
