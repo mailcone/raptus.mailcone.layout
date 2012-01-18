@@ -240,7 +240,7 @@ ui_elements = {
             mode: mode,
             lineNumbers: true,
             onChange: function() {
-                area.text(editor.getValue());
+                area.val(editor.getValue());
             },
             onCursorActivity: function() {
                 editor.setLineClass(hlLine, null);
@@ -390,8 +390,6 @@ ui_elements = {
               di[$(this).attr('name')] = $(this).is(':checked');
               return;
           }
-          if ($(this).is('textarea'))
-            value = $(this).text();
           di[$(this).attr('name')] = value;
           return value;
       });
@@ -399,4 +397,5 @@ ui_elements = {
   },
   
 }
+
 jQuery(document).ready(ui_elements.init);
