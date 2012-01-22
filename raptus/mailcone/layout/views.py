@@ -3,6 +3,7 @@ import grok
 from grokcore import layout
 from grokcore import message
 from grokcore.view import PageTemplateFile
+from grokcore.layout.components import LayoutAwareFormPage
 
 from zope.interface import Interface
 from zope.component import getAdapters
@@ -41,8 +42,8 @@ class AddForm(grok.AddForm):
     
     def message(self, mapping=None):
         if mapping is None:
-            mapping =  mapping={'object': _('object')}
-        return _(u'${object} successfully added', mapping)
+            mapping={'object': _('object')}
+        return _(u'${object} successfully added', mapping=mapping)
 
     def add(self, obj):
         self.context.add_object(obj, obj.name)
@@ -90,6 +91,10 @@ class EditForm(grok.EditForm):
     def handle_cancel(self, **data):
         """ we use only the button, the rest we do it with javascript
         """
+
+
+class EditFormPage(LayoutAwareFormPage, EditForm, Page):
+    grok.baseclass()
 
 
 class DeleteForm(grok.Form):

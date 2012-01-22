@@ -15,22 +15,22 @@
       </div>
       
       <div id="middle-wrap">
-        <div id="content-before">
-          <div tal:replace="structure provider:content.before" />
-        </div>
         
         <div id="content" class="box">
-          <div id="navigation" class="box">
-            <div tal:replace="structure provider:navigation" />
-          </div>
+            
+          <div id="navigation"
+               class="box"
+               tal:content="structure provider:navigation" />
+          
+          <div id="content-before"
+               tal:content="structure provider:content.before" />
           
           <div tal:replace="structure view.content()" />
           
           <div id="content-after">
             
-            <div id="footer">
-              <div tal:replace="structure provider:footer" />
-            </div>
+            <div id="footer"
+                 tal:content="structure provider:footer" />
           </div>
         </div>
       </div>

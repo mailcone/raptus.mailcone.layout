@@ -1,0 +1,20 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="origamiii.layout"
+      tal:omit-tag="">
+
+  <div id="messages">
+    <ul tal:repeat="message viewlet.messages">
+      <li>
+        <div class="ui-widget info-message">
+            <div class="ui-state-highlight ui-corner-all"> 
+                <p><span class="ui-icon ui-icon-info"></span>
+                <span tal:replace="message"/></p>
+            </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+</html>
