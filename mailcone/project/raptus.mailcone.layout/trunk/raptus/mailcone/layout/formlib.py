@@ -3,10 +3,13 @@ import grok
 from zope import schema
 from zope.formlib.widgets import TextAreaWidget
 from zope.formlib.widget import renderElement
+from zope.app.form.browser.textwidgets import FileWidget
+
 from xml.sax.saxutils import quoteattr, escape
 
-
 from raptus.mailcone.layout import interfaces
+
+
 
 
 
@@ -34,3 +37,10 @@ class CodeWidget(TextAreaWidget):
                 'extra':self.extra}
                 
         return renderElement('code', **attr)
+
+
+
+class ImageWidget(FileWidget):
+    def _toFieldValue(self, input):
+        value = super(ImageWidget, self)._toFieldValue(input)
+        return Image(value)

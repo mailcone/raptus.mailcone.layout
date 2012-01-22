@@ -1,7 +1,9 @@
 import grok
+from grokcore import message
 
-from zope.interface import Interface
 from zope import component
+from zope.i18n import translate
+from zope.interface import Interface
 from zope.interface.common.interfaces import IException
 from zope.app.security.interfaces import IAuthentication
 
@@ -58,8 +60,22 @@ class HeaderNavigation(grok.Viewlet):
         if principal is None:
             return None
         return principal.title
+
+
+
+class Message(grok.Viewlet):
+    grok.context(Interface)
+    grok.viewletmanager(ContentBeforeManager)
     
-    
+    @property
+    def messages(self):
+        li = list()
+        source = component.getUtility(message.IMessageSource, name='session')
+        for msg in source.list():
+            msg.prepare(source)
+            li.append(translate(msg.message, context=self.request))
+        return li
+
 
 
 class ExceptionLogo(grok.Viewlet):
