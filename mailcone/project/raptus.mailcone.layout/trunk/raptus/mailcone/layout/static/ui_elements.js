@@ -268,14 +268,11 @@ ui_elements = {
 
 
   form_controls: function(context){
-      var dialog = $('#ui-modal-content');
       var form = ui_elements._context(context).find('.actionsView');
+      var dialog = form.parents('#ui-modal-content');
       if (!form.length)
             return;
       form = form.parents('form');
-      form.submit(function(){
-          return false;
-      });
       var buttons = {};
       form.find('input[type="submit"]').each(function(){
           if ($(this).attr('id') in ui_elements.form_controls_mapping){
@@ -283,8 +280,14 @@ ui_elements = {
               buttons[$(this).val()] = $.proxy(func, this);
           }
       });
-      dialog.dialog('option', 'buttons', buttons);
-      dialog.find('.actionsView input').remove();
+      
+      if (dialog.length) {
+          form.submit(function(){
+              return false;
+          });
+          dialog.dialog('option', 'buttons', buttons);
+          dialog.find('.actionsView input').remove();
+      }
 
   },
   

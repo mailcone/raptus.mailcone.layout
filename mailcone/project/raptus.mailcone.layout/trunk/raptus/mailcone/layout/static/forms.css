@@ -115,3 +115,17 @@ label .hint{
   background-repeat:no-repeat;
   background-position:right center;
 }
+
+.has-fieldsets fieldset {
+  float: left;
+  margin-right: 100px;
+}
+
+.actionsView {
+  padding-top: 40px;
+}
+
+.has-fieldsets .actionsView {
+  clear: both;
+}
+

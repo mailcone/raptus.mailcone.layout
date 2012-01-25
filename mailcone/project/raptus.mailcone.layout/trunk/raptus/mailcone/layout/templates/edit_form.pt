@@ -11,7 +11,8 @@
           tal:condition="view/label"
           tal:content="view/label">Label</h1>
       
-      <div class="contents">
+      <div class="contents"
+           tal:attributes="class python: len(view.fieldsets()) > 1 and 'contents has-fieldsets' or 'contents'">
       
         <div class="form-status"
           tal:define="status view/status"
@@ -28,30 +29,35 @@
           </ul>
         </div>
       
-        <ul>
-            <tal:block repeat="widget view/widgets">
-              <li tal:define="hint widget/hint;
-                              error widget/error;"
-                  tal:attributes="class python:error and 'hasError '+widget.name or widget.name">
-                <label tal:attributes="for widget/name">
-                  <span i18n:translate=""
-                        tal:content="widget/label">label</span>
-                  <span class="required" tal:condition="widget/required"
-                  >*</span>
-                  <span class="hint" tal:condition="hint"
-                        tal:content="hint">Hint</span>
-                </label>
-                <div class="widget" tal:content="structure widget">
-                  <input type="text" />
-                </div>
-                <div class="error ui-state-error ui-corner-all" tal:condition="error">
-                  <span class="ui-icon ui-icon-alert"></span>
-                  <span tal:replace="structure error">error</span>
-                </div>
-              </li>
-            </tal:block>
-            <div tal:replace="structure view/additional|nothing" />
-        </ul>
+        <tal:block repeat="fieldset view/fieldsets">
+            <fieldset tal:omit-tag="python: len(view.fieldsets()) <= 1"
+                      tal:attributes="class python:'fieldset-%s' % fieldset.index">
+              <ul>
+                <tal:block repeat="widget fieldset">
+                  <li tal:define="hint widget/hint;
+                                  error widget/error;"
+                      tal:attributes="class python:error and 'hasError '+widget.name or widget.name">
+                    <label tal:attributes="for widget/name">
+                      <span i18n:translate=""
+                            tal:content="widget/label">label</span>
+                      <span class="required" tal:condition="widget/required"
+                      >*</span>
+                      <span class="hint" tal:condition="hint"
+                            tal:content="hint">Hint</span>
+                    </label>
+                    <div class="widget" tal:content="structure widget">
+                      <input type="text" />
+                    </div>
+                    <div class="error ui-state-error ui-corner-all" tal:condition="error">
+                      <span class="ui-icon ui-icon-alert"></span>
+                      <span tal:replace="structure error">error</span>
+                    </div>
+                  </li>
+                </tal:block>
+              </ul>
+            </fieldset>
+        </tal:block>
+        <div tal:replace="structure view/additional|nothing" />
       
         <div class="actionsView">
           <span class="actionButtons button-group" tal:condition="view/availableActions">
