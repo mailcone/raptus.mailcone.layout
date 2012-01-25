@@ -7,6 +7,8 @@ from zope.interface import Interface
 from zope.interface.common.interfaces import IException
 from zope.app.security.interfaces import IAuthentication
 
+from raptus.mailcone.settings.interfaces import ILogoLocator
+
 from raptus.mailcone.layout import navigation
 
 
@@ -38,6 +40,14 @@ class FooterManager(grok.ViewletManager):
 
 class Logo(grok.Viewlet):
     grok.viewletmanager(HeaderManager)
+    
+    @property
+    def logo(self):
+        logo = component.getUtility(ILogoLocator)()
+        if logo.image is None:
+            return self.static.get('mailcone.png')
+        else:
+            return '%s/image/index.html'%grok.url(self.request, logo)
     
     @property
     def homelink(self):

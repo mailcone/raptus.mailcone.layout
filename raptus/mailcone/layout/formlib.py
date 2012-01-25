@@ -5,6 +5,8 @@ from zope.formlib.widgets import TextAreaWidget
 from zope.formlib.widget import renderElement
 from zope.app.form.browser.textwidgets import FileWidget
 
+from z3c.blobfile.image import Image
+
 from xml.sax.saxutils import quoteattr, escape
 
 from raptus.mailcone.layout import interfaces
@@ -41,6 +43,10 @@ class CodeWidget(TextAreaWidget):
 
 
 class ImageWidget(FileWidget):
+    """ http://www.stereoplex.com/blog/blob-support-in-the-zodb-with-zeo
+    """
     def _toFieldValue(self, input):
         value = super(ImageWidget, self)._toFieldValue(input)
+        if not value:
+            return None
         return Image(value)

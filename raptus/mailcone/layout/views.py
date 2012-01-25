@@ -15,6 +15,11 @@ from raptus.mailcone.core.interfaces import ITextIdManager
 
 grok.templatedir('templates')
 
+MIN_FOR_TWO_COLUMNS = 10
+
+
+
+
 
 class Layout(layout.Layout):
     grok.name('layout')
@@ -27,6 +32,7 @@ class Layout(layout.Layout):
                 resource.need()
 
 
+
 class Page(layout.Page):
     """ this class do nothing yet!
         for some future project
@@ -35,7 +41,22 @@ class Page(layout.Page):
     grok.baseclass()
 
 
-class AddForm(grok.AddForm):
+
+class MixingFieldSets(object):
+    
+    def fieldsets(self):
+        widgets = [i for i in self.widgets]
+        if len(widgets) < MIN_FOR_TWO_COLUMNS:
+            return [widgets]
+        else:
+            middle = len(widgets) / 2
+            left = [widget for i, widget in enumerate(widgets) if i < middle]
+            right = [widget for i, widget in enumerate(widgets) if i >= middle]
+            return [left, right]
+
+
+
+class AddForm(grok.AddForm, MixingFieldSets):
     grok.baseclass()
     template = PageTemplateFile(os.path.join('templates','edit_form.pt'))
     grok.implements(interfaces.IAddForm)
@@ -68,15 +89,16 @@ class AddForm(grok.AddForm):
         """
 
 
-class EditForm(grok.EditForm):
+
+class EditForm(grok.EditForm, MixingFieldSets):
     grok.baseclass()
     template = PageTemplateFile(os.path.join('templates','edit_form.pt'))
     grok.implements(interfaces.IEditForm)
     
     def message(self, mapping=None):
         if mapping is None:
-            mapping =  mapping={'object': _('object')}
-        return _(u'${object} successfully edited', mapping)
+            mapping =  dict(object= _('object'))
+        return _(u'${object} successfully edited', mapping=mapping)
 
     def apply(self, **data):
         self.applyData(self.context, **data)
@@ -93,8 +115,10 @@ class EditForm(grok.EditForm):
         """
 
 
+
 class EditFormPage(LayoutAwareFormPage, EditForm, Page):
     grok.baseclass()
+
 
 
 class DeleteForm(grok.Form):
@@ -107,8 +131,8 @@ class DeleteForm(grok.Form):
     
     def message(self, mapping=None):
         if mapping is None:
-            mapping =  mapping={'object': _('object')}
-        return _(u'${object} successfully deleted', mapping)
+            mapping={'object': _('object')}
+        return _(u'${object} successfully deleted', mapping=mapping)
     
     def delete(self):
         del self.context.__parent__[self.context.__name__]
@@ -123,6 +147,7 @@ class DeleteForm(grok.Form):
     def handle_cancel(self, **data):
         """ we use only the button, the rest we do it with javascript
         """
+
 
 
 class DisplayForm(grok.DisplayForm):
@@ -145,17 +170,21 @@ class ReStructuredMixing(object):
         return di
 
 
+
 class Index(Page):
     grok.context(Interface)
+
 
 
 class ExceptionPage(layout.ExceptionPage):
     grok.name('index.html')
 
 
+
 import zope
 class NotFoundPage(layout.NotFoundPage):
     grok.name('index.html')
+
 
 
 class UnauthorizedPage(layout.UnauthorizedPage):
