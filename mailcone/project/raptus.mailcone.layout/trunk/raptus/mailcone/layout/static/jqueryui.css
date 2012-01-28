@@ -7,3 +7,29 @@
 .ui-dialog .ui-tabs{
   min-height: 98%;
 }
+
+#messages .ui-widget.info-message > div {
+  background: #ea0404; /* Old browsers */
+  background: -moz-linear-gradient(top,  #ea0404 0%, #6d0019 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ea0404), color-stop(100%,#6d0019)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #ea0404 0%,#6d0019 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #ea0404 0%,#6d0019 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #ea0404 0%,#6d0019 100%); /* IE10+ */
+  background: linear-gradient(top,  #ea0404 0%,#6d0019 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea0404', endColorstr='#6d0019',GradientType=0 ); /* IE6-9 */
+  
+  
+  border-color: #530012;
+  color: #FFF;
+}
+
+#messages .ui-widget.info-message .ui-icon.ui-icon-info {
+   background-image: url(message-icon.png);
+   background-position: 0px 0px;
+   width: 42px;/* it's 36px too, but the difference makes the gap between the image and the text*/
+   height: 36px;
+   
+   position: relative;
+   bottom: 8px;
+   left: 4px;
+}
