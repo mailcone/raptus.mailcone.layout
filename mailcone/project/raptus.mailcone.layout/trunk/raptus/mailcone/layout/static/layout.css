@@ -2,6 +2,12 @@ html, body {
   height: 100%;
 }
 
+/* if you mark/select some text */
+::selection {
+  color: #FFF;
+  background-color: #223BFF;
+}
+
 div {
   border: solid 1px red;
 }
@@ -17,8 +23,6 @@ div {
   position: relative;
   height: 100px;
 }
-
-
 
 #middle-wrap {
   position: absolute;
@@ -83,6 +87,8 @@ div {
   
   padding: 5px 8px;
   z-index: 100;
+  
+  text-align: right;
   
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;

@@ -145,28 +145,37 @@ ui_elements = {
 
 
   splitter: function(context){
+    /*
+    for better user experience we're going to store the position of the splitter and will restore it
+    
+    $("#MySplitter").splitter("resize", 200);
+    $.cookie("example", "foo");
+    */
+    
     var splitters = ui_elements._context(context).find('.ui-splitter').splitter({
         type: 'h',
-        resizeToWidth: true,
+        resizeToWidth: true
         //anchorToWindow: true
         // cookie: "vsplitter",	
       }
     );
-    
-    splitters.each(function(){
+   
+   
+   splitters.each(function(){
       // Account for margin or border on the splitter container and enforce min height
       
       var dimSum=function dimSum(jq, dims) {
             // Opera returns -1 for missing min/max width, turn into 0
             var sum = 0;
-            for ( var i=1; i < arguments.length; i++ )
-                sum += Math.max(parseInt(jq.css(arguments[i])) || 0, 0);
+            for(var x = 0; x < jq.length; x++)
+	            for (var i=1; i < arguments.length; i++ )
+    	            sum += Math.max(parseInt($(jq[x]).css(arguments[i])) || 0, 0);
             return sum;
         };
       
       /* modified version of anchorToWindow - sadly it's not possible to solve it with pure css*/
       var adjust = dimSum($(this), "borderTopWidth", "borderBottomWidth", "marginBottom", 'marginTop');
-      var hmin = Math.max(dimSum($(this), "minHeight"), 20);
+      var hmin = Math.max(dimSum($(this).children(), "minHeight"), 20);
       
       var obj = $(this);
       
@@ -174,12 +183,20 @@ ui_elements = {
         obj.css('height', 0);
         var top = 0;//obj.offset().top;//-obj.parent().offset().top;
         var wh = obj.parent().height();//[0].offsetHeight;
-        window.status = wh + ' / ' + top + ' / ' + adjust + ' / ' + hmin;
+        //window.status = wh + ' / ' + top + ' / ' + adjust + ' / ' + hmin + ' / '+ (wh-top-adjust);
         obj.css("height", Math.max(wh-top-adjust, hmin)+"px");
         if ( !$.browser.msie ) obj.triggerHandler("resize");
       }).trigger("resize");
     });
     
+    /* we can not use the intern cookie function of the splitter because we're overwriting the position by our (needed) resizing function -_- */
+    $(window).unload(function(){
+       var top = splitters.find('.hsplitbar').css('top');
+       if(top != undefined && top != 'auto')
+          $.cookie('verticalsplitter', parseInt(top, 10));
+    });
+    
+    splitters.trigger('resize', [$.cookie('verticalsplitter')]);
   },
   
   
