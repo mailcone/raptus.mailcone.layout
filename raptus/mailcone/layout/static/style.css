@@ -4,46 +4,6 @@
   top: 8px;
 }
 
-/* if you mark/select some text */
-::selection {
-  color: #FFF;
-  background-color: #223BFF;
-}
-
-/* default style of the buttons */
-.ui-state-default {
-  background: #e2e2e2; /* Old browsers */
-  background: -moz-linear-gradient(top,  #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #e0e0e0 100%) !important; /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e2e2e2), color-stop(50%,#dbdbdb), color-stop(51%,#d1d1d1), color-stop(100%,#e0e0e0))  !important; /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#e0e0e0 100%)  !important; /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#e0e0e0 100%) !important; /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#e0e0e0 100%) !important; /* IE10+ */
-  background: linear-gradient(top,  #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#e0e0e0 100%) !important; /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#e0e0e0',GradientType=0 ) !important; /* IE6-9 */
-}
-
-
-.ui-state-hover {
-  background: #ebf1f6; /* Old browsers */
-  background: -moz-linear-gradient(top,  #ebf1f6 0%, #abd3ee 50%, #89c3eb 51%, #d5ebfb 100%) !important; /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ebf1f6), color-stop(50%,#abd3ee), color-stop(51%,#89c3eb), color-stop(100%,#d5ebfb)) !important; /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  #ebf1f6 0%,#abd3ee 50%,#89c3eb 51%,#d5ebfb 100%) !important; /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  #ebf1f6 0%,#abd3ee 50%,#89c3eb 51%,#d5ebfb 100%) !important; /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  #ebf1f6 0%,#abd3ee 50%,#89c3eb 51%,#d5ebfb 100%) !important; /* IE10+ */
-  background: linear-gradient(top,  #ebf1f6 0%,#abd3ee 50%,#89c3eb 51%,#d5ebfb 100%) !important; /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebf1f6', endColorstr='#d5ebfb',GradientType=0 ) !important; /* IE6-9 */
-}
-
-.ui-state-active {
-  background: #b7deed; /* Old browsers */
-  background: -moz-linear-gradient(top,  #b7deed 0%, #71ceef 50%, #21b4e2 51%, #b7deed 100%) !important; /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b7deed), color-stop(50%,#71ceef), color-stop(51%,#21b4e2), color-stop(100%,#b7deed)) !important; /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  #b7deed 0%,#71ceef 50%,#21b4e2 51%,#b7deed 100%) !important; /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  #b7deed 0%,#71ceef 50%,#21b4e2 51%,#b7deed 100%) !important; /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  #b7deed 0%,#71ceef 50%,#21b4e2 51%,#b7deed 100%) !important; /* IE10+ */
-  background: linear-gradient(top,  #b7deed 0%,#71ceef 50%,#21b4e2 51%,#b7deed 100%) !important; /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7deed', endColorstr='#b7deed',GradientType=0 ) !important; /* IE6-9 */
-}
 
 /* datatable */
 
@@ -102,7 +62,7 @@
 .ui-splitter .dataTables_wrapper {
   /*height: 100%;
   min-height: 100%;*/
-  min-height: 150px;
+  min-height: 120px;
   height: 100%;
 }
 
@@ -114,7 +74,11 @@
   right: 0px;
 }
 
-.dataTables_filter {margin-top: 10px; margin-right: 10px;}
+.dataTables_filter {
+   margin-top: 10px;
+   margin-right: 10px;
+}
+
 .dataTables_filter input {
   margin:0px;
   border-radius: 10px;
@@ -122,6 +86,7 @@
   border: 1px ridge lightGray;
   padding: 0px 10px;
 }
+
 .dataTables_filter input:focus {
 	border-color: darkGray;
 }
@@ -129,7 +94,11 @@
 
 .dataTables_filter label {font-weight: bold;}
 
-
+.dataTables_info {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
 
 /* navigation */
 #navigation .ui-accordion-content {
@@ -178,6 +147,7 @@
 #navigation .ui-accordion-header {
   margin: 0px;
 }
+
 #navigation .ui-accordion-header.ui-state-active {
   border-bottom: 1px solid lightGrey;
 }
@@ -189,9 +159,6 @@
   -webkit-border-radius: 0;
   border-radius: 0;
 }
-
-#navigation .main-nav{}
-
 
 #footer {
   font-size: 10px;
@@ -208,33 +175,10 @@
   text-decoration: underline;
 }
 
-.header-nav {
-  text-align: right;
-}
 
-#exceptionlogo{
+#exceptionlogo {
   float: right;
   margin-bottom: 150px;
-}
-
-/* icons */
-.ui-splitter .primar-view .formControls {
-  position: absolute;
-  top: 15px;
-  left: 10px;
-}
-.ui-splitter .primar-view .formControls a{
-  height: 20px;
- 
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
- 
-  text-align: left;
- 
-  padding: 2px 6px 2px 2px;
-}
-.ui-splitter .primar-view .formControls a span{
-  padding: 0px;
 }
 
 
@@ -259,6 +203,7 @@
   background: linear-gradient(top,  #fefefe 0%,#dbdbdb 76%,#c6c6c6 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#c6c6c6',GradientType=0 ); /* IE6-9 */
 }
+
 .ui-splitter .hsplitbar.active,
 .ui-splitter .hsplitbar:hover {
   background: #eaeaea; /* Old browsers */
@@ -273,15 +218,9 @@
 
 
 .ui-splitter .primar-view {
-  min-height: 250px;
+  min-height: 140px;
   min-width: 100px;
   overflow: hidden;
-}
-
-.ui-splitter .primar-view .dataTables_info {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
 }
 
 /* fixes splitter */
@@ -301,35 +240,32 @@
   background: #cccccc;
 }
 
-.ui-splitter .ui-tabs{
-  height: 100%;
-}
-
-/* tab inside splitter */
+/* secondary view of the ui splitter*/
 #ui-datatable-ajaxcontent {
-  min-height: 200px;
+  min-height: 210px;
   overflow: hidden;
 }
 
-#ui-datatable-ajaxcontent #ui-tabs-rulesets,
-#ui-datatable-ajaxcontent #ui-tabs-rulesets > div {
-   /*height: 100%;*/
+#ui-datatable-ajaxcontent #ui-tabs-rulesets {
+   position: relative;
+   padding: 0px !important;
 }
 
-#ui-datatable-ajaxcontent .ui-tabs-nav{
-  border-radius: 0px !important;
-  border: none;
-  border-bottom: 1px solid lightGrey;
-  background: transparent;
+
+#ui-datatable-ajaxcontent #ui-tabs-rulesets {
+   /* height: 100%; */
+   position: absolute;
+   top: 37px;
+   right: 0px;
+   bottom: 0px;
+   left: 0px;
 }
 
-#ui-datatable-ajaxcontent .ui-tabs {
-  border: none;
-  padding: 0px;
-}
+#ui-datatable-ajaxcontent #ui-tabs-rulesets > div {height: 100%;}
 
-#ui-datatable-ajaxcontent .ui-tabs .ui-tabs-nav .ui-state-active {
-   background: #FFF !important;
+/* tab inside splitter */
+.ui-splitter .ui-tabs {
+  height: 100%;
 }
 
 /* display form */
@@ -346,83 +282,50 @@
 }
 
 
-/* deco fix */
+/* deco fix 
 #columns div.position-4 {
   margin-left: -72.91667%;
+}*/
+
+
+/* toolbar (add and submit button) */
+.primar-view .formControls,
+#ui-tabs-rulesets .formControls {
+  position: absolute;
+  top: 16px;
+  left: 10px;
 }
 
-
-/* toolbar */
-
-.formControls .ui-icon {
-  display: inline-block;
-  vertical-align: -2px;
+.primar-view .formControls a,
+#ui-tabs-rulesets .formControls a {
+  height: 20px;
+ 
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+ 
+  text-align: left;
+ 
+  padding: 2px 6px 2px 2px;
 }
-.formControls .ui-button-text {
-  height: 100%;
+
+.primar-view .formControls a span,
+#ui-tabs-rulesets .formControls a span {
+  padding: 0px !important;
 }
 
-.formControls .ui-button {
+.primar-view .formControls .ui-button,
+#ui-tabs-rulesets .formControls .ui-button {
    border-bottom: none !important;
 }
 
-/* dialog / lightbox */
-
-body > .ui-widget-overlay {
-	background-color: #333;
-	-moz-opacity: 0.6;
-	opacity: 0.6;
-	background-image: none;
+/* primary view submit button*/
+.primar-view .formControls .ui-icon {
+  display: inline-block;
+  vertical-align: -2px;
 }
 
-body > .ui-dialog {
-  font-size: 14px;
-  padding: 0px;
-  min-width: 440px;
-  min-height: 300px;
-}
-
-body > .ui-dialog > .ui-dialog-content {
-  min-width: 415px !important;
-  min-height: 200px !important;
-}
-
-body > .ui-dialog .ui-dialog-titlebar {
-  border: none;
-  border-bottom: 1px solid #AAA;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-  
-  background: #b7deed; /* Old browsers */
-  background: -moz-linear-gradient(top,  #b7deed 0%, #71ceef 50%, #21b4e2 51%, #b7deed 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b7deed), color-stop(50%,#71ceef), color-stop(51%,#21b4e2), color-stop(100%,#b7deed)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  #b7deed 0%,#71ceef 50%,#21b4e2 51%,#b7deed 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  #b7deed 0%,#71ceef 50%,#21b4e2 51%,#b7deed 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  #b7deed 0%,#71ceef 50%,#21b4e2 51%,#b7deed 100%); /* IE10+ */
-  background: linear-gradient(top,  #b7deed 0%,#71ceef 50%,#21b4e2 51%,#b7deed 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7deed', endColorstr='#b7deed',GradientType=0 ); /* IE6-9 */
-
-}
-
-body > .ui-dialog li label {
-   font-weight: bold;
-}
-
-body > .ui-dialog li .widget {
-   width: 95%;
-}
-
-body > .ui-dialog .ui-dialog-titlebar-close.ui-state-hover {
-   background: #ffffff !important;
-}
-
-body > .ui-dialog li .widget .jqTransformInputWrapper,
-body > .ui-dialog li .widget > table.jqTransformTextarea {
-   width: 100% !important;
-}
-
-body > .ui-dialog li .widget > * {
-   margin-left: 20px;
+.primar-view .formControls .ui-button-text {
+  height: 100%;
 }
 
 /* testing */

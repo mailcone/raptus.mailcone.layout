@@ -55,6 +55,13 @@ jquery_datatables_clipboard = Resource(
 )
 
 
+jquery_cookie = Resource(library, 'jquery.cookie.js', depends=[jquery])
+
+@grok.adapter(Interface, name='raptus.mailcone.layout.jquery.cookie')
+@grok.implementer(interfaces.IResourceProvider)
+def jquery_cookie_resource_provider(context):
+    return [jquery_cookie,]
+
 
 ui_elements = Resource(library, 'ui_elements.js', depends=[jquery,
                                                            jqueryui,
@@ -65,7 +72,8 @@ ui_elements = Resource(library, 'ui_elements.js', depends=[jquery,
                                                            elastic,
                                                            splitter,
                                                            jqtransform_js,
-                                                           datetime])
+                                                           datetime,
+                                                           jquery_cookie])
 
 
 

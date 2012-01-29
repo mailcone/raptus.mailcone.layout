@@ -1,6 +1,6 @@
 #wrapper {
   color: #464F52;
-  font-family: "Trebuchet MS",geneva,helvetica,arial,tahoma,verdana,sans-serif;
+  font-family: "Trebuchet MS",geneva,helvetica,arial,tahoma,verdana,sans-serif !important;
   font-size: 13px;
   background-color: #e9eced;
   background-image: linear-gradient(bottom, #424242 0%, #E0E0E0 100%);
