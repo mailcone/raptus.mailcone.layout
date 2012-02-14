@@ -1,0 +1,12 @@
+<li tal:define="state_class python:(str(request.URL) == item.link or (str(request.URL).rfind('index') > 0 and str(item.link).rfind('index') > 0)) and 'active' or '';
+           item_class menu/cssItemClass;
+           factory python:getattr(item, 'factory', None);
+           cssname python:getattr(item, 'viewName',getattr(factory, '__view_name__', 'empty'))"
+    tal:attributes="class python:'%s %s %s' % (state_class,item_class,cssname)">
+  <a tal:attributes="href item/link; title item/description|nothing">
+    <img tal:condition="item/icon | nothing" tal:attributes="src item/icon"/>
+    <span tal:replace="item/title"/>
+  </a>
+  <tal:replace tal:condition="item/submenu | nothing" tal:replace="structure provider:${item/submenu}"/>
+</li>
+

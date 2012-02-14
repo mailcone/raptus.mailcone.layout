@@ -11,7 +11,7 @@ from js.jquery_datatables import library as jquery_datatables_library
 
 from js.jquery_elastic import elastic
 from js.jquery_splitter import splitter
-from js.jquery_splitter import jquery_cookie
+from js.jquery_cookie import cookie
 from js.jquery_jqtransform import jqtransform_js
 
 from horae.datetime.resource import spinbox as datetime
@@ -57,12 +57,6 @@ jquery_datatables_clipboard = Resource(
 
 
 
-@grok.adapter(Interface, name='raptus.mailcone.layout.jquery.cookie')
-@grok.implementer(interfaces.IResourceProvider)
-def jquery_cookie_resource_provider(context):
-    return [jquery_cookie,]
-
-
 ui_elements = Resource(library, 'ui_elements.js', depends=[jquery,
                                                            jqueryui,
                                                            jquery_datatables,
@@ -73,7 +67,7 @@ ui_elements = Resource(library, 'ui_elements.js', depends=[jquery,
                                                            splitter,
                                                            jqtransform_js,
                                                            datetime,
-                                                           jquery_cookie])
+                                                           cookie])
 
 
 
