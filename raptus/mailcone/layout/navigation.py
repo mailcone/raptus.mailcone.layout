@@ -1,14 +1,44 @@
 import grok
+import grokcore
 import martian
 
 from zope.component import queryUtility
+from zope.publisher.interfaces import IRequest
+from zope.pagetemplate.interfaces import IPageTemplate
 
 from megrok import navigation
 from megrok.navigation.interfaces import IMenu
+from megrok.navigation.interfaces import IMenuItem
 
 from raptus.mailcone.layout import _
 from raptus.mailcone.layout import interfaces
 from raptus.mailcone.core.interfaces import IContainerLocator
+
+
+
+
+
+class ItemTemplate(grok.MultiAdapter):
+
+    grok.implements(IPageTemplate)
+    grok.adapts(IMenuItem, IRequest)
+    
+    template = 'templates/navigation_item.cpt'
+    
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        return grokcore.view.PageTemplateFile(self.template).render(self.context)
+    
+    @property
+    def isActive(self):
+        if self.context.view.url() == self.context.link :
+            return 'item-active'
+        else :
+            return 'item-inactive'
+
 
 
 class MainNavigation(navigation.Menu):
