@@ -2,6 +2,7 @@ import grok
 import grokcore
 import martian
 
+from zope import interface
 from zope.component import queryUtility
 from zope.publisher.interfaces import IRequest
 from zope.pagetemplate.interfaces import IPageTemplate
@@ -15,33 +16,34 @@ from raptus.mailcone.layout import interfaces
 from raptus.mailcone.core.interfaces import IContainerLocator
 
 
+grok.templatedir('templates')
 
 
 
-class ItemTemplate(grok.MultiAdapter):
 
+
+class ItemTemplate(grok.MultiAdapter, grok.View):
     grok.implements(IPageTemplate)
+    grok.provides(IPageTemplate)
+    grok.context(interface.Interface)
     grok.adapts(IMenuItem, IRequest)
-    
-    template = 'templates/navigation_item.cpt'
-    
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
+    grok.template('navigation_item')
 
     def __call__(self):
-        return grokcore.view.PageTemplateFile(self.template).render(self.context)
+        return self.template.render(self)
+
+    def default_namespace(self):
+        di = self.context.default_namespace()
+        di['template'] = self
+        return di
     
     @property
-    def isActive(self):
-        if self.context.view.url() == self.context.link :
-            return 'item-active'
-        else :
-            return 'item-inactive'
+    def activestate(self):
+        return str(self.request.URL).startswith(str(self.context.link))
 
 
 
-class MainNavigation(navigation.Menu):
+class MainNavigationMenu(navigation.Menu):
     """ Main navigation
     """
     grok.implements(interfaces.IMainNavigation)
@@ -53,7 +55,8 @@ class MainNavigation(navigation.Menu):
     navigation.submenu('menu.cronjob', _(u'Cronjob'), order=30)
 
 
-class HeaderNavigation(navigation.Menu):
+
+class HeaderNavigationMenu(navigation.Menu):
     grok.implements(interfaces.IHeaderNavigation)
     grok.name('navigation.header')
     cssClass = 'nav header-nav'
@@ -69,11 +72,13 @@ class OverviewMenu(navigation.Menu):
     cssClass = 'menu menu-overview'
 
 
+
 class PrefernecesMenu(navigation.Menu):
 
     grok.implements(interfaces.IPreferencesMenu)
     grok.name('menu.preferences')
     cssClass = 'menu menu-preferences'
+
 
 
 class CronjobMenu(navigation.Menu):
@@ -110,6 +115,7 @@ class locatormenuitem(navigation.menuitem):
         return menu, (locator, title, order, icon, group)
 
 
+
 class LocatorMenuItem(navigation.MenuItem):
     grok.baseclass()
 
@@ -119,6 +125,7 @@ class LocatorMenuItem(navigation.MenuItem):
         if locator is None:
             return None
         return '%s/%s' % (locator.url(self.request), self.viewName)
+
 
 
 # debug stuff
@@ -133,6 +140,8 @@ class ContextualManageMenu(navigation.Menu):
     grok.name('menu.manage')
     cssClass = 'menu menu-manage'
 
+
+
 class ActionsMenu(navigation.Menu):
     """ Actions menu
     """
@@ -146,9 +155,13 @@ class ActionsMenu(navigation.Menu):
     navigation.submenu('menu.manage', _(u'Manage'), order=30)
 
 
+
 class AddMenu(navigation.Menu):
     """ Add menu
     """
     grok.implements(IAddMenu)
     grok.name('menu.add')
     cssClass = 'menu menu-add'
+
+
+
