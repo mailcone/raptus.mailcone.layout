@@ -12,6 +12,7 @@ from zope.component import getUtility
 from raptus.mailcone.layout import _
 from raptus.mailcone.layout import interfaces
 from raptus.mailcone.core.interfaces import ITextIdManager
+from raptus.mailcone.core.interfaces import IMailcone
 
 grok.templatedir('templates')
 
@@ -172,7 +173,7 @@ class ReStructuredMixing(object):
 
 
 class Index(Page):
-    grok.context(Interface)
+    grok.context(IMailcone)
 
 
 
