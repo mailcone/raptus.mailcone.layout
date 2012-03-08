@@ -1,7 +1,7 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
-      i18n:domain="origamiii.layout"
+      i18n:domain="raptus.mailcone.layout"
       tal:omit-tag="">
   
   <li tal:define="state_class template.activestate and 'active' or '';

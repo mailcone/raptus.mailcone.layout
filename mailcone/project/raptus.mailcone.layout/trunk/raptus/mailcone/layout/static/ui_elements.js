@@ -26,7 +26,10 @@ ui_elements = {
   
   accordion: function(context){
       var init = function(obj){
-          var options = {};
+          var options = {navigation:true,
+                         navigationFilter:function(index, context){
+                             return $(context).parent().hasClass('active');
+                         }};
           var data = obj.data('accordion-options');
           if (data)
             options = $.extend(options, data);
@@ -38,7 +41,9 @@ ui_elements = {
               var accordion = $(this);
               accordion.children().children().each(function(){
                   accordion.append('<h3>'+$(this).html()+'</h3>');
-                  accordion.find('h3:last div:first').appendTo(accordion);
+                  var div = accordion.find('h3:last div:first');
+                  div.addClass(div.find('li.active').length?'active':'');
+                  div.appendTo(accordion);
               });
               accordion.find('ul:first').remove();
               init($(this));
