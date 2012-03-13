@@ -11,8 +11,9 @@ from hurry.query import query,set
 from zope.formlib import form
 from zope.component import getUtility
 
+from sqlalchemy.sql import and_
 from z3c.saconfig import Session
-from sqlalchemy import func
+from sqlalchemy import func, desc, asc
 
 from raptus.mailcone.core import utils
 
@@ -103,13 +104,13 @@ class BaseDataTable(grok.View):
     def _query(self, **request_data):
         queryutil = getUtility(query.interfaces.IQuery)
         queries = []
-        sSearch, sorddir, sortcol = request_data['sSearch'], request_data['sorddir'], request_data['sortcol']
+        sSearch, sortdir, sortcol = request_data['sSearch'], request_data['sortdir'], request_data['sortcol']
         if sSearch:
             queries.append(query.Text(('catalog', 'text'), '*'+'* *'.join(sSearch.split(' '))+'*'))
         queries.append(set.AnyOf(('catalog', 'implements'), [self.interface_fields.__identifier__,]))
         
         brains = queryutil.searchResults(query.And(*queries),
-                                         reverse=sorddir,
+                                         reverse=sortdir,
                                          sort_field=None,)
         return brains
     
@@ -126,7 +127,7 @@ class BaseDataTable(grok.View):
         request_data['iSortCol_0'] = int(self.request.form.get('iSortCol_0',-1))
         request_data['sSortDir_0'] = self.request.form.get('sSortDir_0','')
         request_data['sortcol'] = (request_data['iSortCol_0'] < len(self._fields()) and request_data['iSortCol_0'] >= 0) and ('catalog',self._fields()[request_data['iSortCol_0']][0],) or None
-        request_data['sorddir'] = request_data['sSortDir_0'] == 'asc' and True or False
+        request_data['sortdir'] = request_data['sSortDir_0'] == 'asc' and True or False
         
         brains = self._query(**request_data)
         
@@ -173,7 +174,19 @@ class BaseDataTableSql(BaseDataTable):
         sSearch = request_data['sSearch']
         if self.model is None:
             raise NotImplementedError('you must override model attribute in your subclass!')
-        self.query_data = Session().query(self.model).offset(request_data['iDisplayStart']).limit(request_data['iDisplayLength']).all()
+        
+        query = Session().query(self.model)
+        catalog, sortcol = request_data.get('sortcol')
+        if sortcol:
+            dir = desc
+            if request_data['sortdir']:
+                dir = asc
+            query = query.order_by(dir(getattr(self.model, sortcol)))
+        if request_data['sSearch']:
+            query=query.filter(self.model.index_searchable.match(request_data['sSearch']))
+        
+        query = query.offset(request_data['iDisplayStart']).limit(request_data['iDisplayLength'])
+        self.query_data = query.all()
         return self.query_data
 
     def _url(self, brain):
