@@ -352,4 +352,10 @@
   margin: 0 0 10px;
 }
 
+/* mails table*/
+.mail-tab-view #tab-content {
+    height: 80%;
+}
+
+
 
