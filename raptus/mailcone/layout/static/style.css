@@ -59,6 +59,24 @@
 }
 
 
+
+.ui-datatable tr.odd.table-color-red {
+  background-color: #FF4242;
+}
+.ui-datatable tr.even.table-color-red {
+  background-color: #FFC9C9;
+}
+
+.ui-datatable tr.odd.table-color-red td.sorting_1 {
+  background-color: #FF9191;
+}
+
+
+
+
+
+
+
 .ui-splitter .dataTables_wrapper {
   /*height: 100%;
   min-height: 100%;*/
