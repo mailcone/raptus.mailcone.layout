@@ -348,6 +348,8 @@ ui_elements = {
           var metadata = json.metadata;
           if (metadata.ajaxcontent) {
               table.find('tr').each(function(index){
+                  if ('css_class' in metadata)
+                    $(this).addClass(metadata.css_class[index]?metadata.css_class[index]:'');
                   ui_elements.init($(this));
                   $(this).data('ajaxcontent', metadata.ajaxcontent[index-1]);
               });
