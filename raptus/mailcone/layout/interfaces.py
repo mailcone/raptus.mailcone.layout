@@ -1,7 +1,7 @@
 import grok
 
 from zope import interface
-from zope.schema.interfaces import IText
+from zope.schema.interfaces import IText, IChoice
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
 from megrok.navigation import interfaces
@@ -110,5 +110,12 @@ class IDisplayView(interface.Interface):
 class ICodeField(IText):
     """ javascript codemirror field
     """
+
+
+
+class IProposeTextField(IChoice):
+    """ textarea with vocabulary as proposition inputs.
+    """
+
 
 
