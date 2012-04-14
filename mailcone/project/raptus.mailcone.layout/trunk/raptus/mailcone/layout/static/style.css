@@ -18,6 +18,13 @@
 
 .ui-datatable {
   width: 100% !important;
+  table-layout: fixed;
+}
+
+.ui-datatable tbody td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .ui-datatable tr.ui-state-active {
