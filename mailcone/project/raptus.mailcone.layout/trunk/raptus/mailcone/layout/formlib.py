@@ -50,3 +50,19 @@ class ImageWidget(FileWidget):
         if not value:
             return None
         return Image(value)
+
+
+
+class ProposeTextField(schema.Choice):
+    pass
+
+
+
+class ProposeTextWidget(TextAreaWidget):
+    
+    def __call__(self):
+        return super(ProposeTextWidget, self).__call__()
+
+
+
+
