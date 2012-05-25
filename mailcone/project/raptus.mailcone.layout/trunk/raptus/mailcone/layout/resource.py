@@ -13,6 +13,8 @@ from js.jquery_elastic import elastic
 from js.jquery_splitter import splitter
 from js.jquery_cookie import cookie
 from js.jquery_jqtransform import jqtransform_js
+from js.jquery_caret import caret
+
 
 from horae.datetime.resource import spinbox as datetime
 from horae.datetime.resource import css as spinbox_css
@@ -67,7 +69,8 @@ ui_elements = Resource(library, 'ui_elements.js', depends=[jquery,
                                                            splitter,
                                                            jqtransform_js,
                                                            datetime,
-                                                           cookie])
+                                                           cookie,
+                                                           caret])
 
 
 

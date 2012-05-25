@@ -32,7 +32,7 @@
         <tal:block repeat="fieldset view/fieldsets">
             <fieldset tal:omit-tag="python: len(view.fieldsets()) <= 1"
                       tal:attributes="class python:'fieldset-%s' % fieldset.index">
-              <ul>
+              <ul class="widgets">
                 <tal:block repeat="widget fieldset">
                   <li tal:define="hint widget/hint;
                                   error widget/error;"

@@ -1,9 +1,10 @@
 import grok
-
 from zope import schema
-from zope.formlib.widgets import TextAreaWidget
+from zope.formlib.widgets import TextAreaWidget, MultiSelectWidget, ItemDisplayWidget
 from zope.formlib.widget import renderElement
 from zope.app.form.browser.textwidgets import FileWidget
+
+from persistent import Persistent
 
 from z3c.blobfile.image import Image
 
@@ -53,15 +54,103 @@ class ImageWidget(FileWidget):
 
 
 
-class ProposeTextField(schema.Choice):
-    pass
+class ProposeTextProxy(Persistent):
+    
+    def __init__(self, text, vocabularyName):
+        self.original = text
+        self.vocabularyName = vocabularyName
+    
+    def __repr__(self):
+        return '<%s@%s "%s">' % (self.__class__.__name__, hex(id(self)), self.original)
+    
+    def __str__(self):
+        return self.original
+
+    def keys(self, context):
+        registry = schema.vocabulary.getVocabularyRegistry()
+        vocabulary = registry.get(context, self.vocabularyName)
+        for term in vocabulary:
+            yield term.token
+    
+    def encode(self, context, replacements):
+        st = self.original
+        registry = schema.vocabulary.getVocabularyRegistry()
+        vocabulary = registry.get(context, self.vocabularyName)
+        for term in vocabulary:
+            value = replacements.get(term.token, term.value)
+            st = st.replace('${%s}'% term.token, str(value))
+        return st
+
+
+
+class ProposeTextField(schema.Choice, schema.Text):
+    grok.implements(interfaces.IProposeTextField)
+
+    def __init__(self, *args, **kw):
+        super(ProposeTextField, self).__init__(*args, **kw)
+        if not 'constraint' in kw:
+            self.constraint = lambda v:schema.Text.constraint(self, v)
+
+    def validate(self, value):
+        return schema.Text.validate(self, value)
+
+    def _validate(self, value):
+        return schema.Text._validate(self, value)
+
+    def get(self, object):
+        value = super(ProposeTextField, self).get(object)
+        if isinstance(value, basestring):
+            return ProposeTextProxy(value, self.vocabularyName)
+        return value
+        
+    def set(self, object, value):
+        super(ProposeTextField, self).set(object, ProposeTextProxy(value, self.vocabularyName))
 
 
 
 class ProposeTextWidget(TextAreaWidget):
     
+    def __init__(self, field, vocabulary, request):
+        self.choice = MultiSelectWidget(field, vocabulary, request)
+        self.choice.name = ''
+        super(TextAreaWidget, self).__init__(field, request)
+    
     def __call__(self):
-        return super(ProposeTextWidget, self).__call__()
+        area = super(ProposeTextWidget, self).__call__()
+        choice = self.choice()
+        attr = {'name':self.name,
+                'id':self.name,
+                'cssClass': 'propose-widget' + self.cssClass,
+                'contents':area + choice}
+        return renderElement('div', **attr)
+
+    def _getCurrentValueHelper(self):
+        input_value = None
+        if self._renderedValueSet():
+            # fetch original message
+            if self._data is not None:
+                input_value = self._data.original
+        else:
+            if self.hasInput():
+                # It's insane to use getInputValue this way. It can
+                # cause _error to get set spuriously.  We'll work
+                # around this by saving and restoring _error if
+                # necessary.
+                error = self._error
+                try:
+                    input_value = self.getInputValue()
+                finally:
+                    self._error = error
+            else:
+                input_value = self._getDefault()
+        return input_value
+
+
+
+class ProposeTextDisplayWidget(TextAreaWidget):
+    
+    def __init__(self, field, vocabulary, request):
+        super(ProposeTextDisplayWidget, self).__init__(field, request)
 
 
 

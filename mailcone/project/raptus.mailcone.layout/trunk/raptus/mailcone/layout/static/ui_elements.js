@@ -12,6 +12,7 @@ ui_elements = {
                    'datetime',
                    'jqtransform',
                    'codemirror',
+                   'proposewidget',
                    'tabs',
                    'ajax_content_submit'],
   
@@ -96,7 +97,7 @@ ui_elements = {
   
   
   jqtransform: function(context){
-      ui_elements._context(context).find('form').jqTransform();
+      ui_elements._context(context).find('select').parent().jqTransform();
       ui_elements._context(context).find('input[type="checkbox"]').jqTransCheckBox()
       ui_elements._context(context).find('input[type="radio"]').jqTransRadio();
   },
@@ -173,8 +174,8 @@ ui_elements = {
             // Opera returns -1 for missing min/max width, turn into 0
             var sum = 0;
             for(var x = 0; x < jq.length; x++)
-	            for (var i=1; i < arguments.length; i++ )
-    	            sum += Math.max(parseInt($(jq[x]).css(arguments[i])) || 0, 0);
+                for (var i=1; i < arguments.length; i++ )
+                    sum += Math.max(parseInt($(jq[x]).css(arguments[i])) || 0, 0);
             return sum;
         };
       
@@ -270,6 +271,24 @@ ui_elements = {
                 }
             });
             var hlLine = editor.setLineClass(0, "activeline");
+      });
+  },
+  
+  
+  proposewidget: function(context){
+      ui_elements._context(context).find('.propose-widget').each(function(){
+          var textarea = $(this).find('textarea');
+          var options = $(this).find('option');
+          options.each(function(){
+              $(this).click(function(){
+                  var text = textarea.val();
+                  var end = textarea.caret().start;
+                  var input = '${'+$(this).val()+'}';
+                  options.removeAttr('selected');
+                  textarea.val(text.slice(0, end)+ input + text.slice(end, text.length));
+              });
+          });
+          
       });
   },
   

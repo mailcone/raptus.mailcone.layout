@@ -20,13 +20,20 @@
 
   <adapter
       for=".interfaces.IProposeTextField
+           zope.schema.interfaces.IVocabularyTokenized
            zope.publisher.interfaces.browser.IBrowserRequest"
-      provides="zope.formlib.interfaces.IInputWidget"
+      provides="zope.formlib.interfaces.ISimpleInputWidget"
       factory=".formlib.ProposeTextWidget"
       permission="zope.Public"
       />
 
-
-
+  <adapter
+      for=".interfaces.IProposeTextField
+           zope.schema.interfaces.IBaseVocabulary
+           zope.publisher.interfaces.browser.IBrowserRequest"
+      provides="zope.formlib.interfaces.IDisplayWidget"
+      factory=".formlib.ProposeTextDisplayWidget"
+      permission="zope.Public"
+      />
 </configure>
 
