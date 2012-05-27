@@ -8,10 +8,13 @@ from megrok.navigation import interfaces
 
 
 
+
+
 class IMailconeBrowserLayer(IDefaultBrowserLayer):
     """ Mailcone browser layer
     """
     grok.skin('default')
+
 
 
 class IResourceProvider(interface.Interface):
@@ -21,11 +24,13 @@ class IResourceProvider(interface.Interface):
     def __iter__():
         """ The fanstatic resources to be included
         """
-        
+
+
 
 class IMainNavigation(interfaces.IMenu):
     """ Main navigation
     """
+
 
 
 class IHeaderNavigation(interfaces.IMenu):
@@ -33,9 +38,11 @@ class IHeaderNavigation(interfaces.IMenu):
     """
 
 
+
 class IOverviewMenu(interfaces.IMenu):
     """ submenu for mainnavigation
     """
+
 
 
 class IPreferencesMenu(interfaces.IMenu):
@@ -43,13 +50,20 @@ class IPreferencesMenu(interfaces.IMenu):
     """
 
 
+
 class ICronjobMenu(interfaces.IMenu):
     """ submenu for cronjobs
     """
 
 
+
+class IForm(interfaces.Interface):
+    """ Base Form
+    """
+
+
 class IAddForm(interfaces.Interface):
-    """ Basic add form
+    """ Base add form
     """
     def message(self, mapping=None):
         """ return a message mapping
@@ -66,10 +80,11 @@ class IAddForm(interfaces.Interface):
     def apply(self, obj, **data):
         """ fill form data to object
         """
-        
-        
+
+
+
 class IEditForm(interface.Interface):
-    """ Basic edit form
+    """ Base edit form
     """
 
     def message(self, mapping=None):
@@ -79,10 +94,11 @@ class IEditForm(interface.Interface):
     def apply(self, obj, **data):
         """ fill form data to object
         """
-        
+
+
 
 class IDeleteForm(interface.Interface):
-    """ Basic delete form
+    """ Base delete form
     """
     
     def item_title():
@@ -102,10 +118,12 @@ class IDeleteForm(interface.Interface):
         """
 
 
+
 class IDisplayView(interface.Interface):
     """ Marker interface for display views
     """
-    
+
+
 
 class ICodeField(IText):
     """ javascript codemirror field

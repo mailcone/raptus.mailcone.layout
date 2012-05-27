@@ -61,8 +61,6 @@ class HeaderNavigationMenu(navigation.Menu):
     grok.name('navigation.header')
     cssClass = 'nav header-nav'
 
-    navigation.submenu('menu.manage', 'logout', order=30)
-
 
 
 class OverviewMenu(navigation.Menu):
@@ -86,8 +84,6 @@ class CronjobMenu(navigation.Menu):
     grok.implements(interfaces.ICronjobMenu)
     grok.name('menu.cronjob')
     cssClass = 'menu menu-cronjob'
-
-
 
 
 
@@ -125,43 +121,6 @@ class LocatorMenuItem(navigation.MenuItem):
         if locator is None:
             return None
         return '%s/%s' % (locator.url(self.request), self.viewName)
-
-
-
-# debug stuff
-from megrok.navigation import interfaces
-class IContextualManageMenu(interfaces.IMenu):pass
-class IActionsMenu(interfaces.IMenu):pass
-class IAddMenu(interfaces.IMenu):pass
-class ContextualManageMenu(navigation.Menu):
-    """ Contextual manage menu
-    """
-    grok.implements(IContextualManageMenu)
-    grok.name('menu.manage')
-    cssClass = 'menu menu-manage'
-
-
-
-class ActionsMenu(navigation.Menu):
-    """ Actions menu
-    """
-    
-    grok.implements(IActionsMenu)
-    grok.name('menu.actions')
-    cssClass = 'menu menu-actions'
-
-    _ = lambda args:args
-    navigation.submenu('menu.add', _(u'Add'), order=10)
-    navigation.submenu('menu.manage', _(u'Manage'), order=30)
-
-
-
-class AddMenu(navigation.Menu):
-    """ Add menu
-    """
-    grok.implements(IAddMenu)
-    grok.name('menu.add')
-    cssClass = 'menu menu-add'
 
 
 

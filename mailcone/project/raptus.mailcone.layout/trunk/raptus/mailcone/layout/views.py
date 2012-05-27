@@ -5,9 +5,8 @@ from grokcore import message
 from grokcore.view import PageTemplateFile
 from grokcore.layout.components import LayoutAwareFormPage
 
+from zope import component
 from zope.interface import Interface
-from zope.component import getAdapters
-from zope.component import getUtility
 
 from raptus.mailcone.layout import _
 from raptus.mailcone.layout import interfaces
@@ -27,7 +26,7 @@ class Layout(layout.Layout):
     grok.context(Interface)
 
     def update(self):
-        providers = getAdapters((self,), interfaces.IResourceProvider)
+        providers = component.getAdapters((self,), interfaces.IResourceProvider)
         for name, provider in providers:
             for resource in provider:
                 resource.need()
@@ -57,6 +56,13 @@ class MixingFieldSets(object):
 
 
 
+class FormPage(LayoutAwareFormPage, MixingFieldSets, grok.Form, Page):
+    grok.baseclass()
+    template = PageTemplateFile(os.path.join('templates','edit_form.pt'))
+    grok.implements(interfaces.IForm)
+
+
+
 class AddForm(grok.AddForm, MixingFieldSets):
     grok.baseclass()
     template = PageTemplateFile(os.path.join('templates','edit_form.pt'))
@@ -75,7 +81,7 @@ class AddForm(grok.AddForm, MixingFieldSets):
     
     def apply(self, obj, **data):
         self.applyData(obj, **data)
-        
+    
     @grok.action(_(u'Add'), name='add')
     def handle_add(self, **data):
         obj = self.create(**data)
@@ -182,7 +188,6 @@ class ExceptionPage(layout.ExceptionPage):
 
 
 
-import zope
 class NotFoundPage(layout.NotFoundPage):
     grok.name('index.html')
 

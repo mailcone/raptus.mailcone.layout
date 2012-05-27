@@ -12,30 +12,39 @@ from raptus.mailcone.settings.interfaces import ILogoLocator
 from raptus.mailcone.layout import navigation
 
 
-
-
-
 grok.templatedir('templates')
 grok.context(Interface)
+
+
 
 class HeaderManager(grok.ViewletManager):
     grok.name('header')
 
+
+
 class ContentBeforeManager(grok.ViewletManager):
     grok.name('content.before')
+
+
 
 class ContentManager(grok.ViewletManager):
     grok.name('content')
 
+
+
 class ContentAfterManager(grok.ViewletManager):
     grok.name('content.after')
+
+
 
 class NavigationManager(grok.ViewletManager):
     grok.name('navigation')
 
+
+
 class FooterManager(grok.ViewletManager):
     grok.name('footer')
-    
+
 
 
 class Logo(grok.Viewlet):
@@ -53,12 +62,16 @@ class Logo(grok.Viewlet):
     def homelink(self):
         return grok.url(self.request, grok.getSite())
 
+
+
 class Footer(grok.Viewlet):
     grok.viewletmanager(FooterManager)
 
 
+
 class MainNavigation(grok.Viewlet):
     grok.viewletmanager(NavigationManager)
+
 
 
 class HeaderNavigation(grok.Viewlet):
@@ -91,3 +104,7 @@ class Message(grok.Viewlet):
 class ExceptionLogo(grok.Viewlet):
     grok.viewletmanager(ContentBeforeManager)
     grok.context(IException)
+
+
+
+
