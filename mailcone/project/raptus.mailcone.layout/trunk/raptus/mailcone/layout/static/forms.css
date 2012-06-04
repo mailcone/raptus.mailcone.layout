@@ -75,6 +75,11 @@ dl.enableFormTabbing dd {
 .widget {
   width: 100%;
   clear: both;
+  margin-top: 10px;
+}
+
+label .hint {
+  margin: 10px 0;
 }
 
 .jqTransformInputWrapper{
