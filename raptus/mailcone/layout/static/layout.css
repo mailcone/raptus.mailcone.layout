@@ -47,6 +47,11 @@ div {
   left: -321px;
 }
 
+#navigation div>ul>li{
+  border-left: none;
+  border-right: none;
+}
+
 #middle {
   position: absolute;
   top: 102px;

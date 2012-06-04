@@ -100,6 +100,11 @@ ui_elements = {
       ui_elements._context(context).find('select').parent().jqTransform();
       ui_elements._context(context).find('input[type="checkbox"]').jqTransCheckBox()
       ui_elements._context(context).find('input[type="radio"]').jqTransRadio();
+      var index_fix = function(){
+          $('.jqTransformSelectWrapper').css('z-index', 10);
+          $(this).css('z-index', 11);
+      };
+      $('.jqTransformSelectWrapper').mouseover(index_fix);
   },
   
   
@@ -109,31 +114,40 @@ ui_elements = {
         // http://www.datatables.net/forums/discussion/7423/fndestroy-not-working/p1
         $(this).attr('id', '');
         
-         var table = $(this).dataTable( {
-            sDom: 'T<"clear">frtiS',
-            sScrollY: '100%',
-            sScrollX: '100%',
-            bDeferRender: true,
-            bAutoWidth: true,
-            sAjaxSource: $(this).data('ajaxurl'),
-            bServerSide: true,
-            bJQueryUI: true,
-            fnDestroy: function(){alert('')},
-            fnDrawCallback: $.proxy(ui_elements._datatable_redraw, this),
-            fnServerData: $.proxy(ui_elements._datatable_json, this),
-            oTableTools: $(this).data('tabletools'),
-         } );
-         // save datatable instance to html tag
-         //$(this).addClass('ui-datatable-inst')
-         //$(this).data('datatable_inst',table);
+       table = $(this).dataTable( {
+          sDom: 'T<"clear">frtiS',
+          sScrollY: '100%',
+          sScrollX: '100%',
+          bDeferRender: true,
+          bAutoWidth: true,
+          sAjaxSource: $(this).data('ajaxurl'),
+          bServerSide: true,
+          bJQueryUI: true,
+          fnDestroy: function(){alert('')},
+          fnDrawCallback: $.proxy(ui_elements._datatable_redraw, this),
+          fnServerData: $.proxy(ui_elements._datatable_json, this),
+          oTableTools: $(this).data('tabletools'),
+       } );
+       // load fix table lenght
+       table.fnSettings()._iDisplayLength = 40;
+       // save datatable instance to html tag
+       //$(this).addClass('ui-datatable-inst')
+       //$(this).data('datatable_inst',table);
        
         $(window).bind('resize', function () {
         table.fnAdjustColumnSizing();
-    } );
-    
+        } );
+        
+        $(this).find('tbody').mouseover(function(){
+            var tr = $(event.target.parentNode);
+            if (tr.data('ajaxcontent'))
+                tr.css('cursor', 'pointer');
+        });
         
         $(this).find('tbody').click(function(event) {
             var tr = $(event.target.parentNode);
+            if (!tr.is('tr'))
+                tr = tr.parents('tr');
             $(table.fnSettings().aoData).each(function (){
                 $(this.nTr).removeClass('ui-state-active');
             });
@@ -236,7 +250,7 @@ ui_elements = {
             content.find('.ui-datatable').each(function(){
                 data = $.extend(data,$(this).data('inputdata')?$(this).data('inputdata'):{});
             });
-            data = $.extend(data, ui_elements._data_crapper(content));
+            data = $.extend(data, ui_elements._data_collector(content));
             content.load(content.data('ajaxcontent'), {metadata:JSON.stringify(data)}, function(){
                 ui_elements.init(content);
                 $('.ui-tabs:first').tabs('option','selected', tabindex);
@@ -428,7 +442,7 @@ ui_elements = {
       },
   
   
-  _data_crapper: function(context){
+  _data_collector: function(context){
       var di = {};
       context.find('input, textarea, select').val(function(index, value){
           if ($(this).is(':checkbox')){

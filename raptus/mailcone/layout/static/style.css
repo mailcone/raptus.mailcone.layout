@@ -78,7 +78,11 @@
   background-color: #FF9191;
 }
 
-
+.dataTables_scrollHead, .dataTables_scrollBody {
+  width: 100% !important;
+  overflow-x:hidden !important;
+  overflow-y:auto !important;
+}
 
 
 
@@ -100,8 +104,9 @@
 }
 
 .dataTables_filter {
-   margin-top: 10px;
-   margin-right: 10px;
+  margin-top: 10px;
+  margin-right: 10px;
+  width: 400px;
 }
 
 .dataTables_filter input {
@@ -296,6 +301,10 @@
   overflow: auto!important;
 }
 
+#ui-datatable-ajaxcontent>* {
+  margin-top: 30px;
+}
+
 /* tab inside splitter */
 .ui-splitter .ui-tabs {
   height: 100%;
@@ -310,19 +319,35 @@
   overflow: auto;
 }
 
+
+
 /* display form */
-.display-form dt {
-  clear:both;
-  float:left;
-  width:30%;
+
+.display-form a,
+.display-form a:active {
+  color:#2a00ff;
+}
+
+.display-form a:hover {
+  color:#8870FF;
+}
+
+
+.display-form tr {
+  border-bottom: solid 1px #aaaaaa;
+}
+
+.display-form th {
+  text-align:left;
   font-weight:bold;
+  line-height:20px;
+  padding-top:10px;
+  padding-right: 50px;
 }
 
-.display-form dd {
-  float:right;
-  width:65%;
+.display table {
+  margin-top: 20px;
 }
-
 
 /* deco fix 
 #columns div.position-4 {
@@ -372,13 +397,12 @@
 
 /* testing */
 .ui-console{
-    border-style:solid inset;
-    border-color:#ccd9d8;
-    background-color:#080808;
-    color:#5fba3d;
-    font-family:monospace, prestige;
-    overflow-y: scroll;
-    min-height: 300px;
+  background-color:#080808;
+  color:#5fba3d;
+  font-family:monospace, prestige;
+  overflow-y: scroll;
+  height: 140px;
+  padding: 5px;
 }
 
 /* info message */
@@ -391,5 +415,29 @@
     height: 80%;
 }
 
+#ui-modal-content .datable-widget-view {
+  height: 180px;
+}
 
+#ui-modal-content .dataTables_scroll,
+#ui-modal-content .dataTables_scrollBody {
+  height: 106px;
+}
 
+#ui-modal-content .dataTables_wrapper {
+  height: 180px;
+  min-height: 0;
+}
+
+#ui-modal-content .dataTables_info {
+  top:161px;
+  bottom: auto;
+  font-size: 12px;
+}
+
+#ui-modal-content .dataTables_filter {
+  margin-bottom: 5px;
+  margin-right: 0;
+  font-size: 12px;
+  font-weight: normal;
+}

@@ -103,10 +103,6 @@ body > .ui-dialog .ui-dialog-titlebar {
 
 }
 
-body > .ui-dialog li label {
-   font-weight: bold;
-}
-
 body > .ui-dialog li .widget {
    width: 95%;
 }
@@ -120,11 +116,6 @@ body > .ui-dialog li .widget > table.jqTransformTextarea {
    width: 100% !important;
 }
 
-body > .ui-dialog li .widget > * {
-   margin-left: 20px;
-}
-
-
 .ui-dialog .ui-tabs .ui-tabs-panel {
   padding:1em 0.2em;
 }
@@ -135,7 +126,11 @@ body > .ui-dialog li .widget > * {
 
 /* tabs */
 .ui-tabs .ui-tabs-nav li a {
-   padding: 2px 6px 2px 2px !important;
+   padding: 6px 17px 2px 17px !important;
+}
+
+.ui-tabs-panel {
+  margin-top: 4px;
 }
 
 .ui-tabs .ui-tabs-nav {
@@ -151,5 +146,5 @@ body > .ui-dialog li .widget > * {
 }
 
 .ui-tabs .ui-tabs-nav .ui-state-active {
-   background: #FFF !important;
+  background: #FFF !important;
 }
