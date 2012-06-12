@@ -148,8 +148,8 @@ ui_elements = {
             var tr = $(event.target.parentNode);
             if (!tr.is('tr'))
                 tr = tr.parents('tr');
-            $(table.fnSettings().aoData).each(function (){
-                $(this.nTr).removeClass('ui-state-active');
+            $(tr.parent().find('tr')).each(function (){
+                $(this).removeClass('ui-state-active');
             });
             if (tr.data('ajaxcontent')){
                 $(tr).addClass('ui-state-active');
