@@ -379,14 +379,13 @@ ui_elements = {
           if (!json.metadata)
             return;
           var metadata = json.metadata;
-          if (metadata.ajaxcontent) {
-              table.find('tr').each(function(index){
-                  if ('css_class' in metadata)
-                    $(this).addClass(metadata.css_class[index]?metadata.css_class[index]:'');
-                  ui_elements.init($(this));
-                  $(this).data('ajaxcontent', metadata.ajaxcontent[index-1]);
-              });
-          }
+          table.find('tr').each(function(index){
+            if ('css_class' in metadata)
+              $(this).addClass(metadata.css_class[index-1]?metadata.css_class[index-1]:'');
+            if (metadata.ajaxcontent)
+              $(this).data('ajaxcontent', metadata.ajaxcontent[index-1]);
+            ui_elements.init($(this));
+          });
           // input/checkbox stuff
           if (!table.data('inputdata'))
             table.data('inputdata', {});

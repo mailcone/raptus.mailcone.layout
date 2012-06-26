@@ -104,14 +104,13 @@ class BaseDataTable(grok.View):
     def _query(self, **request_data):
         queryutil = getUtility(query.interfaces.IQuery)
         queries = []
-        sSearch, sortdir, sortcol = request_data['sSearch'], request_data['sortdir'], request_data['sortcol']
+        sSearch, reverse, sort_field = request_data['sSearch'], request_data['sortdir'], request_data['sortcol']
         if sSearch:
             queries.append(query.Text(('catalog', 'text'), '*'+'* *'.join(sSearch.split(' '))+'*'))
         queries.append(set.AnyOf(('catalog', 'implements'), [self.interface_fields.__identifier__,]))
-        
         brains = queryutil.searchResults(query.And(*queries),
-                                         reverse=sortdir,
-                                         sort_field=None,)
+                                         reverse=reverse,
+                                         sort_field=sort_field,)
         return brains
     
     def _url(self, brain):
