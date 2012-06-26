@@ -35,5 +35,22 @@
       factory=".formlib.ProposeTextDisplayWidget"
       permission="zope.Public"
       />
+
+  <adapter
+      for="zope.schema.interfaces.IDatetime
+           zc.resourcelibrary.publication.Request"
+      provides="zope.app.form.interfaces.IDisplayWidget"
+      factory=".formlib.DatetimeDisplayWidget"
+      permission="zope.Public"
+      />
+
+  <adapter
+      for="zope.schema.interfaces.IDate
+           zc.resourcelibrary.publication.Request"
+      provides="zope.app.form.interfaces.IDisplayWidget"
+      factory=".formlib.DateDisplayWidget"
+      permission="zope.Public"
+      />
+
 </configure>
 

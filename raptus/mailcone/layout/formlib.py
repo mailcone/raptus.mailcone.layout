@@ -1,14 +1,15 @@
 import grok
-from zope import schema
-from zope.formlib.widgets import TextAreaWidget, MultiSelectWidget, ItemDisplayWidget
-from zope.formlib.widget import renderElement
-from zope.app.form.browser.textwidgets import FileWidget
-
 from persistent import Persistent
-
 from z3c.blobfile.image import Image
-
 from xml.sax.saxutils import quoteattr, escape
+
+from zope import schema
+from zope.formlib.widget import renderElement
+from zope.app.form.browser import textwidgets
+from zope.app.form.browser.textwidgets import FileWidget
+from zope.formlib.widgets import TextAreaWidget, MultiSelectWidget, ItemDisplayWidget
+
+from zc.datetimewidget.datetimewidget import DatetimeDisplayBase as DatetimeDisplayBaseBase
 
 from raptus.mailcone.layout import interfaces
 
@@ -154,4 +155,28 @@ class ProposeTextDisplayWidget(TextAreaWidget):
 
 
 
+class DatetimeDisplayBase(DatetimeDisplayBaseBase):
+    """ remove time location at all.
+    """
 
+    def __call__(self):
+        if self._renderedValueSet():
+            content = self._data
+        else:
+            content = self.context.default
+        if content == self.context.missing_value:
+            return ""
+        #content = localizeDateTime(content, self.request)
+        formatter = self.request.locale.dates.getFormatter(
+            self._category, (self.displayStyle or None))
+        content = formatter.format(content)
+        return renderElement("span", contents=textwidgets.escape(content),
+                             cssClass=self.cssClass)
+
+
+class DatetimeDisplayWidget(
+    DatetimeDisplayBase, textwidgets.DatetimeDisplayWidget):
+    pass
+
+class DateDisplayWidget(DatetimeDisplayBase, textwidgets.DateDisplayWidget):
+    pass
