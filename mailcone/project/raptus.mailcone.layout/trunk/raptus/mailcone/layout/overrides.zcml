@@ -7,5 +7,5 @@
       factory="horae.datetime.widget.DatetimeWidget"
       permission="zope.Public"
       />
-      
+
 </configure>
