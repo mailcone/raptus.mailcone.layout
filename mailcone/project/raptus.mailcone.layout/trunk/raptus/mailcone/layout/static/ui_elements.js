@@ -14,7 +14,8 @@ ui_elements = {
                    'codemirror',
                    'proposewidget',
                    'tabs',
-                   'ajax_content_submit'],
+                   'ajax_content_submit',
+                   'mail_chart'],
   
   
   init: function(context){
@@ -22,6 +23,52 @@ ui_elements = {
     $.each(ui_elements.init_functions, function(index, func){
         ui_elements[func](context);
     });
+  },
+  
+  
+  mail_chart: function(context){
+
+    var jsonurl = './indexajaxsource';
+    var ajaxDataRenderer = function(url, plot, options) {
+      var ret = null;
+   $.ajax({
+      // have to use synchronous here, else the function
+      // will return before the data is fetched
+        async: false,
+        url: url,
+        dataType:"json",
+        success: function(data) {
+          ret=data;
+          console.warn(data);
+        }
+      });
+      return ret;
+     };
+
+    var plot2 = $.jqplot('chart2', jsonurl,{
+        dataRenderer: ajaxDataRenderer,
+        dataRendererOptions: {
+          unusedOptionalUrl: jsonurl
+        },
+        seriesDefaults:{yaxis:'y2axis'},
+        axes: {
+          xaxis: {
+            renderer:$.jqplot.DateAxisRenderer,
+            tickOptions:{formatString:'%b %e'}, 
+            min: "09-01-2008",
+            max: "06-22-2009",
+            tickInterval: "6 weeks",
+          },
+          y2axis: {
+            tickOptions:{formatString:'%d'}
+          }
+        },
+        // To make a candle stick chart, set the "candleStick" option to true.
+        series: [
+          {
+          }
+        ]
+      });
   },
   
   

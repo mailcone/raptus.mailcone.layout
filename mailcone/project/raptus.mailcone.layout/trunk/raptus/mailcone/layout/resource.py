@@ -15,6 +15,7 @@ from js.jquery_cookie import cookie
 from js.jquery_jqtransform import jqtransform_js
 from js.jquery_caret import caret
 
+from horae.js.jqplot import resource as jqplot
 
 from horae.datetime.resource import spinbox as datetime
 from horae.datetime.resource import css as spinbox_css
@@ -70,7 +71,10 @@ ui_elements = Resource(library, 'ui_elements.js', depends=[jquery,
                                                            jqtransform_js,
                                                            datetime,
                                                            cookie,
-                                                           caret])
+                                                           caret,
+                                                           jqplot.dateAxisRenderer,
+                                                           jqplot.ohlcRenderer,
+                                                           jqplot.json2])
 
 
 
