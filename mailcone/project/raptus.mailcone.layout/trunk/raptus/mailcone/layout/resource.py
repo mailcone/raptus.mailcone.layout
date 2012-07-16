@@ -20,8 +20,6 @@ from horae.js.jqplot import resource as jqplot
 from horae.datetime.resource import spinbox as datetime
 from horae.datetime.resource import css as spinbox_css
 
-
-
 from raptus.mailcone.layout import interfaces
 
 
