@@ -14,8 +14,8 @@ ui_elements = {
                    'codemirror',
                    'proposewidget',
                    'tabs',
-                   'ajax_content_submit',
-                   'mail_chart'],
+                   'ajax_content_submit',],
+                   //'mail_chart'],
   
   
   init: function(context){
