@@ -14,17 +14,20 @@
 
 
 h1 {
-  color:#f14c1a;
+  color:#1e4cde;
   font-size: 18px;
+  margin-bottom: 5px;
 }
 
 h1 a {
-  color:#f14c1a;
+  color:#1e4cde;
 }
 
-h2 {}
-
-h3 {}
+h2, h3 {
+  margin: 15px 0 5px 0;
+  color:#1e4cde;
+  font-size: 16px;
+}
 
 a {
   text-decoration: none;
