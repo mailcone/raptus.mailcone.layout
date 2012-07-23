@@ -71,6 +71,8 @@ ui_elements = Resource(library, 'ui_elements.js', depends=[jquery,
                                                            cookie,
                                                            caret,
                                                            jqplot.dateAxisRenderer,
+                                                           jqplot.canvasAxisTickRenderer,
+                                                           jqplot.canvasTextRenderer,
                                                            jqplot.ohlcRenderer,
                                                            jqplot.json2])
 
