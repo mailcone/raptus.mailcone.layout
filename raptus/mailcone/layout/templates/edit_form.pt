@@ -35,8 +35,9 @@
               <ul class="widgets">
                 <tal:block repeat="widget fieldset">
                   <li tal:define="hint widget/hint;
-                                  error widget/error;"
-                      tal:attributes="class python:error and 'hasError '+widget.name or widget.name">
+                                  error widget/error;
+                                  li_class python:widget.name + ' ' + str(widget.__class__.__name__)"
+                      tal:attributes="class python:error and 'hasError ' + li_class or li_class ">
                     <label tal:attributes="for widget/name">
                       <span i18n:translate=""
                             tal:content="widget/label">label</span>
