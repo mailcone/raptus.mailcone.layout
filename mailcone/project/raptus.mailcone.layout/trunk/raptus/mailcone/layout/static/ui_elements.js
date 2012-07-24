@@ -29,24 +29,29 @@ ui_elements = {
   mail_chart: function(context){
 
     var jsonurl = './indexajaxsource';
+    var email_element_id = 'mail_chart';
+    
+    if (!$('#' + email_element_id).length)
+        return;
+
     var ajaxDataRenderer = function(url, plot, options) {
-      var ret = null;
-    $.ajax({
-      // have to use synchronous here, else the function
-      // will return before the data is fetched
-        async: false,
-        url: url,
-        dataType:"json",
-        success: function(data) {
-          ret=data;
-          console.warn(data);
-        }
-      });
-      return ret;
-    };
+        var ret = null;
+        $.ajax({
+            // have to use synchronous here, else the function
+            // will return before the data is fetched
+            async : false,
+            url : url,
+            dataType : "json",
+            success : function(data) {
+                ret = data;
+                console.warn(data);
+            }
+        });
+        return ret;
+    }; 
 
     $.jqplot.config.enablePlugins = true;
-    var plot2 = $.jqplot('chart2', jsonurl,{
+    var plot2 = $.jqplot(email_element_id, jsonurl,{
         dataRenderer: ajaxDataRenderer,
         dataRendererOptions: {
           unusedOptionalUrl: jsonurl

@@ -7,6 +7,17 @@
 
 /* datatable */
 
+table.display thead th div.DataTables_sort_wrapper span {
+  position: absolute;
+  top: 50%;
+  margin-top: -8px;
+  right: 0;
+}
+
+table.display thead th div.DataTables_sort_wrapper {
+  position: relative;
+}
+
 .ui-datatable tr.ui-state-active td {
   background-color: #0922FF !important;
   color: #FFF;
@@ -455,4 +466,15 @@
   margin-right: 0;
   font-size: 12px;
   font-weight: normal;
+}
+
+body .ui-dialog .overrides\.title div {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+.overrides\.title label {
+  display: inline-block;
+  width: 80px;
 }
