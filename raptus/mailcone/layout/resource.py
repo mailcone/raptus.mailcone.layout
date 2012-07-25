@@ -10,7 +10,7 @@ from js.jquery_datatables import jquery_datatables
 from js.jquery_datatables import library as jquery_datatables_library
 
 from js.jquery_elastic import elastic
-from js.jquery_splitter import splitter
+from js.jquery_splitter import fixed_splitter
 from js.jquery_cookie import cookie
 from js.jquery_jqtransform import jqtransform_js
 from js.jquery_caret import caret
@@ -65,7 +65,7 @@ ui_elements = Resource(library, 'ui_elements.js', depends=[jquery,
                                                            jquery_datatables_tools,
                                                            jquery_datatables_clipboard,
                                                            elastic,
-                                                           splitter,
+                                                           fixed_splitter,
                                                            jqtransform_js,
                                                            datetime,
                                                            cookie,
