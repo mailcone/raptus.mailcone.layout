@@ -14,6 +14,7 @@ from js.jquery_splitter import fixed_splitter
 from js.jquery_cookie import cookie
 from js.jquery_jqtransform import jqtransform_js
 from js.jquery_caret import caret
+from js.jquery_ba_resize import ba_resize_js
 
 from horae.js.jqplot import resource as jqplot
 
@@ -40,10 +41,16 @@ base = Resource(library, 'base.css', depends=[smoothness, layout, deco, reset, j
 
 
 jquery_datatables_scroller = Resource(
-    jquery_datatables_library, 'extras/Scroller/media/js/Scroller.js',
+    library, 'dataTables.scroller.min.js',
     depends=[jquery_datatables],
-    minified='extras/Scroller/media/js/Scroller.min.js'
 )
+
+
+jquery_datatables_resize = Resource(
+    library, 'dataTables.ColReorderWithResize.js',
+    depends=[jquery_datatables],
+)
+
 
 jquery_datatables_tools = Resource(
     jquery_datatables_library, 'extras/TableTools/media/js/TableTools.js',
@@ -57,19 +64,20 @@ jquery_datatables_clipboard = Resource(
 )
 
 
-
 ui_elements = Resource(library, 'ui_elements.js', depends=[jquery,
                                                            jqueryui,
                                                            jquery_datatables,
                                                            jquery_datatables_scroller,
                                                            jquery_datatables_tools,
                                                            jquery_datatables_clipboard,
+                                                           jquery_datatables_resize,
                                                            elastic,
                                                            fixed_splitter,
                                                            jqtransform_js,
                                                            datetime,
                                                            cookie,
                                                            caret,
+                                                           ba_resize_js,
                                                            jqplot.dateAxisRenderer,
                                                            jqplot.canvasAxisTickRenderer,
                                                            jqplot.canvasTextRenderer,
