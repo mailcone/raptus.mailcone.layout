@@ -168,31 +168,34 @@ ui_elements = {
         // !!! remove id to fix destroy datatable
         // http://www.datatables.net/forums/discussion/7423/fndestroy-not-working/p1
         $(this).attr('id', '');
-        
-       table = $(this).dataTable( {
-          sDom: 'T<"clear">frtiS',
+        var table = $(this).dataTable( {
+          sDom: 'RfrtiS',
           sScrollY: '100%',
-          sScrollX: '100%',
           bDeferRender: true,
           bAutoWidth: true,
           sAjaxSource: $(this).data('ajaxurl'),
           bServerSide: true,
           bJQueryUI: true,
-          fnDestroy: function(){alert('')},
           fnDrawCallback: $.proxy(ui_elements._datatable_redraw, this),
           fnServerData: $.proxy(ui_elements._datatable_json, this),
           oTableTools: $(this).data('tabletools'),
+          oScroller: {
+            loadingIndicator: true,
+            rowHeight: 19
+            }
        } );
-       // load fix table lenght
-       table.fnSettings()._iDisplayLength = 40;
        // save datatable instance to html tag
        //$(this).addClass('ui-datatable-inst')
        //$(this).data('datatable_inst',table);
        
-        $(window).bind('resize', function () {
-        table.fnAdjustColumnSizing();
-        } );
-        
+        // resize table
+        var scroller = table.parents('.dataTables_scroll').resize(function(){table.fnAdjustColumnSizing()});
+        var sparent = scroller.parents('.primar-view');
+        function set_size(){
+            scroller.height(sparent.height() - 87);
+        }
+        set_size();
+        sparent.resize(set_size);
         $(this).find('tbody').mouseover(function(){
             var tr = $(event.target.parentNode);
             if (tr.data('ajaxcontent'))
@@ -428,9 +431,12 @@ ui_elements = {
   
   
   _datatable_json: function(sSource, aoData, fnCallback){
-      var table = $(this)
+      var table = $(this);
+      var loader = $('div.DTS div.DTS_Loading');
+      loader.show();
       $.getJSON( sSource, aoData, function (json) {
           fnCallback(json);
+          loader.hide();
           if (!json.metadata)
             return;
           var metadata = json.metadata;
