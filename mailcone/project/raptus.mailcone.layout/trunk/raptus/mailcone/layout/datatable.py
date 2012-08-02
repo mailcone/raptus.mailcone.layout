@@ -183,7 +183,9 @@ class BaseDataTableSql(BaseDataTable):
             query = query.order_by(dir(getattr(self.model, sortcol)))
         if request_data['sSearch']:
             query=query.filter(self.model.index_searchable.match(request_data['sSearch']))
-        
+
+        self.amount = query.count()
+
         query = query.offset(request_data['iDisplayStart']).limit(request_data['iDisplayLength'])
         self.query_data = query.all()
         return self.query_data
@@ -193,9 +195,9 @@ class BaseDataTableSql(BaseDataTable):
 
 
     def _iTotalRecords(self, brains):
-        column_id = self.model.__table__._autoincrement_column
-        (count,) = Session().query(func.count(column_id)).first()
-        return count
+        #column_id = self.model.__table__._autoincrement_column
+        #(count,) = Session().query(func.count(column_id)).first()
+        return self.amount
 
     def _iTotalDisplayRecords(self, brains):
         return self._iTotalRecords(brains)

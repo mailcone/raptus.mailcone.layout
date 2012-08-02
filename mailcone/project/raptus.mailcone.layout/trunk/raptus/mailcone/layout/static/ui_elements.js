@@ -190,7 +190,7 @@ ui_elements = {
        
         // resize table
         var scroller = table.parents('.dataTables_scroll').resize(function(){table.fnAdjustColumnSizing()});
-        var sparent = scroller.parents('.primar-view');
+        var sparent = scroller.parents('.dataTables_wrapper');
         function set_size(){
             scroller.height(sparent.height() - 87);
         }
