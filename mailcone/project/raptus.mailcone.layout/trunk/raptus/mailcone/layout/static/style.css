@@ -139,7 +139,9 @@ table.display thead th div.DataTables_sort_wrapper {
 }
 
 
-
+.ui-splitter .dataTables_wrapper tr{
+  height: 20px;
+}
 
 
 .ui-splitter .dataTables_wrapper {
@@ -537,5 +539,20 @@ body .ui-dialog .overrides\.title div {
   padding: 2px 25px 2px 0;
 }
 
+
+#mail_chart {
+  margin: 80px 30px 30px 30px;
+  height: 400px;
+}
+
+
+#mail_chart .jqplot-yaxis {
+  left: -10px !important;
+}
+
+
+#mail_chart .jqplot-yaxis {
+  bottom: -10px !important;
+}
 
 

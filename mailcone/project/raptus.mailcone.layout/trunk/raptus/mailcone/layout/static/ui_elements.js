@@ -62,8 +62,9 @@ ui_elements = {
                 rendererOptions:{
                     tickRenderer:$.jqplot.CanvasAxisTickRenderer
                 },
-                tickOptions:{ 
-                    tickOptions:{formatString:'%b %e'}, 
+                tickOptions:{
+                    formatString:'%b %#d, %H:%M  ',
+                    tickInterval:'10 days',
                     angle:-60
                 }
             },
@@ -181,7 +182,7 @@ ui_elements = {
           oTableTools: $(this).data('tabletools'),
           oScroller: {
             loadingIndicator: true,
-            rowHeight: 19
+            rowHeight: 20
             }
        } );
        // save datatable instance to html tag

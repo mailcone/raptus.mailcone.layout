@@ -4,10 +4,4 @@
 </h1>
 
 
-<p>
-  The main goal of Mailcone is to parse mails and execute a specific command alongs the matching rules. In the first step
-  Mailcone parses mails and stores them into a Postgres db. All corresponding attachements are saved on the filesystem.
-  The second part is a WebApplication which allows to define flexible matching rules and escalation actions. Infact it is a filtering system for emails.
-</p>
-
 <div id="mail_chart"/>
