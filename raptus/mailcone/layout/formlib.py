@@ -178,5 +178,11 @@ class DatetimeDisplayWidget(
     DatetimeDisplayBase, textwidgets.DatetimeDisplayWidget):
     pass
 
+
+
 class DateDisplayWidget(DatetimeDisplayBase, textwidgets.DateDisplayWidget):
     pass
+
+
+
+
