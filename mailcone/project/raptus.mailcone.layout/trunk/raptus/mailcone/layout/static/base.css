@@ -33,6 +33,10 @@ a {
   text-decoration: none;
 }
 
+strong {
+  font-weight: bold;
+}
+
 .clearfix:after {
     content: ".";
     display: block;
