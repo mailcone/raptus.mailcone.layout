@@ -170,7 +170,7 @@ ui_elements = {
         // http://www.datatables.net/forums/discussion/7423/fndestroy-not-working/p1
         $(this).attr('id', '');
         var table = $(this).dataTable( {
-          sDom: 'RfrtiS',
+          sDom: 'frtiS',
           sScrollY: '100%',
           bDeferRender: true,
           bAutoWidth: true,
