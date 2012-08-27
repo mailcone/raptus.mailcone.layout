@@ -182,7 +182,7 @@ ui_elements = {
           oTableTools: $(this).data('tabletools'),
           oScroller: {
             loadingIndicator: true,
-            rowHeight: 20
+            rowHeight: 22
             }
        } );
        // save datatable instance to html tag
