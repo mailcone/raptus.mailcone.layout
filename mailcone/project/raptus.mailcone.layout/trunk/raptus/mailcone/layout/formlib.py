@@ -6,6 +6,8 @@ from xml.sax.saxutils import quoteattr, escape
 from zope import schema
 from zope.formlib.widget import renderElement
 from zope.app.form.browser import textwidgets
+from zope.schema._bootstrapfields import ValidatedProperty
+from zope.schema._bootstrapinterfaces import WrongType
 from zope.app.form.browser.textwidgets import FileWidget
 from zope.formlib.widgets import TextAreaWidget, MultiSelectWidget, ItemDisplayWidget
 
@@ -66,6 +68,9 @@ class ProposeTextProxy(Persistent):
     
     def __str__(self):
         return self.original
+    
+    def __eq__(self, comp):
+        return comp.original is self.original
 
     def keys(self, context):
         registry = schema.vocabulary.getVocabularyRegistry()
@@ -84,36 +89,38 @@ class ProposeTextProxy(Persistent):
 
 
 
+def propose_text_field_check(instance, value):
+    if not isinstance(value, ProposeTextProxy):
+        raise WrongType('%s but ProposeTextProxy is required' % repr(value))
+
+
+
 class ProposeTextField(schema.Choice, schema.Text):
     grok.implements(interfaces.IProposeTextField)
 
+    default = ValidatedProperty('default', propose_text_field_check)
+
     def __init__(self, *args, **kw):
+        self.missing_value = ProposeTextProxy('', kw.get('vocabulary', ''))
+        kw['default'] = ProposeTextProxy(kw.get('default', ''), kw.get('vocabulary', ''))
         super(ProposeTextField, self).__init__(*args, **kw)
         if not 'constraint' in kw:
             self.constraint = lambda v:schema.Text.constraint(self, v)
 
-    def validate(self, value):
-        return schema.Text.validate(self, value)
-
     def _validate(self, value):
-        return schema.Text._validate(self, value)
-
-    def get(self, object):
-        value = super(ProposeTextField, self).get(object)
-        if isinstance(value, basestring):
-            return ProposeTextProxy(value, self.vocabularyName)
-        return value
-        
-    def set(self, object, value):
-        super(ProposeTextField, self).set(object, ProposeTextProxy(value, self.vocabularyName))
+        return schema.Text._validate(self, value.original)
 
 
 
 class ProposeTextWidget(TextAreaWidget):
     
     def __init__(self, field, vocabulary, request):
-        self.choice = MultiSelectWidget(field, vocabulary, request)
-        self.choice.name = ''
+        fake_field = schema.Choice(vocabulary)
+        fake_field.context = object()
+        self.choice = MultiSelectWidget(fake_field, vocabulary, request)
+        self.choice.name = 'dummy'
+        self.choice._data = list()
+        self._missing = field.default
         super(TextAreaWidget, self).__init__(field, request)
     
     def __call__(self):
@@ -125,26 +132,19 @@ class ProposeTextWidget(TextAreaWidget):
                 'contents':area + choice}
         return renderElement('div', **attr)
 
-    def _getCurrentValueHelper(self):
-        input_value = None
-        if self._renderedValueSet():
-            # fetch original message
-            if self._data is not None:
-                input_value = self._data.original
+    def _toFieldValue(self, input):
+        if input == self._missing.original:
+            return self.context.missing_value
         else:
-            if self.hasInput():
-                # It's insane to use getInputValue this way. It can
-                # cause _error to get set spuriously.  We'll work
-                # around this by saving and restoring _error if
-                # necessary.
-                error = self._error
-                try:
-                    input_value = self.getInputValue()
-                finally:
-                    self._error = error
-            else:
-                input_value = self._getDefault()
-        return input_value
+            return ProposeTextProxy(input, self.context.vocabularyName)
+
+    def _toFormValue(self, value):
+        if value == self.context.missing_value:
+            value = self._missing
+        return value.original
+
+    def _getCurrentValue(self):
+        return super(ProposeTextWidget, self)._getCurrentValue().original
 
 
 

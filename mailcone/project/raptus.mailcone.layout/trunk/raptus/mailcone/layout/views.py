@@ -91,6 +91,11 @@ class AddForm(grok.AddForm, MixingFieldSets):
     def apply(self, obj, **data):
         self.applyData(obj, **data)
     
+    @grok.action(_(u'Cancel'), name='cancel', validator=lambda *args, **kwargs: {})
+    def handle_cancel(self, **data):
+        """ we use only the button, the rest we do it with javascript
+        """
+
     @grok.action(_(u'Add'), name='add')
     def handle_add(self, **data):
         obj = self.create(**data)
@@ -98,11 +103,6 @@ class AddForm(grok.AddForm, MixingFieldSets):
         self.add(obj)
         message.send(self.message(), u'info', u'session')
         return ''
-    
-    @grok.action(_(u'Cancel'), name='cancel', validator=lambda *args, **kwargs: {})
-    def handle_cancel(self, **data):
-        """ we use only the button, the rest we do it with javascript
-        """
 
 
 
@@ -119,16 +119,16 @@ class EditForm(grok.EditForm, MixingFieldSets):
     def apply(self, **data):
         self.applyData(self.context, **data)
 
+    @grok.action(_(u'Cancel'), name='cancel', validator=lambda *args, **kwargs: {})
+    def handle_cancel(self, **data):
+        """ we use only the button, the rest we do it with javascript
+        """
+
     @grok.action(_(u'Save changes'), name= 'edit')
     def handle_save(self, **data):
         self.apply(**data)
         message.send(self.message(), u'info', u'session')
         return ''
-    
-    @grok.action(_(u'Cancel'), name='cancel', validator=lambda *args, **kwargs: {})
-    def handle_cancel(self, **data):
-        """ we use only the button, the rest we do it with javascript
-        """
 
 
 
