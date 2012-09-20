@@ -84,7 +84,7 @@ class ProposeTextProxy(Persistent):
         vocabulary = registry.get(context, self.vocabularyName)
         for term in vocabulary:
             value = replacements.get(term.token, term.value)
-            st = st.replace('${%s}'% term.token, str(value))
+            st = st.replace('${%s}'% term.token, unicode(value))
         return st
 
 
