@@ -367,9 +367,14 @@ table.display thead th div.DataTables_sort_wrapper {
 }
 
 #ui-datatable-ajaxcontent textarea{
-  width: 100%!important;
+  min-width: 100%!important;
   height:100%!important;
   overflow: auto!important;
+}
+
+#ui-datatable-ajaxcontent .textarea-wrapper {
+  padding-right:20px;
+  height: 100%;
 }
 
 #ui-datatable-ajaxcontent>* {
