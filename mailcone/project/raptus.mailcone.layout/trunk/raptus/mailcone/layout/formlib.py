@@ -144,6 +144,8 @@ class ProposeTextWidget(TextAreaWidget):
         return value.original
 
     def _getCurrentValue(self):
+        if isinstance(super(ProposeTextWidget, self)._getCurrentValue(), str):
+            return self.context.default.original
         return super(ProposeTextWidget, self)._getCurrentValue().original
 
 
